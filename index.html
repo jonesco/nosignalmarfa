@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Signal — Marfa, Texas</title>
+    <meta name="description" content="A beautifully designed studio in the heart of Marfa, Texas. Sleeps 4–5. $180/night. Book direct — no fees.">
+    <meta property="og:title" content="No Signal — Marfa, Texas">
+    <meta property="og:description" content="A purpose-built studio in the heart of Marfa. West Texas light. Walk everywhere. $180/night.">
+    <meta property="og:image" content="308%20S%20Russell%20photos/IMG_0997.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ─── Reset & Base ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --cream: #FAFAF6;
+            --charcoal: #242420;
+            --terracotta: #C4714A;
+            --sand: #E8D5B0;
+            --sage: #8B9E82;
+            --warm-gray: #7A7570;
+            --border: #E0DDD8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: var(--charcoal);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        img { display: block; width: 100%; object-fit: cover; }
+        a { color: inherit; text-decoration: none; }
+
+        /* ─── Nav ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.75rem 3rem;
+            transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 250, 246, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            box-shadow: 0 1px 0 var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            transition: color 0.4s;
+        }
+
+        nav.scrolled .nav-logo { color: var(--charcoal); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.25rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            transition: color 0.3s;
+        }
+
+        nav.scrolled .nav-links a { color: var(--warm-gray); }
+        .nav-links a:hover { color: var(--terracotta) !important; }
+
+        .btn-book {
+            display: inline-block;
+            padding: 0.55rem 1.35rem;
+            background: var(--terracotta);
+            color: #fff !important;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .btn-book:hover { background: #ad5e3c !important; }
+
+        /* ─── Hero ─── */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 620px;
+            overflow: hidden;
+        }
+
+        #hero-img {
+            position: absolute;
+            inset: 0;
+            background: url('308%20S%20Russell%20photos/IMG_0997.jpeg') center / cover no-repeat;
+            transform: scale(1.06);
+            transition: transform 10s ease-out;
+        }
+
+        #hero-img.loaded { transform: scale(1); }
+
+        #hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.18) 0%,
+                rgba(0,0,0,0.1) 35%,
+                rgba(0,0,0,0.6) 100%
+            );
+        }
+
+        #hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem 5.5rem;
+            color: #fff;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.68rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.75rem, 11vw, 7.5rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tagline {
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.65;
+            margin-bottom: 2.75rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            border-bottom: 1px solid rgba(255,255,255,0.45);
+            padding-bottom: 0.3rem;
+            transition: opacity 0.2s;
+        }
+
+        .hero-cta:hover { opacity: 1; }
+
+        /* ─── Intro ─── */
+        #intro {
+            background: var(--charcoal);
+            color: #fff;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .intro-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.55;
+            max-width: 740px;
+            margin: 0 auto 2.25rem;
+            opacity: 0.9;
+        }
+
+        .intro-sub {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            opacity: 0.38;
+        }
+
+        /* ─── The House ─── */
+        #house {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 75vh;
+        }
+
+        .house-photo {
+            overflow: hidden;
+        }
+
+        .house-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .house-photo:hover img { transform: scale(1.04); }
+
+        .house-copy {
+            background: var(--cream);
+            padding: 5.5rem 4.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-label {
+            font-size: 0.63rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 1.25rem;
+        }
+
+        .house-copy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.75rem;
+        }
+
+        .house-copy p {
+            font-size: 0.9rem;
+            line-height: 1.85;
+            color: var(--warm-gray);
+            margin-bottom: 1.5rem;
+            max-width: 440px;
+        }
+
+        .house-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .stat-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-top: 0.2rem;
+        }
+
+        /* ─── Feature Photos ─── */
+        #feature-photos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .feature-photo {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+
+        .feature-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-photo:hover img { transform: scale(1.05); }
+
+        /* ─── Gallery ─── */
+        #gallery {
+            background: #1C1C19;
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 0 2rem 3rem;
+        }
+
+        #gallery .section-label {
+            color: rgba(196, 113, 74, 0.85);
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .gallery-grid {
+            columns: 3;
+            column-gap: 4px;
+            padding: 0 4px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0);
+            transition: background 0.3s;
+        }
+
+        .gallery-item:hover::after { background: rgba(0,0,0,0.15); }
+        .gallery-item:hover img { transform: scale(1.04); }
+
+        /* ─── Amenities ─── */
+        #amenities {
+            background: var(--cream);
+            padding: 7rem 3rem;
+        }
+
+        #amenities .section-header h2 { color: var(--charcoal); }
+        #amenities .section-label { color: var(--terracotta); }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 2.25rem;
+            max-width: 1000px;
+            margin: 3.5rem auto 0;
+        }
+
+        .amenity-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .amenity-icon { font-size: 1.4rem; line-height: 1; }
+
+        .amenity-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .amenity-detail {
+            font-size: 0.73rem;
+            color: var(--warm-gray);
+            line-height: 1.4;
+        }
+
+        /* ─── Marfa ─── */
+        #marfa {
+            background: #18180F;
+            color: #fff;
+            padding: 7rem 3rem;
+        }
+
+        .marfa-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        #marfa .section-label { color: var(--terracotta); opacity: 0.85; }
+
+        .marfa-copy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.6rem);
+            font-weight: 400;
+            line-height: 1.25;
+            margin-bottom: 1.75rem;
+        }
+
+        .marfa-copy p {
+            font-size: 0.875rem;
+            line-height: 1.95;
+            color: rgba(255,255,255,0.58);
+            margin-bottom: 1.1rem;
+        }
+
+        .marfa-photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .marfa-photo {
+            overflow: hidden;
+        }
+
+        .marfa-photo:first-child {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        .marfa-photo:not(:first-child) {
+            aspect-ratio: 3/4;
+        }
+
+        .marfa-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.55s ease;
+        }
+
+        .marfa-photo:hover img { transform: scale(1.05); }
+
+        /* ─── Availability ─── */
+        #availability {
+            background: var(--cream);
+            padding: 7rem 3rem;
+        }
+
+        #availability .section-header h2 { color: var(--charcoal); }
+        #availability .section-label { color: var(--terracotta); }
+
+        .calendar-wrap {
+            max-width: 860px;
+            margin: 2.5rem auto 0;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .calendar-wrap iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+
+        .calendar-note {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.76rem;
+            color: var(--warm-gray);
+            letter-spacing: 0.06em;
+        }
+
+        /* ─── Book ─── */
+        #book {
+            background: var(--charcoal);
+            color: #fff;
+            padding: 7rem 3rem;
+        }
+
+        .book-inner {
+            max-width: 1020px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.45fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        #book .section-label { color: var(--terracotta); opacity: 0.9; }
+
+        .book-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.35rem);
+            font-weight: 400;
+            margin-bottom: 2.25rem;
+            line-height: 1.2;
+        }
+
+        .rate-block {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 1.75rem 0;
+        }
+
+        .rate-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .rate-price span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 300;
+            opacity: 0.45;
+        }
+
+        .rate-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.55);
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .rate-line strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+        .rules-list {
+            list-style: none;
+            margin: 1.75rem 0;
+        }
+
+        .rules-list li {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            padding: 0.45rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .venmo-block {
+            padding: 1.35rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+
+        .venmo-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 0.35rem;
+        }
+
+        .venmo-handle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #5cb8e4;
+        }
+
+        .venmo-sub {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 0.3rem;
+        }
+
+        /* ─── Booking Form ─── */
+        .book-form {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3px;
+            padding: 2.75rem;
+        }
+
+        .book-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        input, textarea, select {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 2px;
+            padding: 0.8rem 1rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            -webkit-appearance: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--terracotta);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255,255,255,0.22);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.5);
+            cursor: pointer;
+        }
+
+        select option { background: #2a2a26; }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--terracotta);
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover { background: #ad5e3c; }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .form-success .checkmark {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            background: #0F0F0D;
+            color: rgba(255,255,255,0.35);
+            padding: 2.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+        }
+
+        footer a { transition: color 0.2s; }
+        footer a:hover { color: var(--terracotta); }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* ─── Lightbox ─── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.97);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox.active { display: flex; }
+
+        #lightbox-img {
+            max-width: 92vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        #lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.75rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+            transition: color 0.2s;
+            padding: 0.25rem;
+        }
+
+        #lightbox-close:hover { color: #fff; }
+
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.45);
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 1rem 1.25rem;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .lightbox-nav:hover { color: #fff; }
+        #lightbox-prev { left: 0; }
+        #lightbox-next { right: 0; }
+
+        /* ─── Fade-in on scroll ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 960px) {
+            nav { padding: 1.25rem 1.5rem; }
+            nav.scrolled { padding: 0.85rem 1.5rem; }
+            .nav-links li:not(:last-child) { display: none; }
+
+            #house { grid-template-columns: 1fr; }
+            .house-photo { aspect-ratio: 4/3; min-height: 0; }
+            .house-copy { padding: 3.5rem 2.25rem; }
+            .house-copy p { max-width: 100%; }
+
+            #feature-photos { grid-template-columns: 1fr 1fr; }
+            #feature-photos .feature-photo:last-child { display: none; }
+
+            .marfa-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+            .marfa-copy h2 { font-size: 2rem; }
+
+            .book-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+            .gallery-grid { columns: 2; }
+
+            footer { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { columns: 1; }
+            .form-row { grid-template-columns: 1fr; }
+            #amenities { padding: 5rem 1.75rem; }
+            #marfa { padding: 5rem 1.75rem; }
+            #book { padding: 5rem 1.5rem; }
+            .book-form { padding: 1.75rem; }
+            #availability { padding: 5rem 1.5rem; }
+            .marfa-photos { grid-template-columns: 1fr; }
+            .marfa-photo:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+            .marfa-photo:not(:first-child) { aspect-ratio: 4/3; }
+            #feature-photos { grid-template-columns: 1fr; }
+            #feature-photos .feature-photo:not(:first-child) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ───────────────── NAV ───────────────── -->
+<nav id="main-nav">
+    <a href="#" class="nav-logo">No Signal</a>
+    <ul class="nav-links">
+        <li><a href="#gallery">Photos</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#marfa">Marfa</a></li>
+        <li><a href="#availability">Availability</a></li>
+        <li><a href="#book" class="btn-book">Book Now</a></li>
+    </ul>
+</nav>
+
+<!-- ───────────────── HERO ───────────────── -->
+<section id="hero">
+    <div id="hero-img"></div>
+    <div id="hero-overlay"></div>
+    <div id="hero-content">
+        <p class="hero-eyebrow">308 S. Russell &nbsp;·&nbsp; Marfa, Texas</p>
+        <h1 class="hero-title">No Signal</h1>
+        <p class="hero-tagline">No WiFi. &nbsp;(Just kidding. Gigabit fiber.)</p>
+        <a href="#availability" class="hero-cta">Check availability &nbsp;↓</a>
+    </div>
+</section>
+
+<!-- ───────────────── INTRO ───────────────── -->
+<section id="intro">
+    <blockquote class="intro-quote fade-in">
+        "A little house at the end of the highway.<br>West Texas light. Room to breathe."
+    </blockquote>
+    <p class="intro-sub fade-in">Marfa, Texas &nbsp;·&nbsp; Studio &nbsp;·&nbsp; Sleeps 4–5 &nbsp;·&nbsp; $180 / night</p>
+</section>
+
+<!-- ───────────────── THE HOUSE ───────────────── -->
+<section id="house">
+    <div class="house-photo">
+        <img src="308%20S%20Russell%20photos/IMG_0569.jpeg"
+             alt="Main living space — exposed beam ceiling, queen bed, loft, big screen TV"
+             loading="eager">
+    </div>
+    <div class="house-copy fade-in">
+        <p class="section-label">The House</p>
+        <h2>Architecture for<br>the long weekend</h2>
+        <p>
+            A purpose-built studio on a quiet street right in the heart of Marfa. Exposed wood-beam ceilings, polished concrete floors, clerestory windows that flood the space with that famous West Texas light. The kitchen is fully equipped, the bed is queen-sized, and the loft above sleeps one more.
+        </p>
+        <p>
+            When you need room for the whole crew, the sofa unfolds to a second queen. Walk out the front door to coffee, galleries, the restaurants you've been reading about — all of it on foot.
+        </p>
+        <div class="house-stats">
+            <div>
+                <div class="stat-value">Studio</div>
+                <div class="stat-label">1 Bath · Full Kitchen</div>
+            </div>
+            <div>
+                <div class="stat-value">4–5</div>
+                <div class="stat-label">Guests</div>
+            </div>
+            <div>
+                <div class="stat-value">$180</div>
+                <div class="stat-label">Per Night</div>
+            </div>
+            <div>
+                <div class="stat-value">2</div>
+                <div class="stat-label">Night Minimum</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── FEATURE PHOTOS ───────────────── -->
+<section id="feature-photos">
+    <div class="feature-photo">
+        <img src="308%20S%20Russell%20photos/IMG_0574.jpeg" alt="Kitchen and dining area" loading="lazy">
+    </div>
+    <div class="feature-photo">
+        <img src="308%20S%20Russell%20photos/IMG_1641.jpeg" alt="House exterior" loading="lazy">
+    </div>
+    <div class="feature-photo">
+        <img src="308%20S%20Russell%20photos/IMG_0583.jpeg" alt="Kitchen detail" loading="lazy">
+    </div>
+</section>
+
+<!-- ───────────────── GALLERY ───────────────── -->
+<section id="gallery">
+    <div class="section-header fade-in">
+        <p class="section-label">Photos</p>
+        <h2>Inside &amp; out</h2>
+    </div>
+    <div class="gallery-grid">
+        <div class="gallery-item" data-index="0">
+            <img src="308%20S%20Russell%20photos/IMG_0572.jpeg" alt="Living room" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="1">
+            <img src="308%20S%20Russell%20photos/IMG_0580.jpeg" alt="Full kitchen" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="2">
+            <img src="308%20S%20Russell%20photos/IMG_0560.jpeg" alt="Full bathroom" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="3">
+            <img src="308%20S%20Russell%20photos/IMG_0562.jpeg" alt="Barn door and laundry" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="4">
+            <img src="308%20S%20Russell%20photos/IMG_0581.jpeg" alt="Kitchen appliances" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="5">
+            <img src="308%20S%20Russell%20photos/IMG_0997.jpeg" alt="Blazing sunset" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="6">
+            <img src="308%20S%20Russell%20photos/IMG_8421.jpeg" alt="Sunset from the porch" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="7">
+            <img src="308%20S%20Russell%20photos/IMG_1699.jpeg" alt="Stars at night" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="8">
+            <img src="308%20S%20Russell%20photos/IMG_9018.jpeg" alt="House with mesquite tree" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="9">
+            <img src="308%20S%20Russell%20photos/IMG_0693.jpeg" alt="Cedar gate with bottle opener" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="10">
+            <img src="308%20S%20Russell%20photos/IMG_1623.jpeg" alt="Chiminea in the yard" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="11">
+            <img src="308%20S%20Russell%20photos/IMG_0236.jpeg" alt="Native grasses at golden hour" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="12">
+            <img src="308%20S%20Russell%20photos/IMG_4837.jpeg" alt="Native grasses and storm clouds" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="13">
+            <img src="308%20S%20Russell%20photos/IMG_9835.jpeg" alt="West Texas storm" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="14">
+            <img src="308%20S%20Russell%20photos/IMG_9863.jpeg" alt="Highway to Marfa" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="15">
+            <img src="308%20S%20Russell%20photos/IMG_1042.jpeg" alt="Native wildflowers" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="16">
+            <img src="308%20S%20Russell%20photos/IMG_1069.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="17">
+            <img src="308%20S%20Russell%20photos/27BA1205-4B07-4E2C-B623-002F9B03E7F4.jpg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="18">
+            <img src="308%20S%20Russell%20photos/4DF2321B-901E-4CCD-8870-2EC159F9BF20.jpg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="19">
+            <img src="308%20S%20Russell%20photos/5A45BF57-967B-444D-9E79-138B3A125725.jpg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="20">
+            <img src="308%20S%20Russell%20photos/5C7FCDCB-9AF6-4D41-8013-DA144F8C0A58.jpg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="21">
+            <img src="308%20S%20Russell%20photos/8220FF51-74E4-4CC8-8C97-0CE9AA8BCCF0.jpg" alt="Property photo" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── AMENITIES ───────────────── -->
+<section id="amenities">
+    <div class="section-header fade-in">
+        <p class="section-label">Amenities</p>
+        <h2>Everything you need,<br>nothing you don't</h2>
+    </div>
+    <div class="amenities-grid fade-in">
+        <div class="amenity-item">
+            <div class="amenity-icon">🛏</div>
+            <div class="amenity-name">Queen Bed</div>
+            <div class="amenity-detail">Comfortable queen in the main space</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🪜</div>
+            <div class="amenity-name">Loft Bunk</div>
+            <div class="amenity-detail">Single loft above the bed area</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🛋</div>
+            <div class="amenity-name">Foldout Sofa</div>
+            <div class="amenity-detail">Queen pull-out in the living room</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🍳</div>
+            <div class="amenity-name">Full Kitchen</div>
+            <div class="amenity-detail">Fully stocked, stainless appliances</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🛁</div>
+            <div class="amenity-name">Full Bath + Tub</div>
+            <div class="amenity-detail">Soaking tub, hex tile, floating vanity</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">📶</div>
+            <div class="amenity-name">Gigabit Fiber</div>
+            <div class="amenity-detail">Yes, despite the name</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">📺</div>
+            <div class="amenity-name">Big Screen TV</div>
+            <div class="amenity-detail">For when you actually want it</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🧺</div>
+            <div class="amenity-name">Washer &amp; Dryer</div>
+            <div class="amenity-detail">In-unit stacked, behind barn door</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🔥</div>
+            <div class="amenity-name">Outdoor Chiminea</div>
+            <div class="amenity-detail">Cook outside under the stars</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🌿</div>
+            <div class="amenity-name">Native Landscaping</div>
+            <div class="amenity-detail">Picnic table, xeric garden, sunsets</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🐾</div>
+            <div class="amenity-name">Pet Friendly</div>
+            <div class="amenity-detail">Dogs welcome</div>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🚶</div>
+            <div class="amenity-name">Walk to Everything</div>
+            <div class="amenity-detail">Dead center of town</div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── MARFA ───────────────── -->
+<section id="marfa">
+    <div class="marfa-inner">
+        <div class="marfa-copy fade-in">
+            <p class="section-label">The Area</p>
+            <h2>Why people drive<br>200 miles into the desert</h2>
+            <p>
+                Marfa defies description. It's a tiny West Texas ranch town that somehow became one of the most quietly electrifying places in America — equal parts art world and cowboy country, with skies that make you realize how small you've been living.
+            </p>
+            <p>
+                Walk to the Chinati Foundation. Drive out to Prada Marfa. Have a drink at the hotel bar. Watch a thunderstorm roll across the Chihuahuan Desert from your picnic table. Stargaze. Do nothing, beautifully.
+            </p>
+            <p>
+                308 S. Russell puts you right in the center of it — and far enough from it all to remember why you came.
+            </p>
+        </div>
+        <div class="marfa-photos fade-in">
+            <div class="marfa-photo">
+                <img src="308%20S%20Russell%20photos/IMG_9863.jpeg" alt="Highway to Marfa" loading="lazy">
+            </div>
+            <div class="marfa-photo">
+                <img src="308%20S%20Russell%20photos/IMG_9835.jpeg" alt="West Texas storm sky" loading="lazy">
+            </div>
+            <div class="marfa-photo">
+                <img src="308%20S%20Russell%20photos/IMG_1699.jpeg" alt="Night sky full of stars" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── AVAILABILITY ───────────────── -->
+<section id="availability">
+    <div class="section-header fade-in">
+        <p class="section-label">Availability</p>
+        <h2>When are you coming?</h2>
+    </div>
+
+    <!--
+    ══════════════════════════════════════════════════════════
+    SETUP: Google Calendar (takes ~5 minutes, free forever)
+    ══════════════════════════════════════════════════════════
+    1. Go to calendar.google.com
+    2. In the left sidebar, click "+" next to "Other calendars"
+       → Select "Create new calendar"
+    3. Name it "No Signal Marfa Bookings"
+    4. Click "Create calendar"
+    5. Click the ⚙ gear next to the new calendar → "Settings"
+    6. Scroll to "Access permissions" → check "Make available to public"
+    7. Scroll to "Integrate calendar" → copy the "Calendar ID" (looks like abc123@group.calendar.google.com)
+    8. Also copy the Embed Code from that section
+    9. Replace the iframe src below with your Calendar ID:
+       Change: YOUR_CALENDAR_ID%40group.calendar.google.com
+       To:     your-actual-id%40group.calendar.google.com
+
+    MANAGING BOOKINGS:
+    - When a date is booked, add an event called "Reserved" to this calendar
+    - The site calendar updates automatically
+    - Works for Airbnb/Vrbo bookings too — just add the dates
+    ══════════════════════════════════════════════════════════
+    -->
+    <div class="calendar-wrap fade-in">
+        <iframe
+            src="https://calendar.google.com/calendar/embed?src=nosignalmarfa%40gmail.com&ctz=America%2FChicago&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=MONTH&bgcolor=%23FAFAF6&color=%23C4714A"
+            height="520"
+            frameborder="0"
+            scrolling="no"
+            title="Availability calendar">
+        </iframe>
+    </div>
+    <p class="calendar-note">Booked dates are shown above. All other dates are available — reach out below to reserve yours.</p>
+</section>
+
+<!-- ───────────────── BOOK ───────────────── -->
+<section id="book">
+    <div class="book-inner">
+
+        <div class="book-info fade-in">
+            <p class="section-label">Reservations</p>
+            <h2>Book direct.<br>No fees.</h2>
+            <div class="rate-block">
+                <div class="rate-price">$180 <span>/ night</span></div>
+                <div class="rate-line">
+                    <span>Minimum stay</span>
+                    <strong>2 nights</strong>
+                </div>
+                <div class="rate-line">
+                    <span>Max guests</span>
+                    <strong>4–5 people</strong>
+                </div>
+                <div class="rate-line">
+                    <span>Check-in / out</span>
+                    <strong>Flexible, by arrangement</strong>
+                </div>
+                <div class="rate-line">
+                    <span>Pets</span>
+                    <strong>Welcome</strong>
+                </div>
+            </div>
+            <ul class="rules-list">
+                <li>🐾&nbsp; Dogs welcome</li>
+                <li>🚭&nbsp; No smoking indoors</li>
+                <li>🤫&nbsp; Respectful of neighbors</li>
+                <li>💳&nbsp; Direct booking — no platform fees</li>
+            </ul>
+            <div class="venmo-block">
+                <div class="venmo-label">Payment via Venmo</div>
+                <div class="venmo-handle">@nosignalmarfa</div>
+                <div class="venmo-sub">Deposit due at booking · Balance due at check-in</div>
+            </div>
+        </div>
+
+        <!--
+        ══════════════════════════════════════════════════════════
+        SETUP: Formspree (free, no backend needed)
+        ══════════════════════════════════════════════════════════
+        1. Go to formspree.io and create a free account
+        2. Click "New Form" → name it "No Signal Booking Request"
+        3. Set the email to info@nosignalmarfa.com
+        4. Copy the form ID (looks like "xabcdefg")
+        5. Replace YOUR_FORM_ID below with your actual form ID
+        Free tier: 50 submissions/month — plenty for a vacation rental
+        ══════════════════════════════════════════════════════════
+        -->
+        <form class="book-form fade-in"
+              id="booking-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST">
+            <h3>Send a booking request</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Your name</label>
+                    <input type="text" id="name" name="name" placeholder="First Last" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="checkin">Check-in</label>
+                    <input type="date" id="checkin" name="check_in" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkout">Check-out</label>
+                    <input type="date" id="checkout" name="check_out" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guests">Guests</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1 guest</option>
+                        <option value="2" selected>2 guests</option>
+                        <option value="3">3 guests</option>
+                        <option value="4">4 guests</option>
+                        <option value="5">5 guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pets">Bringing pets?</label>
+                    <select id="pets" name="pets">
+                        <option value="no">No</option>
+                        <option value="yes">Yes — dog(s)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Anything else?</label>
+                <textarea id="message" name="message"
+                    placeholder="Questions, special requests, or just say hi..."></textarea>
+            </div>
+
+            <input type="hidden" name="_subject" value="New booking request — No Signal Marfa">
+            <input type="hidden" name="_replyto" value="info@nosignalmarfa.com">
+            <button type="submit" class="btn-submit">Send Request &nbsp;→</button>
+        </form>
+
+        <div class="form-success" id="form-success">
+            <span class="checkmark">✓</span>
+            Request received — we'll be in touch at your email shortly to confirm.
+        </div>
+
+    </div>
+</section>
+
+<!-- ───────────────── FOOTER ───────────────── -->
+<footer>
+    <div class="footer-logo">No Signal &nbsp;·&nbsp; Marfa, Texas</div>
+    <div>308 S. Russell St &nbsp;·&nbsp; Marfa, TX 79843</div>
+    <div class="footer-links">
+        <a href="https://instagram.com/nosignalmarfa" target="_blank" rel="noopener">@nosignalmarfa</a>
+        <a href="mailto:info@nosignalmarfa.com">info@nosignalmarfa.com</a>
+    </div>
+</footer>
+
+<!-- ───────────────── LIGHTBOX ───────────────── -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button id="lightbox-close" aria-label="Close photo viewer">×</button>
+    <button class="lightbox-nav" id="lightbox-prev" aria-label="Previous photo">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-nav" id="lightbox-next" aria-label="Next photo">›</button>
+</div>
+
+<script>
+    // ─── Nav: transparent over hero, solid on scroll ───
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ─── Hero image: subtle zoom-out on load ───
+    window.addEventListener('load', () => {
+        document.getElementById('hero-img').classList.add('loaded');
+    });
+
+    // ─── Fade-in elements as they enter the viewport ───
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => io.observe(el));
+
+    // ─── Gallery lightbox ───
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightbox-img');
+    let current = 0;
+
+    function openLightbox(i) {
+        current = i;
+        lightboxImg.src = galleryItems[i].querySelector('img').src;
+        lightboxImg.alt = galleryItems[i].querySelector('img').alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+    }
+
+    function navigate(dir) {
+        current = (current + dir + galleryItems.length) % galleryItems.length;
+        lightboxImg.src = '';
+        lightboxImg.src = galleryItems[current].querySelector('img').src;
+        lightboxImg.alt = galleryItems[current].querySelector('img').alt;
+    }
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index)));
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', () => navigate(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => navigate(1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape')      closeLightbox();
+        if (e.key === 'ArrowLeft')   navigate(-1);
+        if (e.key === 'ArrowRight')  navigate(1);
+    });
+
+    // ─── Date inputs: enforce min date = today ───
+    const today = new Date().toISOString().split('T')[0];
+    const checkin  = document.getElementById('checkin');
+    const checkout = document.getElementById('checkout');
+    checkin.min  = today;
+    checkout.min = today;
+    checkin.addEventListener('change', () => { checkout.min = checkin.value; });
+
+    // ─── Form: show success message after submit ───
+    const form        = document.getElementById('booking-form');
+    const formSuccess = document.getElementById('form-success');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                form.style.display = 'none';
+                formSuccess.style.display = 'block';
+            } else {
+                alert('Something went wrong — please email us directly at info@nosignalmarfa.com');
+            }
+        } catch {
+            alert('Something went wrong — please email us directly at info@nosignalmarfa.com');
+        }
+    });
+</script>
+
+</body>
+</html>
