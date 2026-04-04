@@ -195,7 +195,7 @@ When generating content for No Signal Marfa — whether website copy, Instagram 
 - **Palette:** Terracotta `#C4714A`, warm cream `#FAFAF6`, charcoal `#242420`, sage `#8B9E82`, warm gray `#7A7570`
 - **Typography:** Playfair Display (serif, editorial) + Inter (sans, clean)
 - **Photography style:** Natural light, no filters, wide shots showing architecture and sky, detail shots (bottle opener, chiminea, tile)
-- **Hero image:** `IMG_0997.jpeg` — the blazing orange/red sunset over the tin roof
+- **Hero image:** `27BA1205-4B07-4E2C-B623-002F9B03E7F4.jpg` — the house lit up at dusk, pink/purple sky
 
 ---
 
