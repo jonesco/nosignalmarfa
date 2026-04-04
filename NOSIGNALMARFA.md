@@ -111,7 +111,7 @@ The name plays on the idea of disconnecting — going somewhere without cell ser
 
 ### Taglines (approved)
 - *No WiFi. (Just kidding. Gigabit fiber.)*
-- *A little house at the end of the highway. West Texas light. Room to breathe.*
+- *A little house on the Marfa plateau. West Texas light. Room to breathe.*
 - *No Signal. Just Marfa.*
 
 ### Voice & Tone
