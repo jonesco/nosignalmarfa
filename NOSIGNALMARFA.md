@@ -16,7 +16,7 @@
 
 ## The Space
 
-A purpose-built modern studio on a quiet street in the heart of Marfa. The architecture is intentional: exposed wood-beam ceilings, polished concrete floors, and a row of clerestory windows that flood the space with the famous West Texas light. Clean white walls, warm wood accents, stainless kitchen. Not a renovation — built from scratch, designed with care.
+A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polished concrete floors, and windows that pull in all the light West Texas has to offer. Clean white walls, warm wood accents, stainless kitchen. Not a renovation — built from scratch, designed with care. There's a bar across the street where a band practices — mood music, not a nuisance. The street has life.
 
 ### Room Layout
 - Open-plan studio: living, sleeping, dining, and kitchen all in one airy space
@@ -45,7 +45,7 @@ A purpose-built modern studio on a quiet street in the heart of Marfa. The archi
 - Ceiling fans
 - Exposed wood beam ceilings
 - Polished concrete floors
-- Clerestory windows / abundant natural light
+- Large windows / abundant natural light (do not use the word "clerestory" in guest-facing copy)
 
 ### Outdoor / Exterior
 - Covered front porch with barn light
@@ -124,7 +124,7 @@ The name plays on the idea of disconnecting — going somewhere without cell ser
 
 2. **Editorial, not salesy** — Describe the space and experience honestly. Trust the reader to want it. Never say "perfect for" or "ideal for" or "you'll love." Show, don't pitch.
 
-3. **Specific over generic** — "Clerestory windows that flood the space with West Texas light" not "lots of natural light." "Cedar gate with a wall-mounted bottle opener" not "charming outdoor details." Details are what make people feel like they've already been there.
+3. **Specific over generic** — "Windows that pull in all the light West Texas has to offer" not "lots of natural light." "Cedar gate with a wall-mounted bottle opener" not "charming outdoor details." Details are what make people feel like they've already been there.
 
 4. **Unhurried** — Don't bullet-point everything. Let sentences breathe. A paragraph that lingers is more on-brand than a crisp feature list. Pacing matches Marfa itself.
 
@@ -146,6 +146,8 @@ The name plays on the idea of disconnecting — going somewhere without cell ser
 - "Cozy" (overused, wrong vibe — this place is airy and architectural, not cozy)
 - "Charming" (too soft)
 - "Nestled" (never)
+- "Quiet" (the street has a bar with a live band across from it — that's a feature, not a bug. Don't describe the street as quiet.)
+- "Clerestory" (too architectural/jargony for guest-facing copy)
 - "Luxurious" / "luxury" (implied, not stated)
 - Exclamation points
 - Emojis in formal copy
@@ -195,7 +197,9 @@ When generating content for No Signal Marfa — whether website copy, Instagram 
 - **Palette:** Terracotta `#C4714A`, warm cream `#FAFAF6`, charcoal `#242420`, sage `#8B9E82`, warm gray `#7A7570`
 - **Typography:** Playfair Display (serif, editorial) + Inter (sans, clean)
 - **Photography style:** Natural light, no filters, wide shots showing architecture and sky, detail shots (bottle opener, chiminea, tile)
-- **Hero image:** `27BA1205-4B07-4E2C-B623-002F9B03E7F4.jpg` — the house lit up at dusk, pink/purple sky
+- **Hero image:** `27BA1205-4B07-4E2C-B623-002F9B03E7F4-2.jpg` — retouched version, house lit up at dusk, pink/purple sky
+- **Hero text:** Address only — "308 S. RUSSELL, MARFA TX" in Inter (sans-serif), all caps, light weight. No property name or tagline in the hero.
+- **Headlines:** All headlines end with a period.
 
 ---
 
@@ -213,15 +217,15 @@ When generating content for No Signal Marfa — whether website copy, Instagram 
 - Amplify build config: `amplify.yml` (static passthrough, no build step)
 
 ### Site Sections
-1. Hero — full-bleed sunset photo, name, tagline, CTA
+1. Hero — full-bleed dusk house photo, address only (no name/tagline), Check Availability CTA
 2. Intro — editorial quote
-3. The House — interior photo + copy + stats
+3. The House — interior photo + copy + stats ("Right in the middle of it.")
 4. Feature photos — kitchen, exterior, detail
-5. Gallery — all property photos, masonry grid, lightbox
-6. Amenities — icon grid
-7. Marfa — area copy + landscape photos
-8. Availability — embedded Google Calendar
-9. Book — rates, rules, Venmo, inquiry form
+5. Gallery — property photos, masonry grid, lightbox
+6. Amenities — icon grid ("Everything you need, nothing you don't.")
+7. Marfa — area copy + landscape photos ("Why people drive 200 miles into the desert.")
+8. Availability — embedded Google Calendar ("When are you coming.")
+9. Book — rates, rules, Venmo, inquiry form ("Book direct. No fees.")
 10. Footer — Instagram + email
 
 ### To Update the Site
@@ -258,7 +262,8 @@ All photos are in: `308 S Russell photos/`
 ### Key Photos
 | File | Subject | Used For |
 |---|---|---|
-| `IMG_0997.jpeg` | Blazing orange sunset over tin roof | Hero image, OG image |
+| `27BA1205-4B07-4E2C-B623-002F9B03E7F4-2.jpg` | House at dusk, pink/purple sky (retouched) | Hero image, OG image |
+| `IMG_0997.jpeg` | Blazing orange sunset over tin roof | Gallery (removed from hero) |
 | `IMG_0569.jpeg` | Main space — bed, loft, TV, beam ceiling | House section feature |
 | `IMG_0574.jpeg` | Kitchen + dining table, orange chairs | Feature strip |
 | `IMG_1641.jpeg` | House exterior, dramatic clouds | Feature strip |
