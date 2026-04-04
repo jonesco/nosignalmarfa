@@ -203,11 +203,11 @@
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.75rem, 11vw, 7.5rem);
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            line-height: 0.95;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            line-height: 1;
             margin-bottom: 0.75rem;
         }
 
@@ -269,16 +269,8 @@
 
         .house-photo {
             overflow: hidden;
+            min-height: 500px;
         }
-
-        .house-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-        }
-
-        .house-photo:hover img { transform: scale(1.04); }
 
         .house-copy {
             background: var(--cream);
@@ -896,9 +888,7 @@
     <div id="hero-img"></div>
     <div id="hero-overlay"></div>
     <div id="hero-content">
-        <p class="hero-eyebrow">308 S. Russell &nbsp;·&nbsp; Marfa, Texas</p>
-        <h1 class="hero-title">No Signal</h1>
-        <p class="hero-tagline">No WiFi. &nbsp;(Just kidding. Gigabit fiber.)</p>
+        <h1 class="hero-title">308 S. RUSSELL, MARFA TX</h1>
         <a href="#availability" class="hero-cta">Check availability &nbsp;↓</a>
     </div>
 </section>
@@ -914,18 +904,23 @@
 <!-- ───────────────── THE HOUSE ───────────────── -->
 <section id="house">
     <div class="house-photo">
-        <img src="308%20S%20Russell%20photos/IMG_0569.jpeg"
-             alt="Main living space — exposed beam ceiling, queen bed, loft, big screen TV"
-             loading="eager">
+        <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-104.0221%2C30.3085%2C-104.0179%2C30.3139&layer=mapnik&marker=30.3100%2C-104.0180"
+            width="100%"
+            height="100%"
+            style="border:0; display:block; min-height:400px;"
+            allowfullscreen=""
+            loading="lazy"
+            title="308 S. Russell St, Marfa TX">
+        </iframe>
     </div>
     <div class="house-copy fade-in">
-        <p class="section-label">The House</p>
-        <h2>Architecture for<br>the long weekend</h2>
+        <h2>Right in the<br>middle of it.</h2>
         <p>
-            A purpose-built studio on a quiet street right in the heart of Marfa. Exposed wood-beam ceilings, polished concrete floors, clerestory windows that flood the space with that famous West Texas light. The kitchen is fully equipped, the bed is queen-sized, and the loft above sleeps one more.
+            A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polished concrete floors, and windows that pull in all the light West Texas has to offer. The kitchen is fully stocked, the bed is queen-sized, and the loft above sleeps one more.
         </p>
         <p>
-            When you need room for the whole crew, the sofa unfolds to a second queen. Walk out the front door to coffee, galleries, the restaurants you've been reading about — all of it on foot.
+            When you need room for the whole crew, the sofa unfolds to a second queen. Walk out the front door to coffee, galleries, the restaurants — all of it on foot.
         </p>
         <div class="house-stats">
             <div>
@@ -948,24 +943,12 @@
     </div>
 </section>
 
-<!-- ───────────────── FEATURE PHOTOS ───────────────── -->
-<section id="feature-photos">
-    <div class="feature-photo">
-        <img src="308%20S%20Russell%20photos/IMG_0574.jpeg" alt="Kitchen and dining area" loading="lazy">
-    </div>
-    <div class="feature-photo">
-        <img src="308%20S%20Russell%20photos/IMG_1641.jpeg" alt="House exterior" loading="lazy">
-    </div>
-    <div class="feature-photo">
-        <img src="308%20S%20Russell%20photos/IMG_0583.jpeg" alt="Kitchen detail" loading="lazy">
-    </div>
-</section>
 
 <!-- ───────────────── GALLERY ───────────────── -->
 <section id="gallery">
     <div class="section-header fade-in">
         <p class="section-label">Photos</p>
-        <h2>Inside &amp; out</h2>
+        <h2>Inside &amp; out.</h2>
     </div>
     <div class="gallery-grid">
         <div class="gallery-item" data-index="0">
@@ -1016,9 +999,6 @@
         <div class="gallery-item" data-index="16">
             <img src="308%20S%20Russell%20photos/IMG_1069.jpeg" alt="Property photo" loading="lazy">
         </div>
-        <div class="gallery-item" data-index="17">
-            <img src="308%20S%20Russell%20photos/27BA1205-4B07-4E2C-B623-002F9B03E7F4-2.jpg" alt="Property photo" loading="lazy">
-        </div>
         <div class="gallery-item" data-index="18">
             <img src="308%20S%20Russell%20photos/4DF2321B-901E-4CCD-8870-2EC159F9BF20.jpg" alt="Property photo" loading="lazy">
         </div>
@@ -1038,7 +1018,7 @@
 <section id="amenities">
     <div class="section-header fade-in">
         <p class="section-label">Amenities</p>
-        <h2>Everything you need,<br>nothing you don't</h2>
+        <h2>Everything you need,<br>nothing you don't.</h2>
     </div>
     <div class="amenities-grid fade-in">
         <div class="amenity-item">
@@ -1109,7 +1089,7 @@
     <div class="marfa-inner">
         <div class="marfa-copy fade-in">
             <p class="section-label">The Area</p>
-            <h2>Why people drive<br>200 miles into the desert</h2>
+            <h2>Why people drive<br>200 miles into the desert.</h2>
             <p>
                 Marfa defies description. It's a tiny West Texas ranch town that somehow became one of the most quietly electrifying places in America — equal parts art world and cowboy country, with skies that make you realize how small you've been living.
             </p>
@@ -1138,7 +1118,7 @@
 <section id="availability">
     <div class="section-header fade-in">
         <p class="section-label">Availability</p>
-        <h2>When are you coming?</h2>
+        <h2>When are you coming.</h2>
     </div>
 
     <!--
