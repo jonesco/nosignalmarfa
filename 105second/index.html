@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>105 E. Second St — Marfa, TX</title>
+    <meta name="description" content="3-bedroom, 2-bath house for lease in Marfa, Texas. 1,550 sq ft. $1,850/month. Available now — inquire directly.">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --terracotta: #C4714A;
+            --cream: #FAFAF6;
+            --charcoal: #242420;
+            --sage: #8B9E82;
+            --warm-gray: #7A7570;
+            --border: rgba(0,0,0,0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: var(--charcoal);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ─── Nav ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.75rem 3rem;
+            transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 250, 246, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            box-shadow: 0 1px 0 var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            transition: color 0.4s;
+        }
+
+        nav.scrolled .nav-logo { color: var(--charcoal); }
+
+        .nav-back {
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            transition: color 0.3s;
+        }
+
+        nav.scrolled .nav-back { color: var(--warm-gray); }
+        .nav-back:hover { color: #fff; text-shadow: 0 0 0.4px #fff, 0 0 0.4px #fff; }
+        nav.scrolled .nav-back:hover { color: var(--charcoal) !important; text-shadow: none; }
+
+        /* ─── Hero ─── */
+        #hero {
+            position: relative;
+            height: 100svh;
+            min-height: 560px;
+            overflow: hidden;
+        }
+
+        #hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.1) 0%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.55) 100%
+            );
+        }
+
+        #hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem 2rem;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #242420;
+            background: #FAFAF6;
+            border-radius: 999px;
+            padding: 0.65rem 1.4rem;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .hero-cta:hover { opacity: 0.85; }
+
+        /* ─── Intro ─── */
+        #intro {
+            background: var(--charcoal);
+            color: #fff;
+            padding: 7rem 2rem;
+            text-align: center;
+        }
+
+        .intro-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.55;
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .intro-sub {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            opacity: 0.45;
+        }
+
+        /* ─── House ─── */
+        #house {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .house-photo {
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .house-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .house-copy {
+            background: var(--cream);
+            padding: 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 1.25rem;
+        }
+
+        .house-copy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.75rem;
+        }
+
+        .house-copy p {
+            font-size: 0.9rem;
+            line-height: 1.85;
+            color: var(--warm-gray);
+            max-width: 460px;
+            margin-bottom: 1.25rem;
+        }
+
+        .house-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .stat-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+        }
+
+        /* ─── Gallery ─── */
+        #gallery {
+            background: var(--charcoal);
+            padding: 5rem 3rem;
+        }
+
+        #gallery .section-label {
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+        }
+
+        .gallery-grid {
+            columns: 3;
+            gap: 0.75rem;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0);
+            transition: background 0.3s;
+        }
+
+        .gallery-item:hover::after { background: rgba(0,0,0,0.12); }
+        .gallery-item:hover img { transform: scale(1.03); }
+
+        /* ─── Details ─── */
+        #details {
+            background: var(--cream);
+            padding: 6rem 3rem;
+        }
+
+        .details-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .details-copy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-copy p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--warm-gray);
+            margin-bottom: 1.25rem;
+        }
+
+        .details-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .details-list li {
+            font-size: 0.88rem;
+            letter-spacing: 0.04em;
+            color: var(--charcoal);
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .details-list li span {
+            color: var(--warm-gray);
+            font-size: 0.82rem;
+        }
+
+        /* ─── Inquire ─── */
+        #inquire {
+            background: #2e2e2a;
+            color: #fff;
+            padding: 6rem 3rem;
+        }
+
+        .inquire-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .inquire-copy .section-label { color: var(--terracotta); }
+
+        .inquire-copy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .inquire-copy p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1rem;
+        }
+
+        .rate-block {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .rate-amount {
+            font-size: 2.4rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .rate-detail {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ─── Form ─── */
+        .inquiry-form {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 2.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 3px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: rgba(255,255,255,0.35); }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--terracotta);
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 0.9rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit:hover { opacity: 0.85; }
+
+        /* ─── Footer ─── */
+        footer {
+            background: var(--charcoal);
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+        /* ─── Lightbox ─── */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox.open { display: flex; }
+
+        #lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        #lightbox-close {
+            position: absolute;
+            top: 1.5rem; right: 2rem;
+            background: none; border: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 2.5rem;
+            cursor: pointer;
+            padding: 1rem;
+            transition: color 0.2s;
+        }
+
+        .lightbox-nav:hover { color: #fff; }
+        #lightbox-prev { left: 1rem; }
+        #lightbox-next { right: 1rem; }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            nav { padding: 1.25rem 1.5rem; }
+            nav.scrolled { padding: 0.85rem 1.5rem; }
+            #house { grid-template-columns: 1fr; }
+            .house-copy { padding: 3.5rem 2rem; }
+            .house-copy p { max-width: 100%; }
+            .details-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .inquire-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .gallery-grid { columns: 2; }
+            footer { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .footer-links { justify-content: center; }
+        }
+
+        @media (max-width: 600px) {
+            #hero-content { padding-bottom: 6rem; }
+            .gallery-grid { columns: 1; }
+            .form-row { grid-template-columns: 1fr; }
+            #gallery { padding: 4rem 1.5rem; }
+            #details { padding: 5rem 1.75rem; }
+            #inquire { padding: 5rem 1.5rem; }
+            .inquiry-form { padding: 1.75rem; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+
+<nav id="main-nav">
+    <a href="../" class="nav-logo">No Signal Marfa</a>
+    <a href="#inquire" class="nav-back">Inquire &nbsp;↓</a>
+</nav>
+
+<!-- ───────────────── HERO ───────────────── -->
+<section id="hero">
+    <img id="hero-img" src="../105%20E%20Second%20photos/IMG_9581.JPG" alt="105 E. Second St exterior">
+    <div id="hero-content">
+        <h1 class="hero-title">105 E. SECOND ST, MARFA TX</h1>
+        <a href="#inquire" class="hero-cta">Inquire about this house &nbsp;↓</a>
+    </div>
+</section>
+
+<!-- ───────────────── INTRO ───────────────── -->
+<section id="intro">
+    <p class="intro-quote">A real house in the middle of Marfa. Room to spread out, settle in, and stay a while.</p>
+    <p class="intro-sub">For lease &nbsp;·&nbsp; 105 E. Second St &nbsp;·&nbsp; Marfa, Texas</p>
+</section>
+
+<!-- ───────────────── HOUSE ───────────────── -->
+<section id="house">
+    <div class="house-photo fade-in">
+        <img src="../105%20E%20Second%20photos/IMG_9583.jpeg" alt="Interior living space">
+    </div>
+    <div class="house-copy fade-in">
+        <p class="section-label">The House</p>
+        <h2>Three bedrooms.<br>Room to breathe.</h2>
+        <p>
+            A proper house — not a studio, not a guest room. Three bedrooms, two bathrooms, 1,550 square feet with a layout that works. Hardwood floors throughout. Washer and dryer in-unit. Space to cook, space to work, space to have people over.
+        </p>
+        <p>
+            Dead center of Marfa. Walk to coffee, restaurants, the Chinati Foundation. Everything the town has to offer is within a few blocks.
+        </p>
+        <div class="house-stats">
+            <div class="stat">
+                <span class="stat-value">3</span>
+                <span class="stat-label">Bedrooms</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">2</span>
+                <span class="stat-label">Bathrooms</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">1,550</span>
+                <span class="stat-label">Sq. ft.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── GALLERY ───────────────── -->
+<section id="gallery">
+    <p class="section-label">Photos</p>
+    <div class="gallery-grid">
+        <div class="gallery-item" data-index="0">
+            <img src="../105%20E%20Second%20photos/1579473139080261055.JPG" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="1">
+            <img src="../105%20E%20Second%20photos/IMG_9577.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="2">
+            <img src="../105%20E%20Second%20photos/IMG_9580.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="3">
+            <img src="../105%20E%20Second%20photos/IMG_9581.JPG" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="4">
+            <img src="../105%20E%20Second%20photos/IMG_9582.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="5">
+            <img src="../105%20E%20Second%20photos/IMG_9583.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="6">
+            <img src="../105%20E%20Second%20photos/IMG_9584.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="7">
+            <img src="../105%20E%20Second%20photos/IMG_9585.JPG" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="8">
+            <img src="../105%20E%20Second%20photos/IMG_9587.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="9">
+            <img src="../105%20E%20Second%20photos/IMG_9588.JPG" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="10">
+            <img src="../105%20E%20Second%20photos/IMG_9589.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="11">
+            <img src="../105%20E%20Second%20photos/IMG_9590.JPG" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="12">
+            <img src="../105%20E%20Second%20photos/IMG_9592.jpeg" alt="Property photo" loading="lazy">
+        </div>
+        <div class="gallery-item" data-index="13">
+            <img src="../105%20E%20Second%20photos/IMG_9593.JPG" alt="Property photo" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<!-- ───────────────── DETAILS ───────────────── -->
+<section id="details">
+    <div class="details-inner fade-in">
+        <div class="details-copy">
+            <p class="section-label">Details</p>
+            <h2>Everything<br>you need.</h2>
+            <p>
+                A well-laid-out house with room for a family, a couple looking to put down roots for a while, or anyone who needs more than one room and a place to actually live.
+            </p>
+            <p>
+                Utilities are separate. Lease terms by arrangement — reach out to talk through the details.
+            </p>
+        </div>
+        <ul class="details-list">
+            <li>Bedrooms <span>3</span></li>
+            <li>Bathrooms <span>2</span></li>
+            <li>Square footage <span>1,550 sq ft</span></li>
+            <li>Floors <span>Hardwood throughout</span></li>
+            <li>Washer / dryer <span>In-unit</span></li>
+            <li>Utilities <span>Tenant responsibility</span></li>
+            <li>Location <span>105 E. Second St, Marfa TX</span></li>
+            <li>Pets <span>Ask</span></li>
+            <li>Lease term <span>By arrangement</span></li>
+            <li>Available <span>June 1, 2026</span></li>
+        </ul>
+    </div>
+</section>
+
+<!-- ───────────────── INQUIRE ───────────────── -->
+<section id="inquire">
+    <div class="inquire-inner">
+        <div class="inquire-copy fade-in">
+            <p class="section-label">For Lease</p>
+            <h2>Inquire<br>directly.</h2>
+            <p>
+                No agency, no middleman. Send a message and we'll be in touch.
+            </p>
+            <div class="rate-block">
+                <div class="rate-amount">$1,850</div>
+                <div class="rate-detail">Per month &nbsp;·&nbsp; Plus utilities</div>
+            </div>
+        </div>
+        <form class="inquiry-form fade-in" action="https://formspree.io/f/XXXXXXXXXX" method="POST">
+            <input type="hidden" name="_subject" value="Inquiry — 105 E. Second St, Marfa">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="Optional">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us a bit about yourself — when you're looking to move in, how long you need the house, etc." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send inquiry</button>
+        </form>
+    </div>
+</section>
+
+<!-- ───────────────── FOOTER ───────────────── -->
+<footer>
+    <div class="footer-logo">No Signal Marfa &nbsp;·&nbsp; Marfa, Texas</div>
+    <ul class="footer-links">
+        <li><a href="mailto:info@nosignalmarfa.com">info@nosignalmarfa.com</a></li>
+    </ul>
+</footer>
+
+<!-- ───────────────── LIGHTBOX ───────────────── -->
+<div id="lightbox">
+    <button id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-nav" id="lightbox-prev">‹</button>
+    <button class="lightbox-nav" id="lightbox-next">›</button>
+</div>
+
+<script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Fade in
+    const observer = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Lightbox
+    const items = [...document.querySelectorAll('.gallery-item')];
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    let current = 0;
+
+    function open(index) {
+        current = index;
+        lbImg.src = items[index].querySelector('img').src;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function navigate(dir) {
+        current = (current + dir + items.length) % items.length;
+        lbImg.src = items[current].querySelector('img').src;
+    }
+
+    items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+    document.getElementById('lightbox-close').addEventListener('click', close);
+    document.getElementById('lightbox-prev').addEventListener('click', () => navigate(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => navigate(1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+    });
+</script>
+
+</body>
+</html>
