@@ -568,6 +568,32 @@
             .inquiry-form { padding: 1.75rem; }
         }
 
+        /* ─── Callout ─── */
+        .callout {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.75rem;
+            padding: 0.9rem 1.25rem;
+            border: 1px solid var(--terracotta);
+            border-radius: 3px;
+            background: rgba(196, 113, 74, 0.06);
+        }
+
+        .callout-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            white-space: nowrap;
+        }
+
+        .callout-text {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            line-height: 1.5;
+        }
+
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -739,6 +765,10 @@
             <p>
                 Utilities are separate. Lease terms by arrangement — reach out to talk through the details.
             </p>
+            <div class="callout">
+                <span class="callout-label">Note</span>
+                <span class="callout-text">This house is unfurnished — bring your own furniture.</span>
+            </div>
         </div>
         <ul class="details-list">
             <li>Bedrooms <span>3</span></li>
@@ -746,6 +776,7 @@
             <li>Square footage <span>1,531 sq ft</span></li>
             <li>Floors <span>Hardwood throughout</span></li>
             <li>Washer / dryer <span>In-unit</span></li>
+            <li>Furnished <span>Unfurnished</span></li>
             <li>Utilities <span>Tenant responsibility</span></li>
             <li>Location <span>105 E. Second St, Marfa TX</span></li>
             <li>Pets <span>Ask</span></li>
