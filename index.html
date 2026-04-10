@@ -120,9 +120,20 @@
             letter-spacing: 0.06em;
             color: #fff;
             transition: color 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo-img {
+            height: 1.5rem;
+            width: auto;
+            filter: none;
+            transition: filter 0.4s;
         }
 
         nav.scrolled .nav-logo { color: var(--charcoal); }
+        nav.scrolled .nav-logo-img { filter: brightness(0); }
 
         .nav-links {
             display: flex;
@@ -877,7 +888,10 @@
 
 <!-- ───────────────── NAV ───────────────── -->
 <nav id="main-nav">
-    <a href="#" class="nav-logo">No Signal Marfa</a>
+    <a href="#" class="nav-logo">
+        <img src="logo-icon.png" alt="" class="nav-logo-img">
+        No Signal Marfa
+    </a>
     <ul class="nav-links">
         <li><a href="#gallery">Photos</a></li>
         <li><a href="#amenities">Amenities</a></li>
