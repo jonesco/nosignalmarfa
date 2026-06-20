@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>No Signal Marfa — Vacation Rental in Marfa, Texas</title>
-    <meta name="description" content="No Signal Marfa is a beautifully designed studio rental at 308 S. Russell in Marfa, Texas. Sleeps 3–4. $180/night. Book direct — no fees.">
+    <meta name="description" content="No Signal Marfa is a beautifully designed studio rental at 308 S. Russell in Marfa, Texas. Sleeps 3–4. Rates starting at $180/night on Airbnb.">
     <meta name="google-site-verification" content="DX3zovYCu_R8fePi98CcXHuKcPdGDSFCMtAmM6sinew" />
     <meta name="keywords" content="Marfa Texas vacation rental, Marfa Airbnb, Marfa short term rental, West Texas rental, Marfa studio rental, No Signal Marfa, 308 S Russell Marfa">
     <meta name="robots" content="index, follow">
@@ -16,14 +16,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="No Signal Marfa">
     <meta property="og:title" content="No Signal Marfa — Vacation Rental in Marfa, Texas">
-    <meta property="og:description" content="A purpose-built studio in the heart of Marfa. West Texas light. Walk to everything. $180/night, book direct.">
+    <meta property="og:description" content="A purpose-built studio in the heart of Marfa. West Texas light. Walk to everything. Rates starting at $180/night on Airbnb.">
     <meta property="og:image" content="https://nosignalmarfa.com/308%20S%20Russell%20photos/27BA1205-4B07-4E2C-B623-002F9B03E7F4-2.jpg">
     <meta property="og:url" content="https://nosignalmarfa.com/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="No Signal Marfa — Vacation Rental in Marfa, Texas">
-    <meta name="twitter:description" content="A purpose-built studio in the heart of Marfa. West Texas light. Walk to everything. $180/night, book direct.">
+    <meta name="twitter:description" content="A purpose-built studio in the heart of Marfa. West Texas light. Walk to everything. Rates starting at $180/night on Airbnb.">
     <meta name="twitter:image" content="https://nosignalmarfa.com/308%20S%20Russell%20photos/27BA1205-4B07-4E2C-B623-002F9B03E7F4-2.jpg">
 
     <!-- Structured Data -->
@@ -32,12 +32,12 @@
       "@context": "https://schema.org",
       "@type": "LodgingBusiness",
       "name": "No Signal Marfa",
-      "description": "A beautifully designed studio vacation rental in the heart of Marfa, Texas. Sleeps 3–4 guests. $180/night, 2-night minimum. Book direct with no platform fees.",
+      "description": "A beautifully designed studio vacation rental in the heart of Marfa, Texas. Sleeps 3–4 guests. Rates starting at $180/night on Airbnb.",
       "url": "https://nosignalmarfa.com",
       "telephone": "",
       "email": "info@nosignalmarfa.com",
       "image": "https://nosignalmarfa.com/308%20S%20Russell%20photos/IMG_0997.jpeg",
-      "priceRange": "$180/night",
+      "priceRange": "$180+/night",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "308 S. Russell St",
@@ -60,7 +60,8 @@
         { "@type": "LocationFeatureSpecification", "name": "TV", "value": true }
       ],
       "sameAs": [
-        "https://www.instagram.com/nosignalmarfa"
+        "https://www.instagram.com/nosignalmarfa",
+        "https://www.airbnb.com/rooms/1648872985159770972"
       ]
     }
     </script>
@@ -514,38 +515,6 @@
 
         .marfa-photo:hover img { transform: scale(1.05); }
 
-        /* ─── Availability ─── */
-        #availability {
-            background: var(--cream);
-            padding: 7rem 3rem;
-        }
-
-        #availability .section-header h2 { color: var(--charcoal); }
-        #availability .section-label { color: var(--terracotta); }
-
-        .calendar-wrap {
-            max-width: 860px;
-            margin: 2.5rem auto 0;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-            background: #fff;
-        }
-
-        .calendar-wrap iframe {
-            display: block;
-            width: 100%;
-            border: none;
-        }
-
-        .calendar-note {
-            text-align: center;
-            margin-top: 1.25rem;
-            font-size: 0.76rem;
-            color: var(--warm-gray);
-            letter-spacing: 0.06em;
-        }
-
         /* ─── Book ─── */
         #book {
             background: var(--charcoal);
@@ -617,135 +586,29 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .venmo-block {
-            padding: 1.35rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 3px;
+        /* ─── Airbnb CTA ─── */
+        .airbnb-action {
+            align-self: start;
+            padding-top: 4.15rem;
         }
 
-        .venmo-label {
-            font-size: 0.62rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 0.35rem;
-        }
-
-        .venmo-handle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: #5cb8e4;
-        }
-
-        .venmo-sub {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.3);
-            margin-top: 0.3rem;
-        }
-
-        /* ─── Booking Form ─── */
-        .book-form {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 3px;
-            padding: 2.75rem;
-        }
-
-        .book-form h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 0;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
-        }
-
-        label {
-            font-size: 0.62rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-        }
-
-        input, textarea, select {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 2px;
-            padding: 0.8rem 1rem;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 300;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            -webkit-appearance: none;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--terracotta);
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: rgba(255,255,255,0.22);
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.5);
-            cursor: pointer;
-        }
-
-        select option { background: #2a2a26; }
-
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-
-        .btn-submit {
+        .btn-airbnb {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 1rem;
             background: var(--terracotta);
             color: #fff;
-            border: none;
             border-radius: 2px;
             font-family: 'Inter', sans-serif;
             font-size: 0.72rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            cursor: pointer;
             transition: background 0.2s;
-            margin-top: 0.5rem;
         }
 
-        .btn-submit:hover { background: #ad5e3c; }
-
-        .form-success {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        .form-success .checkmark {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
+        .btn-airbnb:hover { background: #ad5e3c; }
 
         /* ─── Footer ─── */
         footer {
@@ -870,12 +733,10 @@
         @media (max-width: 600px) {
             #hero-content { padding-bottom: 6rem; }
             .gallery-grid { columns: 1; }
-            .form-row { grid-template-columns: 1fr; }
             #amenities { padding: 5rem 1.75rem; }
             #marfa { padding: 5rem 1.75rem; }
             #book { padding: 5rem 1.5rem; }
-            .book-form { padding: 1.75rem; }
-            #availability { padding: 5rem 1.5rem; }
+            .airbnb-action { padding-top: 0; }
             .marfa-photos { grid-template-columns: 1fr; }
             .marfa-photo:first-child { grid-column: span 1; aspect-ratio: 4/3; }
             .marfa-photo:not(:first-child) { aspect-ratio: 4/3; }
@@ -896,8 +757,7 @@
         <li><a href="#gallery">Photos</a></li>
         <li><a href="#amenities">Amenities</a></li>
         <li><a href="#marfa">Big Bend</a></li>
-        <li><a href="#availability">Availability</a></li>
-        <li><a href="#book" class="btn-book">Book Now</a></li>
+        <li><a href="https://www.airbnb.com/rooms/1648872985159770972" class="btn-book" target="_blank" rel="noopener">Book on Airbnb</a></li>
     </ul>
 </nav>
 
@@ -907,7 +767,7 @@
     <div id="hero-overlay"></div>
     <div id="hero-content">
         <h1 class="hero-title">308 S. RUSSELL, MARFA TX</h1>
-        <a href="#availability" class="hero-cta">Check availability &nbsp;↓</a>
+        <a href="https://www.airbnb.com/rooms/1648872985159770972" class="hero-cta" target="_blank" rel="noopener">Check Airbnb &nbsp;→</a>
     </div>
 </section>
 
@@ -916,7 +776,7 @@
     <blockquote class="intro-quote fade-in">
         A little house in the high desert.<br>West Texas light. Room to breathe.
     </blockquote>
-    <p class="intro-sub fade-in">Marfa, Texas &nbsp;·&nbsp; Studio &nbsp;·&nbsp; Sleeps 3–4 &nbsp;·&nbsp; $180 / night</p>
+    <p class="intro-sub fade-in">Marfa, Texas &nbsp;·&nbsp; Studio &nbsp;·&nbsp; Sleeps 3–4 &nbsp;·&nbsp; Starting at $180 / night</p>
 </section>
 
 <!-- ───────────────── THE HOUSE ───────────────── -->
@@ -1139,57 +999,15 @@
     </div>
 </section>
 
-<!-- ───────────────── AVAILABILITY ───────────────── -->
-<section id="availability">
-    <div class="section-header fade-in">
-        <p class="section-label">Availability</p>
-        <h2>When are you coming.</h2>
-    </div>
-
-    <!--
-    ══════════════════════════════════════════════════════════
-    SETUP: Google Calendar (takes ~5 minutes, free forever)
-    ══════════════════════════════════════════════════════════
-    1. Go to calendar.google.com
-    2. In the left sidebar, click "+" next to "Other calendars"
-       → Select "Create new calendar"
-    3. Name it "No Signal Marfa Bookings"
-    4. Click "Create calendar"
-    5. Click the ⚙ gear next to the new calendar → "Settings"
-    6. Scroll to "Access permissions" → check "Make available to public"
-    7. Scroll to "Integrate calendar" → copy the "Calendar ID" (looks like abc123@group.calendar.google.com)
-    8. Also copy the Embed Code from that section
-    9. Replace the iframe src below with your Calendar ID:
-       Change: YOUR_CALENDAR_ID%40group.calendar.google.com
-       To:     your-actual-id%40group.calendar.google.com
-
-    MANAGING BOOKINGS:
-    - When a date is booked, add an event called "Reserved" to this calendar
-    - The site calendar updates automatically
-    - Works for Airbnb/Vrbo bookings too — just add the dates
-    ══════════════════════════════════════════════════════════
-    -->
-    <div class="calendar-wrap fade-in">
-        <iframe
-            src="https://calendar.google.com/calendar/embed?src=nosignalmarfa%40gmail.com&ctz=America%2FChicago&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=MONTH&bgcolor=%23FAFAF6&color=%23C4714A"
-            height="520"
-            frameborder="0"
-            scrolling="no"
-            title="Availability calendar">
-        </iframe>
-    </div>
-    <p class="calendar-note">Booked dates are shown above. All other dates are available — reach out below to reserve yours.</p>
-</section>
-
 <!-- ───────────────── BOOK ───────────────── -->
 <section id="book">
     <div class="book-inner">
 
         <div class="book-info fade-in">
             <p class="section-label">Reservations</p>
-            <h2>Book direct.<br>No fees.</h2>
+            <h2>Book on Airbnb.</h2>
             <div class="rate-block">
-                <div class="rate-price">$180 <span>/ night</span></div>
+                <div class="rate-price">Starting at $180 <span>/ night</span></div>
                 <div class="rate-line">
                     <span>Minimum stay</span>
                     <strong>2 nights</strong>
@@ -1208,99 +1026,22 @@
                 </div>
                 <div class="rate-line">
                     <span>Extended stays</span>
-                    <strong><a href="#book" style="color:var(--terracotta);">Contact us for rates</a></strong>
+                    <strong><a href="https://www.airbnb.com/rooms/1648872985159770972" target="_blank" rel="noopener" style="color:var(--terracotta);">See listing</a></strong>
                 </div>
             </div>
             <p style="font-size:0.78rem; color:rgba(255,255,255,0.4); margin-top:1rem; line-height:1.6;">
-                Discounts available for longer stays. Monthly rate available when the calendar allows — reach out to ask.
+                Airbnb has the live calendar, final rate, guest fees, taxes, and cancellation terms.
             </p>
             <ul class="rules-list">
-                <li>🐾&nbsp; Dogs welcome</li>
-                <li>🚭&nbsp; No smoking indoors</li>
-                <li>🤫&nbsp; Respectful of neighbors</li>
-                <li>💳&nbsp; Direct booking — no platform fees</li>
+                <li>Dogs welcome</li>
+                <li>No smoking indoors</li>
+                <li>Respectful of neighbors</li>
+                <li>Reservations handled through Airbnb</li>
             </ul>
-            <div class="venmo-block">
-                <div class="venmo-label">Payment via Venmo</div>
-                <div class="venmo-handle">@nosignalmarfa</div>
-                <div class="venmo-sub">Deposit due at booking · Balance due at check-in</div>
-            </div>
         </div>
 
-        <!--
-        ══════════════════════════════════════════════════════════
-        SETUP: Formspree (free, no backend needed)
-        ══════════════════════════════════════════════════════════
-        1. Go to formspree.io and create a free account
-        2. Click "New Form" → name it "No Signal Booking Request"
-        3. Set the email to info@nosignalmarfa.com
-        4. Copy the form ID (looks like "xabcdefg")
-        5. Replace YOUR_FORM_ID below with your actual form ID
-        Free tier: 50 submissions/month — plenty for a vacation rental
-        ══════════════════════════════════════════════════════════
-        -->
-        <form class="book-form fade-in"
-              id="booking-form"
-              action="https://formspree.io/f/xgopnpon"
-              method="POST">
-            <h3>Send a booking request</h3>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="name">Your name</label>
-                    <input type="text" id="name" name="name" placeholder="First Last" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="checkin">Check-in</label>
-                    <input type="date" id="checkin" name="check_in" required>
-                </div>
-                <div class="form-group">
-                    <label for="checkout">Check-out</label>
-                    <input type="date" id="checkout" name="check_out" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="guests">Guests</label>
-                    <select id="guests" name="guests">
-                        <option value="1">1 guest</option>
-                        <option value="2" selected>2 guests</option>
-                        <option value="3">3 guests</option>
-                        <option value="4">4 guests</option>
-                        <option value="4">4 guests</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="pets">Bringing pets?</label>
-                    <select id="pets" name="pets">
-                        <option value="no">No</option>
-                        <option value="yes">Yes — dog(s)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Anything else?</label>
-                <textarea id="message" name="message"
-                    placeholder="Questions, special requests, or just say hi..."></textarea>
-            </div>
-
-            <input type="hidden" name="_subject" value="New booking request — No Signal Marfa">
-            <input type="hidden" name="_replyto" value="info@nosignalmarfa.com">
-            <button type="submit" class="btn-submit">Send Request &nbsp;→</button>
-        </form>
-
-        <div class="form-success" id="form-success">
-            <span class="checkmark">✓</span>
-            Request received — we'll be in touch at your email shortly to confirm.
+        <div class="airbnb-action fade-in">
+            <a class="btn-airbnb" href="https://www.airbnb.com/rooms/1648872985159770972" target="_blank" rel="noopener">Open Airbnb listing &nbsp;→</a>
         </div>
 
     </div>
@@ -1390,37 +1131,6 @@
         if (e.key === 'ArrowRight')  navigate(1);
     });
 
-    // ─── Date inputs: enforce min date = today ───
-    const today = new Date().toISOString().split('T')[0];
-    const checkin  = document.getElementById('checkin');
-    const checkout = document.getElementById('checkout');
-    checkin.min  = today;
-    checkout.min = today;
-    checkin.addEventListener('change', () => { checkout.min = checkin.value; });
-
-    // ─── Form: show success message after submit ───
-    const form        = document.getElementById('booking-form');
-    const formSuccess = document.getElementById('form-success');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        try {
-            const res = await fetch(form.action, {
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
-            if (res.ok) {
-                form.style.display = 'none';
-                formSuccess.style.display = 'block';
-            } else {
-                alert('Something went wrong — please email us directly at info@nosignalmarfa.com');
-            }
-        } catch {
-            alert('Something went wrong — please email us directly at info@nosignalmarfa.com');
-        }
-    });
 </script>
 
 </body>

@@ -1,7 +1,7 @@
 # No Signal Marfa — Content Bible
 
 > This is the single source of truth for the property, brand, website, and booking operations.
-> Last updated: April 2026
+> Last updated: June 2026
 
 ---
 
@@ -67,7 +67,7 @@ A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polish
 
 | | |
 |---|---|
-| **Nightly rate** | $180 / night |
+| **Nightly rate** | Starting at $180 / night on Airbnb |
 | **Minimum stay** | 2 nights |
 | **Max guests** | 3–4 |
 | **Pets** | Welcome (dogs) |
@@ -75,30 +75,30 @@ A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polish
 | **Parties/events** | No — respectful of neighbors |
 | **Check-in / out** | Flexible, by arrangement |
 | **Extended stays** | Discounts available for longer stays |
-| **Monthly rate** | Available when calendar allows — contact to inquire |
+| **Monthly rate** | Available through Airbnb when calendar allows |
 
 ---
 
 ## Booking
 
 ### How It Works
-1. Guest checks availability on the website calendar
-2. Guest fills out booking inquiry form on the site
-3. Owner confirms via email and sends Venmo request for deposit
-4. Balance due at check-in
-5. Owner blocks dates on Google Calendar (site updates automatically)
+1. Guest checks availability on Airbnb
+2. Guest books through the Airbnb listing
+3. Airbnb handles payment, guest fees, cancellation policy, receipts, and reservation messaging
+
+The website should push visitors to Airbnb for reservations. Do not offer direct reservations through the website, email, Formspree, or Venmo.
 
 ### Payment
-- **Platform:** Venmo
-- **Handle:** @nosignalmarfa
-- **Policy:** Deposit due at booking, balance due at check-in
-- **No platform fees** — direct booking only
+- **Platform:** Airbnb
+- **Listing:** `https://www.airbnb.com/rooms/1648872985159770972`
+- **Policy:** Airbnb controls availability, final pricing, guest payment, applicable fees, taxes, cancellation terms, and receipts
+- **No direct booking payments:** Do not request Venmo deposits or direct balances for website-originated reservations
 
-### Calendar Management
-- Availability calendar is a public Google Calendar (nosignalmarfa@gmail.com)
-- To block dates: add any event (e.g. "Reserved") to the **No Signal Marfa** calendar
-- Works for Airbnb/Vrbo crossover dates — just add them to the calendar
-- Site updates in real time
+### Pricing & Availability
+- Airbnb is the reservation, pricing, and availability source of truth
+- The website should not include a separate availability calendar
+- Website rates may say "Starting at $180/night" when that matches the Airbnb listing, but Airbnb shows the final current rate before booking
+- Booking CTAs should send guests to Airbnb
 
 ---
 
@@ -179,7 +179,7 @@ When generating content for No Signal Marfa — whether website copy, Instagram 
 
 **For Instagram captions:** Short and understated. One or two sentences max. Let the photo do the work. A dry observation beats a description. Tag location as Marfa, TX. Use #marfa #marfatexas #westtexas #nosignalmarfa — keep hashtags minimal and at the end.
 
-**For email responses to guests:** Warm but efficient. First-name basis. Confirm details clearly (dates, rate, deposit amount). Sign off as "No Signal Marfa" or just the owner's first name.
+**For email responses to guests:** Warm but efficient. First-name basis. For reservation questions, direct guests to the Airbnb listing and avoid quoting direct-payment terms. Sign off as "No Signal Marfa" or just the owner's first name.
 
 **For Airbnb/Vrbo listings (if used):** Adapt the website copy but follow platform conventions. The title should lead with the most compelling hook — something like "No Signal Marfa — Designer Studio, Walk Everywhere." Don't just copy/paste the website — those platforms reward keyword density in ways the website doesn't need.
 
@@ -212,43 +212,35 @@ When generating content for No Signal Marfa — whether website copy, Instagram 
 
 ### Tech Stack
 - Plain HTML + CSS + vanilla JS (single `index.html`, no framework, no build step)
-- Google Calendar embed for availability (calendar: nosignalmarfa@gmail.com)
-- Formspree for booking inquiry form (endpoint: `https://formspree.io/f/xgopnpon`)
+- No direct booking form; reservation CTAs link to Airbnb
 - Amplify build config: `amplify.yml` (static passthrough, no build step)
 
 ### Site Sections
-1. Hero — full-bleed dusk house photo, address only (no name/tagline), Check Availability CTA
+1. Hero — full-bleed dusk house photo, address only (no name/tagline), Airbnb CTA
 2. Intro — editorial quote
 3. The House — interior photo + copy + stats ("Right in the middle of it.")
 4. Feature photos — kitchen, exterior, detail
 5. Gallery — property photos, masonry grid, lightbox
 6. Amenities — icon grid ("Everything you need, nothing you don't.")
 7. Marfa — area copy + landscape photos ("Why people drive 200 miles into the desert.")
-8. Availability — embedded Google Calendar ("When are you coming.")
-9. Book — rates, rules, Venmo, inquiry form ("Book direct. No fees.")
-10. Footer — Instagram + email
+8. Book — starting rate, rules, Airbnb CTA ("Book on Airbnb.")
+9. Footer — Instagram + email
 
 ### To Update the Site
 - Edit `index.html` locally
 - `git add . && git commit -m "description" && git push`
 - Amplify deploys automatically in ~30 seconds
 
-### To Block Dates
-- Open Google Calendar (nosignalmarfa@gmail.com)
-- Add event titled "Reserved" (or anything) to the **No Signal Marfa** calendar
-- Site updates immediately — no code changes needed
-
----
-
 ## Accounts & Credentials
 
 | Service | Account | Notes |
 |---|---|---|
-| Email | info@nosignalmarfa.com | Primary contact, receives booking form submissions |
-| Google / Calendar | nosignalmarfa@gmail.com | Calendar management |
+| Email | info@nosignalmarfa.com | General contact; not a direct booking channel |
+| Google / Calendar | nosignalmarfa@gmail.com | Legacy calendar account; not active on the website |
 | Instagram | @nosignalmarfa | Property social account |
-| Venmo | @nosignalmarfa | Guest payments |
-| Formspree | info@nosignalmarfa.com account | Form ID: xgopnpon |
+| Airbnb | https://www.airbnb.com/rooms/1648872985159770972 | Reservation source of truth |
+| Venmo | @nosignalmarfa | Not used for website-originated guest reservations |
+| Formspree | info@nosignalmarfa.com account | Legacy direct-booking form; not active on the site |
 | GitHub | jonesco/nosignalmarfa | Site source code |
 | AWS Amplify | AWS account | Hosting + domain |
 | AWS Route 53 | AWS account | DNS for nosignalmarfa.com |
@@ -301,4 +293,4 @@ The draw: the scale of the landscape, the quality of the light, the silence, the
 3. Be respectful of neighbors (it's a residential street)
 4. Max occupancy: 3–4 guests
 5. Check-in / check-out by arrangement — just ask
-6. Direct booking — payment via Venmo @nosignalmarfa
+6. Reservations through Airbnb only; no direct booking or direct payment on the site
