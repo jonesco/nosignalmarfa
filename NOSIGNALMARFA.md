@@ -10,6 +10,7 @@
 **Name:** No Signal Marfa  
 **Address:** 308 S. Russell St, Marfa, TX 79843  
 **Type:** Studio vacation rental  
+**City of Marfa short-term rental ID:** #S247  
 **Owner contact:** info@nosignalmarfa.com  
 
 ---
@@ -67,7 +68,7 @@ A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polish
 
 | | |
 |---|---|
-| **Nightly rate** | Starting at $180 / night on Airbnb |
+| **Nightly rate** | Not shown on the site; links to Airbnb |
 | **Minimum stay** | 2 nights |
 | **Max guests** | 3–4 |
 | **Pets** | Welcome (dogs) |
@@ -97,7 +98,7 @@ The website should push visitors to Airbnb for reservations. Do not offer direct
 ### Pricing & Availability
 - Airbnb is the reservation, pricing, and availability source of truth
 - The website should not include a separate availability calendar
-- Website rates may say "Starting at $180/night" when that matches the Airbnb listing, but Airbnb shows the final current rate before booking
+- Do not put a nightly rate on the website (including meta tags and structured data). Link to the Airbnb listing for current rates instead, so the site never goes stale when the price changes
 - Booking CTAs should send guests to Airbnb
 
 ---
