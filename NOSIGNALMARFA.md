@@ -74,7 +74,7 @@ A purpose-built studio in the heart of Marfa. Exposed wood-beam ceilings, polish
 | **Pets** | Welcome (dogs) |
 | **Smoking** | No smoking indoors |
 | **Parties/events** | No — respectful of neighbors |
-| **Check-in / out** | Flexible, by arrangement |
+| **Check-in / out** | Check-in after 3 PM, checkout by 11 AM (matches Airbnb) |
 | **Extended stays** | Discounts available for longer stays |
 | **Monthly rate** | Available through Airbnb when calendar allows |
 
@@ -293,5 +293,5 @@ The draw: the scale of the landscape, the quality of the light, the silence, the
 2. Pets welcome — please clean up after them
 3. Be respectful of neighbors (it's a residential street)
 4. Max occupancy: 3–4 guests
-5. Check-in / check-out by arrangement — just ask
+5. Check-in after 3 PM, checkout by 11 AM
 6. Reservations through Airbnb only; no direct booking or direct payment on the site
