@@ -786,7 +786,9 @@
   }
 
   function applySky() {
-    const period = params.get("sky") || getPeriod(new Date().getHours());
+    // Marfa time, not the visitor's clock, so the sky matches Marfa's weather
+    const marfaHour = Number(new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "numeric", hourCycle: "h23" }).format(new Date()));
+    const period = params.get("sky") || getPeriod(marfaHour);
     const style = getSkyStyle(period);
     sky.style.backgroundImage = style.backgroundImage;
     sky.style.backgroundSize = style.backgroundSize;
