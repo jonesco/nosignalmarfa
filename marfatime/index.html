@@ -77,8 +77,30 @@
       background: linear-gradient(transparent, var(--drop, rgba(255,255,255,0.7)));
       transform: rotate(12deg); animation: wx-fall var(--d) linear infinite; animation-delay: var(--delay);
     }
-    #sky[data-wx="snow"] .wx .drop { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.9); animation-duration: calc(var(--d) * 5); }
     @keyframes wx-fall { to { translate: -24px 180px; } }
+    .wx .drop.extra, .wx .flake { display: none; }
+    /* Storm: more rain, longer streaks, driven sideways by the wind */
+    #sky[data-wx="storm"] .wx .drop { display: block; height: 22px; transform: rotate(20deg); animation-name: wx-storm; animation-duration: calc(var(--d) * 0.65); }
+    @keyframes wx-storm { to { translate: -64px 180px; } }
+    /* Snow: random size, speed and sway per flake (set in JS) */
+    #sky[data-wx="snow"] .wx .drop { display: none; }
+    #sky[data-wx="snow"] .wx .flake { display: block; }
+    .wx .flake {
+      position: absolute; top: -10px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%;
+      background: #fff; opacity: var(--o); filter: blur(var(--b));
+      animation: wx-snow var(--d) linear infinite; animation-delay: var(--delay);
+    }
+    @keyframes wx-snow {
+      25% { translate: var(--sx) 50px; }
+      50% { translate: calc(var(--sx) * -0.6) 100px; }
+      75% { translate: calc(var(--sx) * 0.8) 150px; }
+      to { translate: var(--dx) 200px; }
+    }
+    /* Lightning: a sky-wide flash, sometimes with a bolt (timed in JS) */
+    .wx .flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at var(--fx, 50%) 0%, rgba(235,240,255,0.95), rgba(200,210,240,0.5) 60%, rgba(200,210,240,0.25)); }
+    .wx .flash.on { animation: wx-flash 0.9s ease-out; }
+    .wx .flash svg { position: absolute; top: 0; height: 100%; width: 80px; left: calc(var(--fx, 50%) - 40px); }
+    @keyframes wx-flash { 0% { opacity: 0; } 6% { opacity: 0.85; } 14% { opacity: 0.15; } 22% { opacity: 1; } 100% { opacity: 0; } }
 
     #sky.dark:not([data-wx="clear"]) :is(h1, .tagline, .temp) { text-shadow: 0 1px 10px rgba(15,23,42,0.35); }
     #sky[data-wx="cloudy"] .veil { opacity: 0.5; }
@@ -219,7 +241,7 @@
 
   <div class="top">
   <header id="sky">
-    <div class="wx" aria-hidden="true"><div class="veil"></div><div class="clouds"><svg class="field" width="4000" height="180" aria-hidden="true"><defs><filter id="cf-partly" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.5 0 0 0 -2.61" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.5 0 0 0 -2.79" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter><filter id="cf-cloudy" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.5 0 0 0 -1.75" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.5 0 0 0 -1.89" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter><filter id="cf-overcast" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -1.092" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -1.196" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter></defs><rect class="partly" width="4000" height="180" filter="url(#cf-partly)"/><rect class="cloudy" width="4000" height="180" filter="url(#cf-cloudy)"/><rect class="overcast" width="4000" height="180" filter="url(#cf-overcast)"/></svg></div><div class="precip"></div></div>
+    <div class="wx" aria-hidden="true"><div class="veil"></div><div class="clouds"><svg class="field" width="4000" height="180" aria-hidden="true"><defs><filter id="cf-partly" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.5 0 0 0 -2.61" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.5 0 0 0 -2.79" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter><filter id="cf-cloudy" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.5 0 0 0 -1.75" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.5 0 0 0 -1.89" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter><filter id="cf-overcast" filterUnits="userSpaceOnUse" x="0" y="0" width="4000" height="180" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.0016 0.009" numOctaves="5" seed="8" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -1.092" result="m"/><feGaussianBlur in="m" stdDeviation="3" result="mb"/><feOffset in="mb" dy="7" result="mo"/><feFlood style="flood-color: var(--shade)" result="sc"/><feComposite in="sc" in2="mo" operator="in" result="shade"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -1.196" result="m2"/><feGaussianBlur in="m2" stdDeviation="1.5" result="m2b"/><feFlood style="flood-color: var(--cloud)" result="lc"/><feComposite in="lc" in2="m2b" operator="in" result="light"/><feMerge><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge></filter></defs><rect class="partly" width="4000" height="180" filter="url(#cf-partly)"/><rect class="cloudy" width="4000" height="180" filter="url(#cf-cloudy)"/><rect class="overcast" width="4000" height="180" filter="url(#cf-overcast)"/></svg></div><div class="precip"></div><div class="flash"></div></div>
     <div class="wrap">
       <h1>Marfa Time</h1>
       <span class="tagline">Friendly local picks for your Marfa trip</span>
@@ -696,12 +718,38 @@
 
     // Build the clouds and drops once; CSS decides which are visible.
     let drops = "";
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 110; i++) {
       const x = ((i * 37) % 100) + (i % 3) * 0.3;
       const d = 0.6 + ((i * 13) % 7) / 10;
-      drops += `<span class="drop" style="--x:${x}%;--d:${d}s;--delay:-${((i * 29) % 100) / 50}s"></span>`;
+      drops += `<span class="drop${i >= 70 ? " extra" : ""}" style="--x:${x}%;--d:${d}s;--delay:-${((i * 29) % 100) / 50}s"></span>`;
+    }
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    for (let i = 0; i < 90; i++) {
+      // Nearer flakes are bigger, softer and faster
+      const near = Math.random();
+      const d = rnd(9, 16) - near * 5;
+      drops += `<span class="flake" style="--x:${rnd(-2, 102).toFixed(1)}%;--s:${(1.5 + near * 3.5).toFixed(1)}px;--o:${(0.5 + near * 0.45).toFixed(2)};--b:${near > 0.75 ? 1 : 0}px;--d:${d.toFixed(1)}s;--delay:-${rnd(0, d).toFixed(1)}s;--sx:${rnd(-14, 14).toFixed(0)}px;--dx:${rnd(-30, 30).toFixed(0)}px"></span>`;
     }
     sky.querySelector(".precip").innerHTML = drops;
+
+    // Lightning at random intervals while the look is "storm"
+    const flash = sky.querySelector(".flash");
+    const bolt = () => {
+      let x = 40, y = 0, pts = "40,0";
+      while (y < 180) { y += rnd(12, 28); x = Math.max(8, Math.min(72, x + rnd(-16, 16))); pts += ` ${x.toFixed(0)},${y.toFixed(0)}`; }
+      return `<svg viewBox="0 0 80 180" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="bevel" style="filter: drop-shadow(0 0 4px rgba(200,215,255,0.9))"/></svg>`;
+    };
+    const strike = () => {
+      if (sky.dataset.wx === "storm" && !matchMedia("(prefers-reduced-motion: reduce)").matches && !document.hidden) {
+        flash.style.setProperty("--fx", `${rnd(10, 90).toFixed(0)}%`);
+        flash.innerHTML = Math.random() < 0.6 ? bolt() : "";
+        flash.classList.remove("on");
+        void flash.offsetWidth;
+        flash.classList.add("on");
+      }
+      setTimeout(strike, rnd(3000, 11000));
+    };
+    setTimeout(strike, rnd(1500, 4000));
 
     const forced = params.get("wx");
     if (forced) sky.dataset.wx = forced;
