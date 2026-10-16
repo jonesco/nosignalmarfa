@@ -59,8 +59,13 @@
     header.light h1 { color: var(--n900); }
     header.light .tagline { color: var(--n600); }
 
+    /* Current Marfa temperature (Open-Meteo) */
+    .temp { margin-left: auto; align-self: center; font-size: 0.875rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    header.dark .temp { color: #fff; }
+    header.light .temp { color: var(--n900); }
+    .temp + .radio { margin-left: 0; }
     /* Marfa Public Radio live stream */
-    .radio { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid; font: inherit; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; cursor: pointer; flex-shrink: 0; margin-left: auto; align-self: center; }
+    .radio { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid; font: inherit; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; cursor: pointer; flex-shrink: 0; align-self: center; }
     .radio .knob { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; }
     .radio .knob svg { width: 10px; height: 10px; fill: currentColor; }
     .radio .pause, .radio[data-state="playing"] .play { display: none; }
@@ -181,6 +186,7 @@
     <div class="wrap">
       <h1>Marfa Time</h1>
       <span class="tagline">Friendly local picks for your Marfa trip</span>
+      <span id="temp" class="temp" title="Right now in Marfa" hidden></span>
       <button id="radio" class="radio" type="button" data-state="idle" aria-pressed="false" title="Listen to Marfa Public Radio, live">
         <span class="knob" aria-hidden="true">
           <svg class="play" viewBox="0 0 10 10"><path d="M2 0.5v9l7.5-4.5z"/></svg>
@@ -669,6 +675,25 @@
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  })();
+
+  // Current temperature in Marfa from Open-Meteo (free, no key). Stays hidden
+  // if the request fails; refreshes every 15 minutes.
+  (() => {
+    const el = $("temp");
+    const URL = "https://api.open-meteo.com/v1/forecast?latitude=30.3094&longitude=-104.0206&current=temperature_2m&temperature_unit=fahrenheit";
+    const load = () =>
+      fetch(URL)
+        .then((r) => r.json())
+        .then((d) => {
+          const t = d?.current?.temperature_2m;
+          if (typeof t !== "number") return;
+          el.textContent = `${Math.round(t)}°F`;
+          el.hidden = false;
+        })
+        .catch(() => {});
+    load();
+    setInterval(load, 15 * 60 * 1000);
   })();
 
   // Marfa Public Radio (KRTS) live stream. The stream is only loaded on play,
