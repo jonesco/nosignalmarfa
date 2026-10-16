@@ -842,7 +842,9 @@
         (d.tips && d.tips.toLowerCase().includes(q))
       );
     }
-    arr.sort((a, b) => a.name.localeCompare(b.name));
+    // Skip leading quotes and punctuation, so “Giant Marfa” sorts under G
+    const sortKey = (name) => name.replace(/^[^\p{L}\p{N}]+/u, "");
+    arr.sort((a, b) => sortKey(a.name).localeCompare(sortKey(b.name)));
     return arr;
   }
 
