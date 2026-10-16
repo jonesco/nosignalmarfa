@@ -158,7 +158,6 @@
     .pills { margin-top: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; flex-wrap: wrap; }
     .pill { padding: 2px 8px; border-radius: 999px; background: var(--n100); color: var(--n700); }
     .pill.must { background: #000; color: #fff; font-weight: 500; }
-    .hearts { margin-top: 4px; font-size: 0.875rem; font-weight: 500; }
     .blurb { margin-top: 12px; font-size: 0.875rem; color: var(--n700); }
     .tip { margin-top: 8px; padding: 12px; background: var(--n100); border-radius: 8px; font-size: 0.875rem; color: var(--n700); }
     .tip strong { font-weight: 500; }
@@ -216,27 +215,16 @@
         </div>
 
         <div id="actions" class="actions">
-          <button id="filter-btn" class="icon-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filter-flyout" title="Filter &amp; sort"><svg class="icon"><use href="#i-sliders"/></svg></button>
+          <button id="filter-btn" class="icon-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filter-flyout" title="Filter"><svg class="icon"><use href="#i-sliders"/></svg></button>
           <button id="search-btn" class="icon-btn" aria-label="Open search" title="Search"><svg class="icon"><use href="#i-search"/></svg></button>
         </div>
 
-        <div id="filter-flyout" class="flyout" role="dialog" aria-label="Filter and sort options" hidden>
+        <div id="filter-flyout" class="flyout" role="dialog" aria-label="Filter options" hidden>
           <div class="flyout-head">
-            <h3>Filter and sort</h3>
+            <h3>Filter</h3>
             <button id="filter-close" class="close-btn" aria-label="Close filters" title="Close"><svg class="icon sm"><use href="#i-x"/></svg></button>
           </div>
           <div class="group">
-            <label class="label" for="sort-select">Sort</label>
-            <div class="select-wrap">
-              <select id="sort-select">
-                <option value="name">Name A to Z</option>
-                <option value="rating">Rating (high first)</option>
-              </select>
-              <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.15l3.71-2.92a.75.75 0 1 1 .92 1.18l-4.2 3.3a.75.75 0 0 1-.92 0l-4.2-3.3a.75.75 0 0 1-.02-1.06z"/></svg>
-            </div>
-          </div>
-          <div class="group">
-            <span class="label">Filter</span>
             <label class="check"><input id="must-do" type="checkbox"> Must do only</label>
           </div>
         </div>
@@ -263,7 +251,6 @@
       name: "Angel's",
       category: "Eat & Drink",
       blurb: "Cozy Tex-Mex spot by Dollar General with friendly vibes. This tiny local favorite can be tough to snag a seat during lunch or dinner, but they also do takeout. Recommend the Chile Relleno.",
-      rating: 4,
     },
     {
       id: "bordo",
@@ -271,7 +258,6 @@
       category: "Eat & Drink",
       blurb: "Italian deli offering fresh pasta, wood-fired bread, and seasonal gelato, all made on-site with stone-milled heirloom flours. Founded by Chef Michael Serva, a 2025 James Beard finalist. A sublime lunch stop with truly fresh, tasty bites.",
       tips: "Lunch only, Thursday through Sunday. Go early, it sells out.",
-      rating: 5,
       mustDo: true,
     },
     {
@@ -280,7 +266,6 @@
       category: "Eat & Drink",
       blurb: "Beloved breakfast burritos. A little Spanish goes a long way. Local lore says Matthew McConaughey is a fan.",
       tips: "Monday–Saturday 7–2, Sunday 8–2. Bring cash — they may take cards now, but don't count on it.",
-      rating: 4,
     },
     {
       id: "jackos",
@@ -288,14 +273,12 @@
       category: "Eat & Drink",
       blurb: "Wood-fired sourdough pizza downtown, in the old Para Llevar spot. Opened in 2026, and the pizza is really good. It can sell out, so go early.",
       tips: "Lunch-only now: Tuesday through Saturday ~11:30–3:30, Sunday 12–5.",
-      rating: 4,
     },
     {
       id: "st-george",
       name: "LaVenture (Hotel Saint George)",
       category: "Eat & Drink",
       blurb: "The hotel's restaurant, LaVenture, is dinner-only and open every night, 5–9:30. Bar Saint George is the separate cocktail bar.",
-      rating: 3,
     },
     {
       id: "awesome-street",
@@ -303,7 +286,6 @@
       category: "Eat & Drink",
       blurb: "Beverage lounge on E Dallas St. Good beers, nice wines, N/A drinks and nitro cold brew. No food, but there's popcorn.",
       tips: "Wednesday through Saturday, 2 to 9pm.",
-      rating: 4,
     },
     {
       id: "coyote-coffee",
@@ -311,14 +293,12 @@
       category: "Eat & Drink",
       blurb: "Thoughtful espresso, house-made pastries, and sourdough. Formerly Big Sandy Coffee — same spot on San Antonio. Great place for coffee and a bite to eat, but it can get crowded when nothing else is open.",
       tips: "Get an iced coffee if you want to be in and out.",
-      rating: 4,
     },
     {
       id: "planet-marfa",
       name: "Planet Marfa",
       category: "Eat & Drink",
       blurb: "Laid-back beer garden with a teepee and ping pong. Local hangout with simple bar snacks.",
-      rating: 3,
     },
     {
       id: "the-pony",
@@ -326,7 +306,6 @@
       category: "Eat & Drink",
       blurb: "Neighborhood bar with free pool tables and a friendly crowd — formerly the Lost Horse Saloon. It's the diviest of dive bars in Marfa. Weird hours.",
       tips: "Wednesday–Friday 5–12, Saturday 5–1. Some listings still say Lost Horse.",
-      rating: 3,
       coords: [30.310248392792996, -104.01776478650659], // 306 E San Antonio St
     },
     {
@@ -335,7 +314,6 @@
       category: "Eat & Drink",
       blurb: "Refined dining led by Chef Alexandra Gates, a three-time James Beard semifinalist. A prix fixe menu that changes regularly, with locally sourced ingredients inspired by European and West Texan traditions. Intimate setting with a 30-seat dining room and 40-seat courtyard.",
       tips: "Dinner Thursday through Saturday. Reserve ahead.",
-      rating: 4,
     },
     {
       id: "marfa-spirit-company",
@@ -343,21 +321,18 @@
       category: "Eat & Drink",
       blurb: "Nice place to get a drink. Specialize in Sotol but have other liquors that they make on site. Recommend the margarita or a Marfa Mule.",
       tips: "Hours vary — they may now be open Monday and Tuesday evenings too. Check their site before you go.",
-      rating: 4,
     },
     {
       id: "the-sentinel",
       name: "The Sentinel",
       category: "Eat & Drink",
       blurb: "Home to local newspaper and a super bougie coffee shop.",
-      rating: 3,
     },
     {
       id: "larrys",
       name: "Larry's",
       category: "Eat & Drink",
       blurb: "Best hamburger in Far West Texas in my opinion. Open 11–4, Wednesday through Saturday. Real good.",
-      rating: 5,
       mustDo: true,
     },
     {
@@ -366,7 +341,6 @@
       category: "Eat & Drink",
       blurb: "Cozy eatery with favorites like cheese toast with burrata and spaghetti bolognese. Popular spot that gets busy with wait times during peak hours. First-come, first-served — no reservations accepted.",
       tips: "Wednesday–Saturday ~5–9:30. Call ahead for takeout; heads-up, a 20% gratuity is added to takeout orders.",
-      rating: 5,
     },
     {
       id: "waterstop",
@@ -374,7 +348,6 @@
       category: "Eat & Drink",
       blurb: "Family-owned comfort food spot with a shaded patio and cozy indoor dining. Known for their standout fried chicken sandwich with vinegar slaw and spicy mayo, plus jalapeño mac and cheese. Pet-friendly patio.",
       tips: "Dinner-only now, 5–10 daily. Try the chicken and waffles or rotisserie chicken.",
-      rating: 4,
     },
   
     // Shops & Things to Do
@@ -384,7 +357,6 @@
       category: "Shops & Things to Do",
       blurb: "The best way to explore Marfa is by bike. Rent an electric bike and cruise town with ease, or venture out on Pinto Canyon Road — a scenic paved route that stretches miles into the high plains desert toward the Chinati Mountains with barely any traffic. Highly recommended if you have the time.",
       tips: "Call ahead to confirm your reservation before you go.",
-      rating: 5,
     },
     {
       id: "presidio-courthouse",
@@ -392,14 +364,12 @@
       category: "Shops & Things to Do",
       blurb: "You can walk up to the top for a great view.",
       tips: "Weekdays only, during county business hours.",
-      rating: 3,
     },
     {
       id: "cactus-liquors",
       name: "Cactus Liquors",
       category: "Shops & Things to Do",
       blurb: "Friendly folks offering mezcal samples. You will also find plants and gifts.",
-      rating: 5,
       mustDo: true,
     },
     {
@@ -408,14 +378,12 @@
       category: "Shops & Things to Do",
       blurb: "Thoughtfully curated bookstore at 215 Highland Ave, with a carefully selected collection of books for all ages. Features a cozy reading nook, complimentary coffee, and unique gifts. They also carry wine and homewares. A must-visit for book lovers looking for quality selections beyond the mainstream.",
       tips: "Enjoy complimentary coffee. Tuesday–Saturday 10–6, Sunday–Monday 10–4.",
-      rating: 4,
     },
     {
       id: "get-go",
       name: "The Get-Go",
       category: "Shops & Things to Do",
       blurb: "Great for groceries if you want an alternative to Porter’s. Think mini-Whole Foods in the desert.",
-      rating: 3,
     },
   
     // Short Trips & Art
@@ -424,7 +392,6 @@
       name: "Marfa Lights Viewing Area",
       category: "Short Trips & Art",
       blurb: "About 15 minutes east on Hwy 90. A long-running local legend with a proper viewing stand. Are they really just car headlights far off into the distance? Who knows, just go with it.",
-      rating: 3,
     },
     {
       id: "prada-marfa",
@@ -432,7 +399,6 @@
       category: "Short Trips & Art",
       blurb: "Iconic roadside art. Beyoncé took photos here.",
       tips: "Nice scenic loop to Fort Davis and back to Marfa.",
-      rating: 4,
     },
     {
       id: "giant-marfa",
@@ -440,14 +406,12 @@
       category: "Short Trips & Art",
       blurb: "John Cerney's huge plywood cutouts of Elizabeth Taylor, James Dean and Rock Hudson, about 7 miles west of town on Hwy 90. A nod to Giant, the 1956 film shot around Marfa.",
       tips: "Easy photo stop on the way to or from Prada Marfa.",
-      rating: 3,
     },
     {
       id: "irwin-untitled",
       name: "Robert Irwin, “untitled (dawn to dusk)”",
       category: "Short Trips & Art",
       blurb: "Large-scale light-and-space work, part of the Chinati collection. Irwin rebuilt the ruined Fort D.A. Russell hospital site into a new horseshoe-shaped building to house it. See it on a Chinati tour, or enjoy a walk around the grounds.",
-      rating: 4,
     },
     {
       id: "ft-davis-park",
@@ -456,14 +420,12 @@
       blurb:
         "Just outside Fort Davis. Drive up Skyline Drive for big views. Home to the WPA-era Indian Lodge, freshly renovated and worth a peek.",
       tips: "The lodge's Black Bear Restaurant serves breakfast and lunch, Thursday through Monday.",
-      rating: 4,
     },
     {
       id: "mcdonald-observatory",
       name: "McDonald Observatory",
       category: "Short Trips & Art",
       blurb: "Pairs perfectly with a Fort Davis visit. Check the star party times before you go.",
-      rating: 5,
     },
     {
       id: "balmorhea",
@@ -471,7 +433,6 @@
       category: "Short Trips & Art",
       blurb: "About an hour north. A giant spring-fed pool that stays in the 70s year-round, with clear water deep enough for snorkeling and scuba.",
       tips: "Daily visitors are capped, so reserve a day pass with Texas Parks & Wildlife before you go.",
-      rating: 4,
     },
     {
       id: "chinati-foundation",
@@ -479,7 +440,6 @@
       category: "Short Trips & Art",
       blurb:
         "Established in 1986 by minimalist artist Donald Judd on 340 acres of a former military base. Features permanent large-scale installations including Judd's 100 aluminum pieces, Dan Flavin's fluorescent light works, and John Chamberlain's sculptures. Reservations required for guided tours. The grounds showcase how art, architecture, and the desert landscape integrate into a cohesive experience.",
-      rating: 5,
       mustDo: true,
     },
     {
@@ -487,7 +447,6 @@
       name: "Judd Foundation and Installations",
       category: "Short Trips & Art",
       blurb: "There is Donald Judd work all over town. The Judd Block is especially cool.",
-      rating: 4,
     },
     {
       id: "ballroom-marfa",
@@ -495,7 +454,6 @@
       category: "Short Trips & Art",
       blurb: "Contemporary art space in a 1920s dance hall on San Antonio St. Rotating exhibitions, plus film screenings, music and talks.",
       tips: "Free to visit. Wednesday–Saturday 11–6, Sunday 11–3. Check their site for what's on and when.",
-      rating: 3,
     },
   ];
 
@@ -514,11 +472,6 @@
   function toWebQuery(name) {
     const q = encodeURIComponent(`${name} Marfa TX`);
     return `https://www.google.com/search?q=${q}`;
-  }
-  
-  function stars(rating) {
-    const n = Math.max(0, Math.min(5, Math.round(rating ?? 3)));
-    return "♥".repeat(n) + "♡".repeat(5 - n);
   }
   
   // Time-based sky themes for the header
@@ -660,7 +613,7 @@
   // ---------------------------
   // Page
   // ---------------------------
-  const state = { query: "", category: "All", previousCategory: "All", sort: "name", mustDoOnly: false };
+  const state = { query: "", category: "All", previousCategory: "All", mustDoOnly: false };
 
   const $ = (id) => document.getElementById(id);
 
@@ -770,7 +723,6 @@
   }
 
   function card(item, headingTag) {
-    const rating = item.rating ?? 3;
     return `
       <article class="card">
         <div class="card-top">
@@ -781,7 +733,6 @@
               <span class="pill">${escapeHtml(item.category)}</span>
               ${item.mustDo ? '<span class="pill must">Must do</span>' : ""}
             </div>
-            <div class="hearts" aria-label="Rating ${rating} out of 5">${stars(rating)}</div>
           </div>
         </div>
         ${item.blurb ? `<p class="blurb">${escapeHtml(item.blurb)}</p>` : ""}
@@ -805,8 +756,7 @@
         (d.tips && d.tips.toLowerCase().includes(q))
       );
     }
-    if (state.sort === "name") arr.sort((a, b) => a.name.localeCompare(b.name));
-    if (state.sort === "rating") arr.sort((a, b) => (b.rating ?? 3) - (a.rating ?? 3));
+    arr.sort((a, b) => a.name.localeCompare(b.name));
     return arr;
   }
 
@@ -893,7 +843,6 @@
   document.addEventListener("mousedown", (e) => {
     if (!flyout.hidden && !flyout.contains(e.target) && !filterBtn.contains(e.target)) closeFlyout();
   });
-  $("sort-select").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
   $("must-do").addEventListener("change", (e) => { state.mustDoOnly = e.target.checked; render(); });
 
   applySky();
