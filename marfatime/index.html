@@ -65,7 +65,7 @@
     .wx, .wx .veil, .wx .precip { position: absolute; inset: 0; pointer-events: none; }
     .wx .veil { background: var(--veil, transparent); opacity: 0; transition: opacity 1s ease; }
     #sky { --shade: color-mix(in srgb, var(--cloud, #fff) 55%, #475569); }
-    .wx .field { position: absolute; top: -20px; left: 0; width: 4000px; height: 180px; animation: wx-pan 900s ease-in-out infinite alternate; will-change: transform; }
+    .wx .field { position: absolute; top: -20px; left: 0; width: 4000px; height: 180px; animation: wx-pan 480s ease-in-out infinite alternate; will-change: transform; }
     .wx .field rect { opacity: 0; transition: opacity 1.2s ease; }
     @keyframes wx-pan { to { transform: translateX(-2400px); } }
     #sky[data-wx="partly"] .field .partly,
