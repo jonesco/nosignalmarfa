@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marfa Time</title>
+  <meta name="description" content="Friendly local picks for your Marfa trip: where to eat and drink, shops, short trips and art.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#000000">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --n50: #fafafa;
+      --n100: #f5f5f5;
+      --n200: #e5e5e5;
+      --n300: #d4d4d4;
+      --n400: #a3a3a3;
+      --n500: #737373;
+      --n600: #525252;
+      --n700: #404040;
+      --n800: #262626;
+      --n900: #171717;
+      --border: #e5e7eb;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--n50);
+      color: var(--n900);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; color: inherit; }
+    button { background: none; border: 0; cursor: pointer; }
+    svg.icon { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    svg.icon.sm { width: 16px; height: 16px; }
+
+    .wrap { max-width: 72rem; margin: 0 auto; padding: 0 16px; }
+
+    @keyframes sky-pan { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+    /* Header */
+    .top { position: sticky; top: 0; z-index: 40; }
+    header .wrap { display: flex; align-items: center; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
+    header h1 { font-weight: 800; font-size: 1.5rem; line-height: 2rem; white-space: nowrap; }
+    header .tagline { margin-left: auto; font-size: 0.875rem; text-align: right; }
+    header.dark h1 { color: #fff; }
+    header.dark .tagline { color: rgba(255,255,255,0.8); }
+    header.light h1 { color: var(--n900); }
+    header.light .tagline { color: var(--n600); }
+
+    /* Controls bar */
+    .controls { background: var(--n50); border-bottom: 1px solid var(--n200); }
+    .controls-row { display: flex; align-items: center; gap: 8px; padding: 12px 0; position: relative; }
+    .controls-main { flex: 1; min-width: 0; }
+
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      width: 100%; height: 40px; padding: 8px 32px 8px 12px; font-size: 0.875rem;
+      border: 1px solid var(--border); border-radius: 12px; background: #fff; appearance: none; -webkit-appearance: none;
+    }
+    .select-wrap select:focus { outline: none; box-shadow: 0 0 0 2px var(--n300); }
+    .select-wrap .chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--n500); pointer-events: none; }
+
+    .tabs { display: none; gap: 8px; overflow-x: auto; }
+    .tab {
+      height: 40px; padding: 0 16px; display: flex; align-items: center; white-space: nowrap; font-size: 0.875rem;
+      border-radius: 12px; background: #fff; color: var(--n800); border: 1px solid var(--n200);
+    }
+    .tab:hover { background: var(--n50); }
+    .tab[aria-selected="true"] { background: var(--n900); color: #fff; border-color: var(--n900); }
+    .tab:focus-visible { outline: 2px solid var(--n400); outline-offset: 2px; }
+    .tab[aria-selected="true"]:focus-visible { outline: none; }
+
+    @media (min-width: 768px) {
+      .mobile-only { display: none; }
+      .tabs { display: flex; }
+    }
+
+    .search-box {
+      display: flex; align-items: center; gap: 8px; height: 40px; padding: 8px 12px;
+      border: 1px solid var(--border); border-radius: 12px; background: #fff;
+    }
+    .search-box svg { color: var(--n500); }
+    .search-box input { width: 100%; border: 0; outline: none; background: transparent; }
+    .search-box input::placeholder { color: var(--n400); }
+
+    .icon-btn { padding: 8px; border: 1px solid var(--border); border-radius: 12px; background: #fff; display: grid; place-items: center; }
+    .icon-btn:hover { background: var(--n50); }
+    .close-btn { padding: 4px; border-radius: 4px; display: grid; place-items: center; }
+    .close-btn:hover { background: var(--n100); }
+    .actions { display: flex; align-items: center; gap: 8px; }
+
+    [hidden] { display: none !important; }
+
+    /* Filter flyout */
+    .flyout {
+      position: absolute; right: 0; top: 100%; margin-top: 8px; width: 288px; z-index: 50;
+      background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    }
+    .flyout-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .flyout h3 { font-size: 0.875rem; font-weight: 600; }
+    .flyout .group { margin-bottom: 12px; }
+    .flyout .label { font-size: 0.875rem; font-weight: 500; display: block; margin-bottom: 8px; }
+    .check { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.875rem; }
+    .check input { width: 16px; height: 16px; accent-color: #000; }
+
+    /* Results */
+    main.wrap { padding-top: 24px; padding-bottom: 24px; }
+    .results-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .results-head h2 { font-size: 1.125rem; font-weight: 600; }
+    .count { font-size: 0.875rem; color: var(--n500); }
+    .group-title { font-weight: 600; color: var(--n700); margin: 24px 0 12px; }
+    .group-title:first-of-type { margin-top: 0; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+    .card {
+      background: #fff; border-radius: 16px; padding: 16px; display: flex; flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+    }
+    .card-top { display: flex; align-items: flex-start; gap: 12px; }
+    .card-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--n100); display: grid; place-items: center; flex-shrink: 0; }
+    .card h3 { font-size: 1rem; font-weight: 600; line-height: 1.25; }
+    .pills { margin-top: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; flex-wrap: wrap; }
+    .pill { padding: 2px 8px; border-radius: 999px; background: var(--n100); color: var(--n700); }
+    .pill.must { background: #000; color: #fff; font-weight: 500; }
+    .hearts { margin-top: 4px; font-size: 0.875rem; font-weight: 500; }
+    .blurb { margin-top: 12px; font-size: 0.875rem; color: var(--n700); }
+    .tip { margin-top: 8px; padding: 12px; background: var(--n100); border-radius: 8px; font-size: 0.875rem; color: var(--n700); }
+    .tip strong { font-weight: 500; }
+    .links { margin-top: 16px; display: flex; align-items: center; gap: 8px; }
+    .link-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 0.875rem; border: 1px solid var(--border); border-radius: 12px; }
+    .link-btn:hover { background: var(--n50); }
+
+    footer.wrap { padding-top: 16px; padding-bottom: 32px; font-size: 0.875rem; color: var(--n500); }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+  </svg>
+
+  <div class="top">
+  <header id="sky">
+    <div class="wrap">
+      <h1>Marfa Time</h1>
+      <span class="tagline">Friendly local picks for your Marfa trip</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="wrap">
+      <div class="controls-row">
+        <div class="controls-main">
+          <div id="search-box" class="search-box" hidden>
+            <svg class="icon sm"><use href="#i-search"/></svg>
+            <input id="search-input" type="search" placeholder="Search Marfa spots (type to filter)" aria-label="Search Marfa spots" autocomplete="off">
+            <button id="search-close" class="close-btn" aria-label="Close search" title="Close search"><svg class="icon sm"><use href="#i-x"/></svg></button>
+          </div>
+          <div id="category-controls">
+            <div class="mobile-only select-wrap">
+              <select id="category-select" aria-label="Select category"></select>
+              <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.15l3.71-2.92a.75.75 0 1 1 .92 1.18l-4.2 3.3a.75.75 0 0 1-.92 0l-4.2-3.3a.75.75 0 0 1-.02-1.06z"/></svg>
+            </div>
+            <nav id="tabs" class="tabs" role="tablist" aria-label="Categories"></nav>
+          </div>
+        </div>
+
+        <div id="actions" class="actions">
+          <button id="filter-btn" class="icon-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filter-flyout" title="Filter &amp; sort"><svg class="icon"><use href="#i-sliders"/></svg></button>
+          <button id="search-btn" class="icon-btn" aria-label="Open search" title="Search"><svg class="icon"><use href="#i-search"/></svg></button>
+        </div>
+
+        <div id="filter-flyout" class="flyout" role="dialog" aria-label="Filter and sort options" hidden>
+          <div class="flyout-head">
+            <h3>Filter and sort</h3>
+            <button id="filter-close" class="close-btn" aria-label="Close filters" title="Close"><svg class="icon sm"><use href="#i-x"/></svg></button>
+          </div>
+          <div class="group">
+            <label class="label" for="sort-select">Sort</label>
+            <div class="select-wrap">
+              <select id="sort-select">
+                <option value="name">Name A to Z</option>
+                <option value="rating">Rating (high first)</option>
+              </select>
+              <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.15l3.71-2.92a.75.75 0 1 1 .92 1.18l-4.2 3.3a.75.75 0 0 1-.92 0l-4.2-3.3a.75.75 0 0 1-.02-1.06z"/></svg>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label">Filter</span>
+            <label class="check"><input id="must-do" type="checkbox"> Must do only</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <main class="wrap" id="results"></main>
+
+  <footer class="wrap">
+    Made for easy Marfa trip planning. Double-check hours and availability since small-town schedules can shift.
+  </footer>
+
+  <script>
+  // Marfa Time - plain HTML version of the original React site.
+  // To edit a listing, change its entry in DATA below.
+
+  const DATA = [
+    // Eat & Drink
+    {
+      id: "angels",
+      name: "Angel's",
+      category: "Eat & Drink",
+      blurb: "Cozy Tex-Mex spot by Dollar General with friendly vibes. This tiny local favorite can be tough to snag a seat during lunch or dinner, but they also do takeout. Recommend the Chile Relleno.",
+      rating: 4,
+    },
+    {
+      id: "bordo",
+      name: "Bordo",
+      category: "Eat & Drink",
+      blurb: "Italian deli offering fresh pasta, wood-fired bread, and seasonal gelato, all made on-site with stone-milled heirloom flours. Founded by Chef Michael Serva, a 2025 James Beard finalist. A sublime lunch stop with truly fresh, tasty bites.",
+      tips: "Lunch only, Thursday through Sunday. Go early, it sells out.",
+      rating: 5,
+      mustDo: true,
+    },
+    {
+      id: "aster-marfa",
+      name: "Aster Marfa",
+      category: "Eat & Drink",
+      blurb: "Easy breakfast and sandwiches right across from the courthouse.",
+      rating: 2,
+    },
+    {
+      id: "marfa-burrito",
+      name: "Marfa Burrito",
+      category: "Eat & Drink",
+      blurb:
+        "Beloved breakfast burritos. A little Spanish goes a long way. Local lore says Matthew McConaughey is a fan.",
+      tips: "Bring cash. They may take cards now, but don't count on it.",
+      rating: 4,
+    },
+    {
+      id: "jackos",
+      name: "Jacko's",
+      category: "Eat & Drink",
+      blurb: "Wood-fired sourdough pizza downtown, in the old Para Llevar spot. Opened in 2026, and the pizza is really good. It can sell out, so go early.",
+      tips: "Open Wednesday through Sunday, 12–9.",
+      rating: 4,
+    },
+    {
+      id: "st-george",
+      name: "Hotel Saint George",
+      category: "Eat & Drink",
+      blurb: "Decent menu and usually open. Shares a lobby with Marfa Book Company.",
+      rating: 3,
+    },
+    {
+      id: "bitter-sugar",
+      name: "Bitter Sugar",
+      category: "Eat & Drink",
+      blurb: "Favorite coffee stop with flaky pastries.",
+      rating: 4,
+    },
+    {
+      id: "coyote-coffee",
+      name: "Coyote Coffee",
+      category: "Eat & Drink",
+      blurb: "Thoughtful espresso, house-made pastries, and sourdough. Great place for coffee and a bite to eat, but it can get crowded when nothing else is open.",
+      tips: "Get an iced coffee if you want to be in and out.",
+      rating: 4,
+    },
+    {
+      id: "planet-marfa",
+      name: "Planet Marfa",
+      category: "Eat & Drink",
+      blurb: "Laid-back beer garden with a teepee and ping pong. Local hangout with simple bar snacks.",
+      rating: 3,
+    },
+    {
+      id: "the-pony",
+      name: "Wild Mare",
+      category: "Eat & Drink",
+      blurb:
+        "Neighborhood bar with free pool tables and a friendly crowd. It used to be called Lost Horse Saloon. It's the diviest of dive bars in Marfa. Weird hours.",
+      rating: 3,
+      coords: [30.310248392792996, -104.01776478650659], // 306 E San Antonio St
+    },
+    {
+      id: "cochineal",
+      name: "Cochineal",
+      category: "Eat & Drink",
+      blurb: "Refined dining led by Chef Alexandra Gates, a three-time James Beard semifinalist. A prix fixe menu that changes regularly, with locally sourced ingredients inspired by European and West Texan traditions. Intimate setting with a 30-seat dining room and 40-seat courtyard.",
+      tips: "Dinner Thursday through Saturday. Reserve ahead.",
+      rating: 4,
+    },
+    {
+      id: "marfa-spirit-company",
+      name: "Marfa Spirit Company",
+      category: "Eat & Drink",
+      blurb: "Nice place to get a drink. Specialize in Sotal but have other liquors that they make on site. Recommend the margarita or a Marfa Mule.",
+      rating: 4,
+    },
+    {
+      id: "the-sentinel",
+      name: "The Sentinel",
+      category: "Eat & Drink",
+      blurb: "Home to local newspaper and a super bougie coffee shop.",
+      rating: 3,
+    },
+    {
+      id: "larrys",
+      name: "Larry's",
+      category: "Eat & Drink",
+      blurb: "Best hamburger in Far West Texas in my opinion. Open 11–4, Wednesday through Saturday. Real good.",
+      rating: 5,
+      mustDo: true,
+    },
+    {
+      id: "margarets",
+      name: "Margaret's in Marfa",
+      category: "Eat & Drink",
+      blurb: "Cozy eatery with favorites like cheese toast with burrata and spaghetti bolognese. Popular spot that gets busy with wait times during peak hours. First-come, first-served—no reservations accepted. Call ahead for takeout.",
+      rating: 5,
+    },
+    {
+      id: "waterstop",
+      name: "The Waterstop",
+      category: "Eat & Drink",
+      blurb: "Family-owned comfort food spot with a shaded patio and cozy indoor dining. Known for their standout fried chicken sandwich with vinegar slaw and spicy mayo, plus jalapeño mac and cheese. The real draw? They're reliably open when you need a good meal, though busy times can mean longer waits.",
+      tips: "Try the chicken and waffles or rotisserie chicken. Pet-friendly patio.",
+      rating: 4,
+    },
+  
+    // Shops & Things to Do
+    {
+      id: "ebike-marfa",
+      name: "eBike Marfa",
+      category: "Shops & Things to Do",
+      blurb: "The best way to explore Marfa is by bike. Rent an electric bike and cruise town with ease, or venture out on Pinto Canyon Road—a scenic paved route that stretches miles into the high plains desert toward the Chinati Mountains with barely any traffic. Highly recommended if you have the time.",
+      rating: 5,
+    },
+    {
+      id: "presidio-courthouse",
+      name: "Presidio County Courthouse",
+      category: "Shops & Things to Do",
+      blurb: "You can walk up to the top for a great view.",
+      rating: 3,
+    },
+    {
+      id: "cactus-liquors",
+      name: "Cactus Liquors",
+      category: "Shops & Things to Do",
+      blurb: "Friendly folks offering mezcal samples. You will also find plants and gifts.",
+      rating: 5,
+      mustDo: true,
+    },
+    {
+      id: "marfa-book-company",
+      name: "Marfa Book Company",
+      category: "Shops & Things to Do",
+      blurb: "Artsy bookshop that is fun to browse. In the lobby of the St. George Hotel.",
+      rating: 2,
+    },
+    {
+      id: "stop-and-read-books",
+      name: "Stop & Read Books",
+      category: "Shops & Things to Do",
+      blurb: "Thoughtfully curated bookstore with a carefully selected collection of books for all ages. Features a cozy reading nook, complimentary coffee, and unique gifts. The friendly staff creates an inviting atmosphere perfect for browsing, and they also carry wine and homewares. A must-visit for book lovers looking for quality selections beyond the mainstream.",
+      tips: "Enjoy complimentary coffee",
+      rating: 4,
+    },
+    {
+      id: "get-go",
+      name: "The Get-Go",
+      category: "Shops & Things to Do",
+      blurb: "Great for groceries if you want an alternative to Porter’s. Think mini-Whole Foods in the desert.",
+      rating: 3,
+    },
+  
+    // Short Trips & Art
+    {
+      id: "marfa-lights",
+      name: "Marfa Lights Viewing Area",
+      category: "Short Trips & Art",
+      blurb: "About 15 minutes east on Hwy 90. A long-running local legend with a proper viewing stand. Are they really just car headlights far off into the distance? Who knows, just go with it.",
+      rating: 3,
+    },
+    {
+      id: "prada-marfa",
+      name: "Prada Marfa",
+      category: "Short Trips & Art",
+      blurb: "Iconic roadside art. Beyoncé took photos here.",
+      tips: "Nice scenic loop to Fort Davis and back to Marfa.",
+      rating: 4,
+    },
+    {
+      id: "irwin-untitled",
+      name: "Robert Irwin, “untitled (dawn to dusk)”",
+      category: "Short Trips & Art",
+      blurb:
+        "Large-scale light-and-space work in a former army hospital, part of the Chinati collection. See it on a Chinati tour, or enjoy a walk around the grounds.",
+      rating: 4,
+    },
+    {
+      id: "ft-davis-park",
+      name: "Davis Mountains State Park",
+      category: "Short Trips & Art",
+      blurb:
+        "Just outside Fort Davis. Drive up Skyline Drive for big views. Home to the WPA-era Indian Lodge, freshly renovated and worth a peek.",
+      tips: "The lodge's Black Bear Restaurant serves breakfast and lunch, Thursday through Monday.",
+      rating: 4,
+    },
+    {
+      id: "mcdonald-observatory",
+      name: "McDonald Observatory",
+      category: "Short Trips & Art",
+      blurb: "Pairs perfectly with a Fort Davis visit. Check the star party times before you go.",
+      rating: 5,
+    },
+    {
+      id: "chinati-foundation",
+      name: "Chinati Foundation",
+      category: "Short Trips & Art",
+      blurb:
+        "Established in 1986 by minimalist artist Donald Judd on 340 acres of a former military base. Features permanent large-scale installations including Judd's 100 aluminum pieces, Dan Flavin's fluorescent light works, and John Chamberlain's sculptures. Reservations required for guided tours. The grounds showcase how art, architecture, and the desert landscape integrate into a cohesive experience.",
+      rating: 5,
+      mustDo: true,
+    },
+    {
+      id: "judd-foundation",
+      name: "Judd Foundation and Installations",
+      category: "Short Trips & Art",
+      blurb: "There is Donald Judd work all over town. The Judd Block is especially cool.",
+      rating: 4,
+    },
+  ];
+
+  const CATEGORIES = [
+    { key: "All", icon: "compass" },
+    { key: "Eat & Drink", icon: "utensils" },
+    { key: "Shops & Things to Do", icon: "store" },
+    { key: "Short Trips & Art", icon: "compass" },
+  ];
+
+  function toMapQuery(name) {
+    const q = encodeURIComponent(`${name} Marfa TX`);
+    return `https://www.google.com/maps/search/?api=1&query=${q}`;
+  }
+  
+  function toWebQuery(name) {
+    const q = encodeURIComponent(`${name} Marfa TX`);
+    return `https://www.google.com/search?q=${q}`;
+  }
+  
+  function stars(rating) {
+    const n = Math.max(0, Math.min(5, Math.round(rating ?? 3)));
+    return "♥".repeat(n) + "♡".repeat(5 - n);
+  }
+  
+  // Time-based sky themes for the header
+  function getPeriod(hour) {
+    // Night: 20-5, Morning: 6-11, Midday: 11-17, Sunset: 17-20
+    if (hour >= 20 || hour < 6) return "night";
+    if (hour >= 6 && hour < 11) return "morning";
+    if (hour >= 11 && hour < 17) return "midday";
+    return "sunset";
+  }
+  
+  function getSkyStyle(period) {
+    const base = {
+      backgroundSize: "200% 200%",
+      backgroundPosition: "0% 50%",
+      animation: "sky-pan 28s ease-in-out infinite alternate",
+    };
+    switch (period) {
+      case "night":
+        // Milky Way feel - deep blues with starry specks via layered radial-gradients
+        return {
+          ...base,
+          animation: "sky-pan 240s ease-in-out infinite alternate",
+          backgroundImage:
+            // Small stars (1px) - 40 total
+            "radial-gradient(1px 1px at 2% 8%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 3% 12%, rgba(255,255,255,0.9), transparent 2px)," +
+            "radial-gradient(1px 1px at 5% 32%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 11% 62%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 12% 78%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 14% 92%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 18% 23%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 21% 55%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 22% 88%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 26% 18%, rgba(255,255,255,0.9), transparent 2px)," +
+            "radial-gradient(1px 1px at 28% 34%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 31% 48%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 32% 67%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 35% 85%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 38% 15%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 41% 38%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 42% 52%, rgba(255,255,255,0.9), transparent 2px)," +
+            "radial-gradient(1px 1px at 45% 72%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 48% 82%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 51% 12%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 52% 28%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 55% 48%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 58% 64%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 61% 22%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 62% 42%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 65% 78%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 68% 18%, rgba(255,255,255,0.9), transparent 2px)," +
+            "radial-gradient(1px 1px at 71% 52%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 72% 75%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 75% 28%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 78% 38%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 81% 62%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 82% 58%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 85% 12%, rgba(255,255,255,0.9), transparent 2px)," +
+            "radial-gradient(1px 1px at 88% 25%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1px 1px at 91% 45%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 92% 85%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 95% 68%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1px 1px at 97% 48%, rgba(255,255,255,0.5), transparent 2px)," +
+            // Medium stars (1.5px) - 12 total
+            "radial-gradient(1.5px 1.5px at 7% 22%, rgba(255,255,255,0.5), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 10% 60%, rgba(255,255,255,0.4), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 17% 42%, rgba(255,255,255,0.3), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 25% 30%, rgba(255,255,255,0.5), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 33% 58%, rgba(255,255,255,0.4), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,0.3), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 47% 25%, rgba(255,255,255,0.5), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 55% 20%, rgba(255,255,255,0.4), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 63% 68%, rgba(255,255,255,0.3), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 70% 55%, rgba(255,255,255,0.5), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 77% 18%, rgba(255,255,255,0.4), transparent 3px)," +
+            "radial-gradient(1.5px 1.5px at 85% 40%, rgba(255,255,255,0.3), transparent 3px)," +
+            // Brighter larger stars (2px) - 24 total
+            "radial-gradient(2px 2px at 5% 50%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 9% 75%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 13% 35%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 15% 50%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 19% 8%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 23% 65%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 29% 42%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 35% 15%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 39% 80%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 43% 28%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 50% 75%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 54% 55%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 59% 8%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 65% 35%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 69% 88%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 73% 48%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 76% 68%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 80% 65%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 83% 32%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 87% 78%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 90% 20%, rgba(255,255,255,0.3), transparent 4px)," +
+            "radial-gradient(2px 2px at 93% 52%, rgba(255,255,255,0.5), transparent 4px)," +
+            "radial-gradient(2px 2px at 96% 15%, rgba(255,255,255,0.4), transparent 4px)," +
+            "radial-gradient(2px 2px at 98% 82%, rgba(255,255,255,0.3), transparent 4px)," +
+            "linear-gradient(120deg, #0a0f2c 0%, #2a1f5a 30%, #262e94 50%, #392c70 70%, #0a0f2c 100%)",
+          color: "#fff",
+        };
+      case "sunset":
+        // West Texas sunset - warm oranges to magenta with a hint of deep blue
+        return {
+          ...base,
+          backgroundImage:
+            "linear-gradient(135deg, #ff934f 0%, #ff6a88 35%, #c850c0 65%, #4158d0 100%)",
+          color: "#fff",
+        };
+      case "morning":
+        // Dawn - peach to soft sky blue
+        return {
+          ...base,
+          backgroundImage:
+            "linear-gradient(135deg, #ffd6a5 0%, #fcd1ff 40%, #a0c4ff 100%)",
+          color: "#1f2937",
+        };
+      case "midday":
+      default:
+        // Bright blue midday sky
+        return {
+          ...base,
+          backgroundImage:
+            "linear-gradient(135deg, #67e8f9 0%, #38bdf8 40%, #1d4ed8 100%)",
+          color: "#ffffff",
+        };
+    }
+  }
+  
+  function isDark(period) {
+    return period === "night" || period === "sunset" || period === "midday";
+  }
+
+  // ---------------------------
+  // Page
+  // ---------------------------
+  const state = { query: "", category: "All", previousCategory: "All", sort: "name", mustDoOnly: false };
+
+  const $ = (id) => document.getElementById(id);
+  const sky = $("sky");
+  const searchBox = $("search-box");
+  const searchInput = $("search-input");
+  const categoryControls = $("category-controls");
+  const actions = $("actions");
+  const flyout = $("filter-flyout");
+  const filterBtn = $("filter-btn");
+  const categorySelect = $("category-select");
+  const tabs = $("tabs");
+  const results = $("results");
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function icon(name, sm) {
+    return `<svg class="icon${sm ? " sm" : ""}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+  }
+
+  function categoryIcon(category) {
+    if (category === "Eat & Drink") return icon("utensils");
+    if (category === "Shops & Things to Do") return icon("store");
+    return icon("compass");
+  }
+
+  function applySky() {
+    const period = getPeriod(new Date().getHours());
+    const style = getSkyStyle(period);
+    sky.style.backgroundImage = style.backgroundImage;
+    sky.style.backgroundSize = style.backgroundSize;
+    sky.style.backgroundPosition = style.backgroundPosition;
+    sky.style.animation = style.animation;
+    sky.className = isDark(period) ? "dark" : "light";
+    sky.setAttribute("aria-label", `Header theme: ${period}`);
+  }
+
+  function renderCategories() {
+    categorySelect.innerHTML = CATEGORIES.map((c) =>
+      `<option value="${escapeHtml(c.key)}"${c.key === state.category ? " selected" : ""}>${escapeHtml(c.key)}</option>`
+    ).join("");
+    tabs.innerHTML = CATEGORIES.map((c) =>
+      `<button class="tab" role="tab" data-key="${escapeHtml(c.key)}" aria-selected="${c.key === state.category}">${escapeHtml(c.key)}</button>`
+    ).join("");
+  }
+
+  function card(item, headingTag) {
+    const rating = item.rating ?? 3;
+    return `
+      <article class="card">
+        <div class="card-top">
+          <div class="card-icon">${categoryIcon(item.category)}</div>
+          <div>
+            <${headingTag}>${escapeHtml(item.name)}</${headingTag}>
+            <div class="pills">
+              <span class="pill">${escapeHtml(item.category)}</span>
+              ${item.mustDo ? '<span class="pill must">Must do</span>' : ""}
+            </div>
+            <div class="hearts" aria-label="Rating ${rating} out of 5">${stars(rating)}</div>
+          </div>
+        </div>
+        ${item.blurb ? `<p class="blurb">${escapeHtml(item.blurb)}</p>` : ""}
+        ${item.tips ? `<div class="tip"><strong>Tip:</strong> ${escapeHtml(item.tips)}</div>` : ""}
+        <div class="links">
+          <a class="link-btn" href="${toMapQuery(item.name)}" target="_blank" rel="noreferrer" title="Open in Maps">${icon("map-pin", true)} Maps</a>
+          <a class="link-btn" href="${toWebQuery(item.name)}" target="_blank" rel="noreferrer" title="Search the web">${icon("link", true)} Search</a>
+        </div>
+      </article>`;
+  }
+
+  function filtered() {
+    let arr = DATA.slice();
+    if (state.category !== "All") arr = arr.filter((d) => d.category === state.category);
+    if (state.mustDoOnly) arr = arr.filter((d) => d.mustDo === true);
+    const q = state.query.trim().toLowerCase();
+    if (q) {
+      arr = arr.filter((d) =>
+        d.name.toLowerCase().includes(q) ||
+        (d.blurb && d.blurb.toLowerCase().includes(q)) ||
+        (d.tips && d.tips.toLowerCase().includes(q))
+      );
+    }
+    if (state.sort === "name") arr.sort((a, b) => a.name.localeCompare(b.name));
+    if (state.sort === "rating") arr.sort((a, b) => (b.rating ?? 3) - (a.rating ?? 3));
+    return arr;
+  }
+
+  function render() {
+    const arr = filtered();
+    if (state.query.trim() && state.category === "All") {
+      // Grouped search results
+      const groups = {};
+      arr.forEach((item) => { (groups[item.category] = groups[item.category] || []).push(item); });
+      results.innerHTML = `
+        <div class="results-head"><span class="count">${arr.length} results found</span></div>
+        ${Object.entries(groups).map(([name, items]) => `
+          <h3 class="group-title">${escapeHtml(name)}</h3>
+          <div class="grid">${items.map((i) => card(i, "h4")).join("")}</div>
+        `).join("")}`;
+    } else {
+      results.innerHTML = `
+        <div class="results-head">
+          <h2>${escapeHtml(state.category)}</h2>
+          <span class="count">${arr.length} results</span>
+        </div>
+        <div class="grid">${arr.map((i) => card(i, "h3")).join("")}</div>`;
+    }
+  }
+
+  function setCategory(key) {
+    state.category = key;
+    renderCategories();
+    render();
+  }
+
+  // Search
+  function openSearch() {
+    searchBox.hidden = false;
+    categoryControls.hidden = true;
+    actions.hidden = true;
+    closeFlyout();
+    searchInput.focus();
+  }
+
+  function closeSearch() {
+    state.query = "";
+    searchInput.value = "";
+    searchBox.hidden = true;
+    categoryControls.hidden = false;
+    actions.hidden = false;
+    setCategory(state.previousCategory);
+  }
+
+  searchInput.addEventListener("input", () => {
+    const v = searchInput.value;
+    if (v.trim() === "") { closeSearch(); return; }
+    if (state.query === "") {
+      // Starting a search: remember the category and show everything
+      state.previousCategory = state.category;
+      state.category = "All";
+      renderCategories();
+    }
+    state.query = v;
+    render();
+  });
+  searchInput.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSearch(); });
+  $("search-btn").addEventListener("click", openSearch);
+  $("search-close").addEventListener("click", closeSearch);
+
+  // Categories
+  categorySelect.addEventListener("change", (e) => setCategory(e.target.value));
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (btn) setCategory(btn.dataset.key);
+  });
+
+  // Filter flyout
+  function closeFlyout() {
+    flyout.hidden = true;
+    filterBtn.setAttribute("aria-expanded", "false");
+  }
+  filterBtn.addEventListener("click", () => {
+    flyout.hidden = !flyout.hidden;
+    filterBtn.setAttribute("aria-expanded", String(!flyout.hidden));
+  });
+  $("filter-close").addEventListener("click", closeFlyout);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeFlyout(); });
+  document.addEventListener("mousedown", (e) => {
+    if (!flyout.hidden && !flyout.contains(e.target) && !filterBtn.contains(e.target)) closeFlyout();
+  });
+  $("sort-select").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+  $("must-do").addEventListener("change", (e) => { state.mustDoOnly = e.target.checked; render(); });
+
+  applySky();
+  setInterval(applySky, 60000);
+  renderCategories();
+  render();
+  </script>
+</body>
+</html>
