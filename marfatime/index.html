@@ -85,17 +85,15 @@
     /* Snow: random size, speed and sway per flake (set in JS) */
     #sky[data-wx="snow"] .wx .drop { display: none; }
     #sky[data-wx="snow"] .wx .flake { display: block; }
-    .wx .flake {
-      position: absolute; top: -10px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%;
+    /* The span falls; its dot sways on its own clock, so no two flakes move alike */
+    .wx .flake { position: absolute; top: -10px; left: var(--x); animation: wx-snow var(--d) linear infinite; animation-delay: var(--delay); }
+    .wx .flake i {
+      display: block; width: var(--s); height: var(--s); border-radius: 50%;
       background: #fff; opacity: var(--o); filter: blur(var(--b));
-      animation: wx-snow var(--d) linear infinite; animation-delay: var(--delay);
+      animation: wx-sway var(--sd) ease-in-out infinite alternate; animation-delay: var(--sdelay);
     }
-    @keyframes wx-snow {
-      25% { translate: var(--sx) 50px; }
-      50% { translate: calc(var(--sx) * -0.6) 100px; }
-      75% { translate: calc(var(--sx) * 0.8) 150px; }
-      to { translate: var(--dx) 200px; }
-    }
+    @keyframes wx-snow { to { translate: var(--dx) 200px; } }
+    @keyframes wx-sway { from { translate: calc(var(--sw) * -1) 0; } to { translate: var(--sw) 0; } }
     /* Lightning: a sky-wide flash, sometimes with a bolt (timed in JS) */
     .wx .flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at var(--fx, 50%) 0%, rgba(235,240,255,0.95), rgba(200,210,240,0.5) 60%, rgba(200,210,240,0.25)); }
     .wx .flash.on { animation: wx-flash 0.9s ease-out; }
@@ -724,11 +722,13 @@
       drops += `<span class="drop${i >= 70 ? " extra" : ""}" style="--x:${x}%;--d:${d}s;--delay:-${((i * 29) % 100) / 50}s"></span>`;
     }
     const rnd = (a, b) => a + Math.random() * (b - a);
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 140; i++) {
       // Nearer flakes are bigger, softer and faster
-      const near = Math.random();
+      const near = Math.random() ** 1.5;
       const d = rnd(9, 16) - near * 5;
-      drops += `<span class="flake" style="--x:${rnd(-2, 102).toFixed(1)}%;--s:${(1.5 + near * 3.5).toFixed(1)}px;--o:${(0.5 + near * 0.45).toFixed(2)};--b:${near > 0.75 ? 1 : 0}px;--d:${d.toFixed(1)}s;--delay:-${rnd(0, d).toFixed(1)}s;--sx:${rnd(-14, 14).toFixed(0)}px;--dx:${rnd(-30, 30).toFixed(0)}px"></span>`;
+      const sd = rnd(1.4, 4.2);
+      drops += `<span class="flake" style="--x:${rnd(-4, 104).toFixed(1)}%;--d:${d.toFixed(1)}s;--delay:-${rnd(0, d).toFixed(2)}s;--dx:${rnd(-40, 40).toFixed(0)}px">` +
+        `<i style="--s:${(1.5 + near * 4).toFixed(1)}px;--o:${(0.45 + near * 0.5).toFixed(2)};--b:${near > 0.7 ? 1 : 0}px;--sw:${rnd(3, 16).toFixed(0)}px;--sd:${sd.toFixed(1)}s;--sdelay:-${rnd(0, sd).toFixed(2)}s"></i></span>`;
     }
     sky.querySelector(".precip").innerHTML = drops;
 
