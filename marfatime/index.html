@@ -50,14 +50,14 @@
     .top { position: sticky; top: 0; z-index: 40; }
     header .wrap { display: flex; align-items: center; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
     header h1 { font-weight: 800; font-size: 1.5rem; line-height: 2rem; white-space: nowrap; }
-    header .tagline { margin-left: auto; font-size: 0.875rem; text-align: right; }
+    header .tagline { font-size: 0.875rem; }
     header.dark h1 { color: #fff; }
     header.dark .tagline { color: rgba(255,255,255,0.8); }
     header.light h1 { color: var(--n900); }
     header.light .tagline { color: var(--n600); }
 
     /* Marfa Public Radio live stream */
-    .radio { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid; font: inherit; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; cursor: pointer; flex-shrink: 0; }
+    .radio { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid; font: inherit; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; cursor: pointer; flex-shrink: 0; margin-left: auto; }
     .radio .knob { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; }
     .radio .knob svg { width: 10px; height: 10px; fill: currentColor; }
     .radio .pause, .radio[data-state="playing"] .play { display: none; }
