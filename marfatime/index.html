@@ -56,6 +56,24 @@
     header.light h1 { color: var(--n900); }
     header.light .tagline { color: var(--n600); }
 
+    /* Marfa Public Radio live stream */
+    .radio { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid; font: inherit; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; cursor: pointer; flex-shrink: 0; }
+    .radio .knob { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; }
+    .radio .knob svg { width: 10px; height: 10px; fill: currentColor; }
+    .radio .pause, .radio[data-state="playing"] .play { display: none; }
+    .radio[data-state="playing"] .pause { display: block; }
+    .radio[data-state="loading"] .knob svg { animation: radio-pulse 1s ease-in-out infinite; }
+    @keyframes radio-pulse { 50% { opacity: 0.3; } }
+    .radio:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+    header.dark .radio { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); }
+    header.dark .radio .knob { background: #fff; color: var(--n900); }
+    header.light .radio { color: var(--n900); background: rgba(255,255,255,0.7); border-color: var(--n300); }
+    header.light .radio .knob { background: var(--n900); color: #fff; }
+    @media (max-width: 640px) {
+      .radio { padding: 4px; }
+      .radio .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    }
+
     /* Controls bar */
     .controls { background: var(--n50); border-bottom: 1px solid var(--n200); }
     .controls-row { display: flex; align-items: center; gap: 8px; padding: 12px 0; position: relative; }
@@ -160,6 +178,13 @@
     <div class="wrap">
       <h1>Marfa Time</h1>
       <span class="tagline">Friendly local picks for your Marfa trip</span>
+      <button id="radio" class="radio" type="button" data-state="idle" aria-pressed="false" title="Listen to Marfa Public Radio, live">
+        <span class="knob" aria-hidden="true">
+          <svg class="play" viewBox="0 0 10 10"><path d="M2 0.5v9l7.5-4.5z"/></svg>
+          <svg class="pause" viewBox="0 0 10 10"><path d="M1.5 0.5h2.5v9h-2.5zM6 0.5h2.5v9h-2.5z"/></svg>
+        </span>
+        <span class="label">Marfa Public Radio</span>
+      </button>
     </div>
   </header>
 
@@ -629,6 +654,35 @@
   const state = { query: "", category: "All", previousCategory: "All", sort: "name", mustDoOnly: false };
 
   const $ = (id) => document.getElementById(id);
+
+  // Marfa Public Radio (KRTS) live stream. The stream is only loaded on play,
+  // and dropped on pause so the next play picks up live, not from a stale buffer.
+  (() => {
+    const STREAM = "https://marfapr-ice.streamguys1.com/krts";
+    const btn = $("radio");
+    let audio = null;
+    const set = (state) => {
+      btn.dataset.state = state;
+      btn.setAttribute("aria-pressed", String(state === "playing"));
+      btn.title = state === "error" ? "Stream unavailable, tap to retry" : "Listen to Marfa Public Radio, live";
+    };
+    btn.addEventListener("click", () => {
+      if (audio) {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+        audio = null;
+        set("idle");
+        return;
+      }
+      audio = new Audio(STREAM);
+      audio.addEventListener("playing", () => set("playing"));
+      audio.addEventListener("waiting", () => set("loading"));
+      audio.addEventListener("error", () => { audio = null; set("error"); });
+      set("loading");
+      audio.play().catch(() => { audio = null; set("error"); });
+    });
+  })();
   const sky = $("sky");
   const searchBox = $("search-box");
   const searchInput = $("search-input");
