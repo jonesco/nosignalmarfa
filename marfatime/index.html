@@ -48,8 +48,10 @@
 
     /* Header */
     .top { position: sticky; top: 0; z-index: 40; }
-    header .wrap { display: flex; align-items: baseline; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
-    header h1 { font-weight: 800; font-size: 1.5rem; line-height: 2rem; white-space: nowrap; }
+    header .wrap { display: flex; align-items: baseline; gap: 12px; padding-top: 40px; padding-bottom: 40px; transition: padding 0.25s ease; }
+    header h1 { font-weight: 800; font-size: 2.25rem; line-height: 2.5rem; white-space: nowrap; transition: font-size 0.25s ease, line-height 0.25s ease; }
+    .top.collapsed header .wrap { padding-top: 16px; padding-bottom: 16px; }
+    .top.collapsed header h1 { font-size: 1.5rem; line-height: 2rem; }
     header .tagline { font-size: 0.875rem; }
     @media (max-width: 640px) { header .tagline { display: none; } }
     header.dark h1 { color: #fff; }
@@ -655,6 +657,19 @@
   const state = { query: "", category: "All", previousCategory: "All", sort: "name", mustDoOnly: false };
 
   const $ = (id) => document.getElementById(id);
+
+  // Tall header that collapses once the page scrolls. The two thresholds keep it
+  // from flickering when the collapse itself changes the scroll position.
+  (() => {
+    const top = document.querySelector(".top");
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 40) top.classList.add("collapsed");
+      else if (y < 4) top.classList.remove("collapsed");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
 
   // Marfa Public Radio (KRTS) live stream. The stream is only loaded on play,
   // and dropped on pause so the next play picks up live, not from a stale buffer.
