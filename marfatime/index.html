@@ -91,8 +91,10 @@
     #sky[data-period="sunset"] { --veil: linear-gradient(180deg, rgba(120,100,130,0.6), rgba(200,140,140,0.5)); --cloud: rgba(255,220,210,0.85); }
     #sky[data-period="night"] { --veil: rgba(10,12,30,0.55); --cloud: rgba(70,76,108,0.85); --drop: rgba(200,210,255,0.4); }
     #sky[data-period="midday"][data-wx="storm"] { --veil: rgba(51,65,85,0.75); --cloud: rgba(148,163,184,0.9); }
-    #sky[data-period="sunset"][data-wx="storm"] { --veil: rgba(40,36,60,0.7); }
+    #sky[data-period="sunset"][data-wx="storm"] { --veil: linear-gradient(180deg, rgba(48,50,62,0.95), rgba(74,72,82,0.93)); --cloud: rgba(128,132,146,0.9); }
     #sky[data-period="night"][data-wx="storm"] { --veil: rgba(5,6,18,0.75); }
+    /* Wet or socked-in sunsets go gray: the sunset gradient barely shows through */
+    #sky[data-period="sunset"]:is([data-wx="overcast"], [data-wx="rain"], [data-wx="snow"]) { --veil: linear-gradient(180deg, rgba(84,88,100,0.93), rgba(116,112,118,0.9)); --cloud: rgba(176,178,188,0.85); }
 
     /* Current Marfa temperature (Open-Meteo) */
     .temp { margin-left: auto; align-self: center; font-size: 0.875rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
