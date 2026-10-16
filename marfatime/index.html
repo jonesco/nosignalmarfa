@@ -59,6 +59,45 @@
     header.light h1 { color: var(--n900); }
     header.light .tagline { color: var(--n600); }
 
+    /* Weather layer over the sky: clouds, a gray wash, rain or snow (data-wx on #sky) */
+    #sky { position: relative; overflow: hidden; }
+    #sky .wrap { position: relative; z-index: 1; }
+    .wx, .wx .veil, .wx .precip { position: absolute; inset: 0; pointer-events: none; }
+    .wx .veil { background: var(--veil, transparent); opacity: 0; transition: opacity 1s ease; }
+    .wx .cloud {
+      position: absolute; left: 0; top: var(--y); width: var(--w); height: calc(var(--w) * 0.3);
+      border-radius: 999px; background: var(--cloud, rgba(255,255,255,0.9)); filter: blur(3px);
+      opacity: 0; transition: opacity 1s ease; transform: translateX(var(--x));
+      animation: wx-drift var(--d) linear infinite; animation-delay: var(--delay);
+    }
+    .wx .cloud::before, .wx .cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
+    .wx .cloud::before { width: 46%; height: 140%; left: 16%; bottom: 35%; }
+    .wx .cloud::after { width: 34%; height: 105%; left: 50%; bottom: 40%; }
+    @keyframes wx-drift { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
+    .wx .precip { opacity: 0; transition: opacity 1s ease; }
+    .wx .drop {
+      position: absolute; top: -20px; left: var(--x); width: 1px; height: 16px;
+      background: linear-gradient(transparent, var(--drop, rgba(255,255,255,0.7)));
+      transform: rotate(12deg); animation: wx-fall var(--d) linear infinite; animation-delay: var(--delay);
+    }
+    #sky[data-wx="snow"] .wx .drop { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.9); animation-duration: calc(var(--d) * 5); }
+    @keyframes wx-fall { to { translate: -24px 180px; } }
+
+    #sky[data-wx="partly"] .cloud:nth-child(-n+3) { opacity: 0.55; }
+    #sky:is([data-wx="cloudy"], [data-wx="rain"], [data-wx="storm"], [data-wx="snow"]) .cloud { opacity: 0.7; }
+    #sky.dark:not([data-wx="clear"]) :is(h1, .tagline, .temp) { text-shadow: 0 1px 10px rgba(15,23,42,0.35); }
+    #sky:is([data-wx="cloudy"], [data-wx="rain"], [data-wx="storm"], [data-wx="snow"]) .veil { opacity: 1; }
+    #sky:is([data-wx="rain"], [data-wx="storm"], [data-wx="snow"]) .precip { opacity: 1; }
+
+    /* Colors per time of day */
+    #sky[data-period="midday"] { --veil: rgba(100,116,139,0.6); --cloud: rgba(241,245,249,0.92); }
+    #sky[data-period="morning"] { --veil: rgba(214,211,209,0.6); --cloud: rgba(255,255,255,0.95); --drop: rgba(71,85,105,0.5); }
+    #sky[data-period="sunset"] { --veil: rgba(87,76,110,0.5); --cloud: rgba(255,214,204,0.85); }
+    #sky[data-period="night"] { --veil: rgba(10,12,30,0.6); --cloud: rgba(78,84,120,0.8); --drop: rgba(200,210,255,0.4); }
+    #sky[data-period="midday"][data-wx="storm"] { --veil: rgba(51,65,85,0.75); --cloud: rgba(148,163,184,0.9); }
+    #sky[data-period="sunset"][data-wx="storm"] { --veil: rgba(40,36,60,0.7); }
+    #sky[data-period="night"][data-wx="storm"] { --veil: rgba(5,6,18,0.75); }
+
     /* Current Marfa temperature (Open-Meteo) */
     .temp { margin-left: auto; align-self: center; font-size: 0.875rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
     header.dark .temp { color: #fff; }
@@ -182,6 +221,7 @@
 
   <div class="top">
   <header id="sky">
+    <div class="wx" aria-hidden="true"><div class="veil"></div><div class="clouds"></div><div class="precip"></div></div>
     <div class="wrap">
       <h1>Marfa Time</h1>
       <span class="tagline">Friendly local picks for your Marfa trip</span>
@@ -630,19 +670,62 @@
     onScroll();
   })();
 
-  // Current temperature in Marfa from Open-Meteo (free, no key). Stays hidden
-  // if the request fails; refreshes every 15 minutes.
+  // Current temperature and conditions in Marfa from Open-Meteo (free, no key).
+  // The temperature stays hidden and the sky stays clear if the request fails.
+  // Refreshes every 15 minutes. Preview any look with ?wx=clear|partly|cloudy|rain|storm|snow
+  // and ?sky=morning|midday|sunset|night.
+  const params = new URLSearchParams(location.search);
+
+  // WMO weather codes to the sky looks we draw
+  function weatherLook(code) {
+    if (code <= 1) return "clear";
+    if (code === 2) return "partly";
+    if (code === 3 || code === 45 || code === 48) return "cloudy";
+    if ((code >= 71 && code <= 77) || code === 85 || code === 86) return "snow";
+    if (code >= 95) return "storm";
+    if (code >= 51) return "rain";
+    return "clear";
+  }
+
   (() => {
     const el = $("temp");
-    const URL = "https://api.open-meteo.com/v1/forecast?latitude=30.3094&longitude=-104.0206&current=temperature_2m&temperature_unit=fahrenheit";
+    const sky = $("sky");
+    const URL = "https://api.open-meteo.com/v1/forecast?latitude=30.3094&longitude=-104.0206&current=temperature_2m,weather_code&temperature_unit=fahrenheit";
+
+    // Build the clouds and drops once; CSS decides which are visible.
+    const clouds = [
+      { y: "14%", w: "140px", x: "8vw", d: "140s", delay: "-20s" },
+      { y: "50%", w: "100px", x: "55vw", d: "110s", delay: "-75s" },
+      { y: "24%", w: "120px", x: "80vw", d: "160s", delay: "-130s" },
+      { y: "62%", w: "160px", x: "30vw", d: "180s", delay: "-50s" },
+      { y: "4%", w: "110px", x: "65vw", d: "125s", delay: "-100s" },
+      { y: "36%", w: "130px", x: "-5vw", d: "150s", delay: "-10s" },
+    ];
+    sky.querySelector(".clouds").innerHTML = clouds
+      .map((c) => `<div class="cloud" style="--y:${c.y};--w:${c.w};--x:${c.x};--d:${c.d};--delay:${c.delay}"></div>`)
+      .join("");
+    let drops = "";
+    for (let i = 0; i < 70; i++) {
+      const x = ((i * 37) % 100) + (i % 3) * 0.3;
+      const d = 0.6 + ((i * 13) % 7) / 10;
+      drops += `<span class="drop" style="--x:${x}%;--d:${d}s;--delay:-${((i * 29) % 100) / 50}s"></span>`;
+    }
+    sky.querySelector(".precip").innerHTML = drops;
+
+    const forced = params.get("wx");
+    if (forced) sky.dataset.wx = forced;
+
     const load = () =>
       fetch(URL)
         .then((r) => r.json())
         .then((d) => {
           const t = d?.current?.temperature_2m;
-          if (typeof t !== "number") return;
-          el.textContent = `${Math.round(t)}°F`;
-          el.hidden = false;
+          const code = d?.current?.weather_code;
+          if (typeof t === "number") {
+            el.textContent = `${Math.round(t)}°F`;
+            el.hidden = false;
+          }
+          if (!forced && typeof code === "number") sky.dataset.wx = weatherLook(code);
         })
         .catch(() => {});
     load();
@@ -703,13 +786,14 @@
   }
 
   function applySky() {
-    const period = getPeriod(new Date().getHours());
+    const period = params.get("sky") || getPeriod(new Date().getHours());
     const style = getSkyStyle(period);
     sky.style.backgroundImage = style.backgroundImage;
     sky.style.backgroundSize = style.backgroundSize;
     sky.style.backgroundPosition = style.backgroundPosition;
     sky.style.animation = style.animation;
     sky.className = isDark(period) ? "dark" : "light";
+    sky.dataset.period = period;
     sky.setAttribute("aria-label", `Header theme: ${period}`);
   }
 
