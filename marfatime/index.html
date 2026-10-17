@@ -71,27 +71,27 @@
     #sky { position: relative; overflow: hidden; }
     #sky .wrap { position: relative; z-index: 1; }
     .wx, .wx .veil, .wx .precip { position: absolute; inset: 0; pointer-events: none; }
-    .wx .veil { background: var(--veil, transparent); opacity: 0; transition: opacity 1s ease; }
+    .wx .veil { background: var(--veil, transparent); opacity: 0; transition: opacity 2s ease; }
     /* Night: crisp stars of mixed brightness, a few twinkling, and faint diagonal cirrus */
-    .wx .stars, .wx .wisps { position: absolute; pointer-events: none; opacity: 0; transition: opacity 1.2s ease; }
+    .wx .stars, .wx .wisps { position: absolute; pointer-events: none; opacity: 0; transition: opacity 2s ease; }
     .wx .stars { inset: 0; }
     .wx .star { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius: 50%; background: #fff; opacity: var(--o); box-shadow: 0 0 var(--g) rgba(255,255,255,0.8); }
     .wx .star.tw { animation: wx-twinkle var(--t) ease-in-out infinite alternate; animation-delay: var(--delay); }
     @keyframes wx-twinkle { from { opacity: var(--o); } to { opacity: calc(var(--o) * 0.4); } }
     .wx .wisps { top: -50px; left: -200px; width: 1600px; height: 200px; transform: rotate(-14deg); transform-origin: 0 0; animation: wx-wisp 300s ease-in-out infinite alternate; }
     @keyframes wx-wisp { to { translate: -500px 0; } }
-    #sky[data-period="night"]:is([data-wx="clear"], [data-wx="partly"], [data-wx="cloudy"], :not([data-wx])) .stars { opacity: 1; }
+    #sky[data-period="night"]:is([data-wx="clear"], [data-wx="partly"], [data-wx="cloudy"]) .stars { opacity: 1; }
     #sky[data-period="night"][data-wx="cloudy"] .stars { opacity: 0.45; }
-    #sky[data-period="night"]:is([data-wx="clear"], :not([data-wx])) .wisps { opacity: 0.22; }
+    #sky[data-period="night"][data-wx="clear"] .wisps { opacity: 0.22; }
     #sky[data-period="night"][data-wx="partly"] .wisps { opacity: 0.12; }
     #sky { --shade: color-mix(in srgb, var(--cloud, #fff) 55%, #475569); }
     .wx .field { position: absolute; top: -20px; left: 0; width: 4000px; height: 180px; animation: wx-pan 480s ease-in-out infinite alternate; will-change: transform; }
-    .wx .field rect { opacity: 0; transition: opacity 1.2s ease; }
+    .wx .field rect { opacity: 0; transition: opacity 2s ease; }
     @keyframes wx-pan { to { transform: translateX(-2400px); } }
     #sky[data-wx="partly"] .field .partly,
     #sky[data-wx="cloudy"] .field .cloudy,
     #sky:is([data-wx="overcast"], [data-wx="rain"], [data-wx="storm"], [data-wx="snow"]) .field .overcast { opacity: 1; }
-    .wx .precip { opacity: 0; transition: opacity 1s ease; }
+    .wx .precip { opacity: 0; transition: opacity 2s ease; }
     .wx .drop {
       position: absolute; top: -20px; left: var(--x); width: 1px; height: 16px;
       background: linear-gradient(transparent, var(--drop, rgba(255,255,255,0.7)));
@@ -731,6 +731,15 @@
     const forced = params.get("wx");
     if (forced) sky.dataset.wx = forced;
 
+    // Start from the last look this browser saw, so a returning visitor doesn't get stars
+    // that then cloud over. Without it the weather layer stays empty until the forecast
+    // arrives and then fades in.
+    try {
+      const last = JSON.parse(localStorage.getItem("marfatime-sky"));
+      if (last?.sun?.set > last?.sun?.rise) sun = last.sun;
+      if (!forced && typeof last?.wx === "string") sky.dataset.wx = last.wx;
+    } catch {}
+
     const load = () =>
       fetch(URL)
         .then((r) => r.json())
@@ -744,9 +753,13 @@
           const toMin = (iso) => { const m = /T(\d\d):(\d\d)/.exec(iso || ""); return m ? m[1] * 60 + +m[2] : NaN; };
           const rise = toMin(d?.daily?.sunrise?.[0]), set = toMin(d?.daily?.sunset?.[0]);
           if (rise > 0 && set > rise) { sun = { rise, set }; applySky(); }
-          if (!forced && typeof code === "number") sky.dataset.wx = weatherLook(code, d.current.cloud_cover ?? 100);
+          if (typeof code === "number") {
+            const wx = weatherLook(code, d.current.cloud_cover ?? 100);
+            if (!forced) sky.dataset.wx = wx;
+            try { localStorage.setItem("marfatime-sky", JSON.stringify({ wx, sun })); } catch {}
+          }
         })
-        .catch(() => {});
+        .catch(() => { if (!sky.dataset.wx) sky.dataset.wx = "clear"; });
     load();
     setInterval(load, 15 * 60 * 1000);
   })();
