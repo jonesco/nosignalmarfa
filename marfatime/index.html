@@ -118,6 +118,9 @@
     #sky[data-period="midday"][data-wx="storm"] { --veil: rgba(51,65,85,0.75); --cloud: rgba(148,163,184,0.9); }
     #sky[data-period="sunset"][data-wx="storm"] { --veil: linear-gradient(180deg, rgba(48,50,62,0.95), rgba(74,72,82,0.93)); --cloud: rgba(128,132,146,0.9); }
     #sky[data-period="night"][data-wx="storm"] { --veil: rgba(5,6,18,0.75); }
+    #sky[data-period="dusk"] { --veil: linear-gradient(180deg, rgba(30,34,64,0.6), rgba(84,70,104,0.55)); --cloud: rgba(132,128,164,0.85); --drop: rgba(200,210,255,0.45); }
+    #sky[data-period="dusk"]:is([data-wx="overcast"], [data-wx="rain"], [data-wx="snow"]) { --veil: linear-gradient(180deg, rgba(44,48,64,0.93), rgba(70,72,88,0.9)); --cloud: rgba(120,124,140,0.85); }
+    #sky[data-period="dusk"][data-wx="storm"] { --veil: linear-gradient(180deg, rgba(22,24,36,0.95), rgba(40,40,54,0.93)); --cloud: rgba(92,96,112,0.9); }
     /* Wet or socked-in sunsets go gray: the sunset gradient barely shows through */
     #sky[data-period="sunset"]:is([data-wx="overcast"], [data-wx="rain"], [data-wx="snow"]) { --veil: linear-gradient(180deg, rgba(84,88,100,0.93), rgba(116,112,118,0.9)); --cloud: rgba(176,178,188,0.85); }
 
@@ -538,12 +541,18 @@
   }
   
   // Time-based sky themes for the header
-  function getPeriod(hour) {
-    // Night: 20-5, Morning: 6-11, Midday: 11-17, Sunset: 17-20
-    if (hour >= 20 || hour < 6) return "night";
-    if (hour >= 6 && hour < 11) return "morning";
-    if (hour >= 11 && hour < 17) return "midday";
-    return "sunset";
+  // Today's sunrise and sunset in Marfa, as minutes after midnight (filled in by Open-Meteo).
+  // Until then, typical times stand in.
+  let sun = { rise: 7 * 60 + 30, set: 19 * 60 + 30 };
+
+  function getPeriod(min) {
+    // Morning from 30 minutes before sunrise to 11am, then midday. Sunset colors from
+    // 75 minutes before sundown to 10 after, dusk (the blue hour) for 40 more, then night.
+    if (min < sun.rise - 30 || min >= sun.set + 50) return "night";
+    if (min < 11 * 60) return "morning";
+    if (min < sun.set - 75) return "midday";
+    if (min < sun.set + 10) return "sunset";
+    return "dusk";
   }
   
   function getSkyStyle(period) {
@@ -641,6 +650,24 @@
             "linear-gradient(120deg, #0a0f2c 0%, #2a1f5a 30%, #262e94 50%, #392c70 70%, #0a0f2c 100%)",
           color: "#fff",
         };
+      case "dusk":
+        // Blue hour - the last orange on the horizon under deepening indigo, first stars out
+        return {
+          ...base,
+          // Full height, so the glow stays on the bottom edge
+          backgroundSize: "200% 100%",
+          animation: "sky-pan 120s ease-in-out infinite alternate",
+          backgroundImage:
+            "radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 27% 9%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1.5px 1.5px at 44% 22%, rgba(255,255,255,0.8), transparent 2px)," +
+            "radial-gradient(1px 1px at 58% 12%, rgba(255,255,255,0.5), transparent 2px)," +
+            "radial-gradient(1.5px 1.5px at 71% 26%, rgba(255,255,255,0.6), transparent 2px)," +
+            "radial-gradient(1.5px 1.5px at 86% 8%, rgba(255,255,255,0.7), transparent 2px)," +
+            "radial-gradient(1px 1px at 93% 30%, rgba(255,255,255,0.5), transparent 2px)," +
+            "linear-gradient(180deg, #141c4c 0%, #2a3274 38%, #54488c 64%, #a8628a 86%, #f0956a 100%)",
+          color: "#fff",
+        };
       case "sunset":
         // West Texas sunset - warm oranges to magenta with a hint of deep blue
         return {
@@ -670,7 +697,7 @@
   }
   
   function isDark(period) {
-    return period === "night" || period === "sunset" || period === "midday";
+    return period !== "morning";
   }
 
   // ---------------------------
@@ -696,7 +723,7 @@
   // Current temperature and conditions in Marfa from Open-Meteo (free, no key).
   // The temperature stays hidden and the sky stays clear if the request fails.
   // Refreshes every 15 minutes. Preview any look with ?wx=clear|partly|cloudy|rain|storm|snow
-  // (also overcast) and ?sky=morning|midday|sunset|night.
+  // (also overcast) and ?sky=morning|midday|sunset|dusk|night.
   const params = new URLSearchParams(location.search);
 
   // WMO weather codes to the sky looks we draw
@@ -717,7 +744,7 @@
   (() => {
     const el = $("temp");
     const sky = $("sky");
-    const URL = "https://api.open-meteo.com/v1/forecast?latitude=30.3094&longitude=-104.0206&current=temperature_2m,weather_code,cloud_cover&temperature_unit=fahrenheit";
+    const URL = "https://api.open-meteo.com/v1/forecast?latitude=30.3094&longitude=-104.0206&current=temperature_2m,weather_code,cloud_cover&daily=sunrise,sunset&timezone=America%2FChicago&forecast_days=1&temperature_unit=fahrenheit";
 
     // Build the clouds and drops once; CSS decides which are visible.
     let drops = "";
@@ -769,6 +796,9 @@
             el.textContent = `${Math.round(t)}°F`;
             el.hidden = false;
           }
+          const toMin = (iso) => { const m = /T(\d\d):(\d\d)/.exec(iso || ""); return m ? m[1] * 60 + +m[2] : NaN; };
+          const rise = toMin(d?.daily?.sunrise?.[0]), set = toMin(d?.daily?.sunset?.[0]);
+          if (rise > 0 && set > rise) { sun = { rise, set }; applySky(); }
           if (!forced && typeof code === "number") sky.dataset.wx = weatherLook(code, d.current.cloud_cover ?? 100);
         })
         .catch(() => {});
@@ -831,8 +861,8 @@
 
   function applySky() {
     // Marfa time, not the visitor's clock, so the sky matches Marfa's weather
-    const marfaHour = Number(new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "numeric", hourCycle: "h23" }).format(new Date()));
-    const period = params.get("sky") || getPeriod(marfaHour);
+    const [h, m] = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "numeric", minute: "numeric", hourCycle: "h23" }).format(new Date()).split(":").map(Number);
+    const period = params.get("sky") || getPeriod(h * 60 + m);
     const style = getSkyStyle(period);
     sky.style.backgroundImage = style.backgroundImage;
     sky.style.backgroundSize = style.backgroundSize;
