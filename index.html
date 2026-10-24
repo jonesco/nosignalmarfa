@@ -536,13 +536,15 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.45fr;
-            gap: 5rem;
+            column-gap: 5rem;
             align-items: start;
         }
 
+        .book-head { grid-column: 1 / -1; }
+
         #book .section-label { color: var(--terracotta); opacity: 0.9; }
 
-        .book-info h2 {
+        .book-head h2 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.75rem, 3vw, 2.35rem);
             font-weight: 400;
@@ -598,7 +600,7 @@
         /* ─── Airbnb CTA ─── */
         .airbnb-action {
             align-self: start;
-            padding-top: 4.15rem;
+            padding-top: 1.75rem;
         }
 
         .btn-airbnb {
@@ -829,7 +831,9 @@
             .marfa-inner { grid-template-columns: 1fr; gap: 3.5rem; }
             .marfa-copy h2 { font-size: 2rem; }
 
-            .book-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .book-inner { grid-template-columns: 1fr; row-gap: 3rem; }
+            .book-head h2 { margin-bottom: 0; }
+            .book-head { margin-bottom: -0.75rem; }
 
             .gallery-grid { columns: 2; }
 
@@ -1111,9 +1115,12 @@
 <section id="book">
     <div class="book-inner">
 
-        <div class="book-info fade-in">
+        <div class="book-head fade-in">
             <p class="section-label">Reservations</p>
             <h2>Book on Airbnb.</h2>
+        </div>
+
+        <div class="book-info fade-in">
             <div class="rate-block">
                 <a class="rate-price rate-link" href="https://www.airbnb.com/rooms/1648872985159770972" target="_blank" rel="noopener">See current rates <span>on Airbnb &nbsp;→</span></a>
                 <div class="rate-line">
