@@ -619,6 +619,88 @@
 
         .btn-airbnb:hover { background: #ad5e3c; }
 
+        /* ─── Availability calendar ─── */
+        .cal { margin-bottom: 1.75rem; }
+        .cal[hidden] { display: none; }
+
+        .cal-months {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .cal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 1rem;
+            line-height: 1.75rem;
+        }
+
+        .cal-nav {
+            position: absolute;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: none;
+            border: 0;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .cal-nav:hover { color: var(--terracotta); }
+        .cal-nav:disabled { opacity: 0.2; cursor: default; color: rgba(255,255,255,0.55); }
+        .cal-prev { left: 0; }
+        .cal-next { right: 0; }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            row-gap: 2px;
+            text-align: center;
+        }
+
+        .cal-dow {
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            padding-bottom: 0.5rem;
+        }
+
+        .cal-day {
+            font-size: 0.8rem;
+            line-height: 2.1rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .cal-day.past { color: rgba(255,255,255,0.18); }
+        .cal-day.booked {
+            color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.05);
+            text-decoration: line-through;
+        }
+        .cal-day.today { box-shadow: inset 0 -2px 0 var(--terracotta); }
+
+        .cal-note {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .cal-key {
+            width: 0.9rem;
+            height: 0.9rem;
+            background: rgba(255,255,255,0.08);
+        }
+
         /* ─── Footer ─── */
         footer {
             background: #0F0F0D;
@@ -746,6 +828,7 @@
             #marfa { padding: 5rem 1.75rem; }
             #book { padding: 5rem 1.5rem; }
             .airbnb-action { padding-top: 0; }
+            .cal-months { grid-template-columns: 1fr; }
             .marfa-photos { grid-template-columns: 1fr; }
             .marfa-photo:first-child { grid-column: span 1; aspect-ratio: 4/3; }
             .marfa-photo:not(:first-child) { aspect-ratio: 4/3; }
@@ -1050,6 +1133,13 @@
         </div>
 
         <div class="airbnb-action fade-in">
+            <div class="cal" id="cal" hidden>
+                <div class="cal-months" id="cal-months">
+                    <button class="cal-nav cal-prev" id="cal-prev" type="button" aria-label="Earlier months">←</button>
+                    <button class="cal-nav cal-next" id="cal-next" type="button" aria-label="Later months">→</button>
+                </div>
+                <p class="cal-note"><span class="cal-key"></span>Booked &nbsp;·&nbsp; Updated hourly from Airbnb</p>
+            </div>
             <a class="btn-airbnb" href="https://www.airbnb.com/rooms/1648872985159770972" target="_blank" rel="noopener">Open Airbnb listing &nbsp;→</a>
         </div>
 
@@ -1139,6 +1229,76 @@
         if (e.key === 'ArrowLeft')   navigate(-1);
         if (e.key === 'ArrowRight')  navigate(1);
     });
+
+    // ─── Availability calendar (booked nights from availability.json) ───
+    const cal       = document.getElementById('cal');
+    const calMonths = document.getElementById('cal-months');
+    const calPrev   = document.getElementById('cal-prev');
+    const calNext   = document.getElementById('cal-next');
+    const oneMonth  = window.matchMedia('(max-width: 600px)');
+    const booked    = new Set();
+    const now       = new Date();
+    const today     = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const MONTHS_AHEAD = 12;
+    let calOffset = 0;
+
+    const dayKey = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+
+    function renderMonth(offset) {
+        const first = new Date(today.getFullYear(), today.getMonth() + offset, 1);
+        const days  = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+        const month = document.createElement('div');
+        month.className = 'cal-month';
+        month.innerHTML = '<p class="cal-title">' + first.toLocaleString('en-US', { month: 'long', year: 'numeric' }) + '</p>';
+        const grid = document.createElement('div');
+        grid.className = 'cal-grid';
+        ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(d => {
+            grid.insertAdjacentHTML('beforeend', '<span class="cal-dow" aria-hidden="true">' + d + '</span>');
+        });
+        for (let i = 0; i < first.getDay(); i++) grid.appendChild(document.createElement('span'));
+        for (let n = 1; n <= days; n++) {
+            const d   = new Date(first.getFullYear(), first.getMonth(), n);
+            const el  = document.createElement('span');
+            el.className = 'cal-day';
+            el.textContent = n;
+            if (d < today) el.classList.add('past');
+            else if (booked.has(dayKey(d))) {
+                el.classList.add('booked');
+                el.setAttribute('aria-label', d.toLocaleString('en-US', { month: 'long', day: 'numeric' }) + ', booked');
+            }
+            if (d.getTime() === today.getTime()) el.classList.add('today');
+            grid.appendChild(el);
+        }
+        month.appendChild(grid);
+        return month;
+    }
+
+    function renderCal() {
+        const count = oneMonth.matches ? 1 : 2;
+        calOffset = Math.min(calOffset, MONTHS_AHEAD - count);
+        calMonths.querySelectorAll('.cal-month').forEach(m => m.remove());
+        for (let i = 0; i < count; i++) calMonths.appendChild(renderMonth(calOffset + i));
+        calPrev.disabled = calOffset === 0;
+        calNext.disabled = calOffset + count >= MONTHS_AHEAD;
+    }
+
+    calPrev.addEventListener('click', () => { calOffset = Math.max(0, calOffset - 1); renderCal(); });
+    calNext.addEventListener('click', () => { calOffset += 1; renderCal(); });
+    oneMonth.addEventListener('change', renderCal);
+
+    fetch('availability.json', { cache: 'no-cache' })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(data => {
+            data.blocked.forEach(([start, end]) => {
+                const [y, m, d] = start.split('-').map(Number);
+                for (let day = new Date(y, m - 1, d); dayKey(day) < end; day.setDate(day.getDate() + 1)) {
+                    booked.add(dayKey(day));
+                }
+            });
+            renderCal();
+            cal.hidden = false;
+        })
+        .catch(() => {});
 
 </script>
 
