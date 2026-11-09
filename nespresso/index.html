@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nespresso How-To — No Signal Marfa</title>
+    <meta name="description" content="How to use the Nespresso CitiZ and milk frother at No Signal Marfa, step by step.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --cream: #FAFAF6;
+            --charcoal: #242420;
+            --terracotta: #C4714A;
+            --sand: #E8D5B0;
+            --warm-gray: #7A7570;
+            --border: #E0DDD8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: var(--charcoal);
+            background: var(--cream);
+            line-height: 1.7;
+        }
+
+        a { color: inherit; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo img { width: 26px; height: 26px; filter: brightness(0); }
+
+        .back {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--warm-gray);
+        }
+
+        .back:hover { color: var(--terracotta); }
+
+        main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 5rem 1.75rem 6rem;
+        }
+
+        .intro { text-align: center; margin-bottom: 4.5rem; }
+
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+
+        .intro p { color: var(--warm-gray); max-width: 520px; margin: 0 auto; }
+
+        .photo {
+            max-width: 360px;
+            margin: 3rem auto 0;
+        }
+
+        .photo img { display: block; width: 100%; }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            margin: 4.5rem 0 0.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .sub { color: var(--warm-gray); margin-bottom: 2.5rem; }
+
+        ol.steps { list-style: none; counter-reset: step; }
+
+        .step {
+            counter-increment: step;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .step + .step { border-top: 1px solid var(--border); }
+
+        .step svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .step h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step h3::before {
+            content: counter(step);
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--terracotta);
+            margin-bottom: 0.4rem;
+        }
+
+        .step p { color: #4a4843; }
+        .step p + p { margin-top: 0.6rem; }
+        .step strong { font-weight: 500; color: var(--charcoal); }
+
+        .note {
+            margin-top: 4rem;
+            padding: 1.75rem 2rem;
+            background: #F3EEE4;
+            color: #4a4843;
+        }
+
+        .note h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: var(--charcoal);
+        }
+
+        .note ul { padding-left: 1.1rem; }
+        .note li + li { margin-top: 0.35rem; }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1.75rem 3rem;
+            font-size: 0.8rem;
+            color: var(--warm-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        /* drawing styles */
+        .ln { fill: none; stroke: var(--charcoal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .thin { stroke-width: 1.25; }
+        .ac { stroke: var(--terracotta); }
+        .fill-w { fill: #fff; }
+        .fill-sand { fill: var(--sand); stroke: none; }
+        .fill-ac { fill: var(--terracotta); stroke: none; }
+        .fill-dk { fill: var(--charcoal); stroke: none; }
+        .lbl { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: var(--charcoal); }
+        .lbl-ac { fill: var(--terracotta); }
+
+        @media (max-width: 700px) {
+            header { padding: 1.25rem 1rem; }
+            main { padding: 3.5rem 1rem 4rem; }
+            .step { grid-template-columns: 1fr; gap: 1.25rem; }
+            .step svg { max-width: 360px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="logo" href="../"><img src="../logo-icon.png" alt="">No Signal Marfa</a>
+    <a class="back" href="../#amenities">← Back</a>
+</header>
+
+<main>
+    <div class="intro">
+        <p class="section-label">Coffee</p>
+        <h1>How to use the Nespresso.</h1>
+        <p>A Nespresso CitiZ with a milk frother on the same base. Capsules are in the glass jar next to it. Coffee in about a minute.</p>
+        <div class="photo">
+            <img src="../308%20S%20Russell%20photos/nespresso.jpg" alt="Nespresso CitiZ, milk frother and capsule jar on a wood tray">
+        </div>
+    </div>
+
+    <h2>Coffee</h2>
+    <p class="sub">Espresso or a longer cup, from one capsule.</p>
+
+    <ol class="steps">
+
+        <!-- 1. Water tank -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: lift the water tank off the back of the machine and fill it">
+                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
+                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
+                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
+                <rect class="ln" x="80" y="82" width="12" height="9"/>
+                <path class="ln" d="M70 42 Q110 22 150 36"/>
+                <line class="ln thin" x1="52" y1="132" x2="96" y2="132"/>
+                <!-- tank lifted up and back -->
+                <g transform="translate(0,-22)">
+                    <rect class="fill-sand" x="174" y="90" width="38" height="96" rx="5" opacity=".7"/>
+                    <rect class="ln ac" x="174" y="58" width="38" height="128" rx="6"/>
+                    <line class="ln ac thin" x1="174" y1="70" x2="212" y2="70"/>
+                </g>
+                <path class="ln ac" d="M232 150 V100 M224 110 L232 100 L240 110"/>
+                <text class="lbl lbl-ac" x="176" y="196">Water tank</text>
+            </svg>
+            <div>
+                <h3>Fill the water tank</h3>
+                <p>The clear tank on the back lifts straight up. Fill it with fresh water from the tap and set it back down.</p>
+                <p>It holds about a liter, enough for several cups.</p>
+            </div>
+        </li>
+
+        <!-- 2. Turn on -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Top of the machine: two buttons blink while it heats, then stay lit">
+                <rect class="ln fill-w" x="40" y="46" width="180" height="108" rx="40"/>
+                <circle class="ln fill-w" cx="96" cy="100" r="22"/>
+                <circle class="ln fill-w" cx="164" cy="100" r="22"/>
+                <!-- small cup icon -->
+                <path class="ln thin" d="M88 94 h16 v8 a8 8 0 0 1 -16 0 z"/>
+                <!-- tall cup icon -->
+                <path class="ln thin" d="M157 88 h14 v16 a7 7 0 0 1 -14 0 z"/>
+                <!-- blink rays -->
+                <g class="ln ac">
+                    <line x1="96" y1="66" x2="96" y2="58"/><line x1="72" y1="80" x2="66" y2="75"/><line x1="120" y1="80" x2="126" y2="75"/>
+                    <line x1="164" y1="66" x2="164" y2="58"/><line x1="140" y1="80" x2="134" y2="75"/><line x1="188" y1="80" x2="194" y2="75"/>
+                </g>
+                <text class="lbl" x="74" y="140">Espresso</text>
+                <text class="lbl" x="148" y="140">Lungo</text>
+                <text class="lbl lbl-ac" x="80" y="186">Blinking = heating</text>
+            </svg>
+            <div>
+                <h3>Turn it on</h3>
+                <p>Press either button on top of the machine. The lights blink while it heats up, about <strong>25 seconds</strong>. When they stop blinking, it's ready.</p>
+            </div>
+        </li>
+
+        <!-- 3. Capsule -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: lift the lever all the way up and drop a capsule into the slot">
+                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
+                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
+                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
+                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
+                <rect class="ln" x="80" y="82" width="12" height="9"/>
+                <line class="ln thin" x1="52" y1="132" x2="96" y2="132"/>
+                <!-- lever raised -->
+                <path class="ln ac" d="M150 36 L104 2" stroke-width="3"/>
+                <path class="ln ac" d="M120 30 A26 26 0 0 0 150 36" stroke-dasharray="3 4"/>
+                <!-- capsule dropping -->
+                <g transform="translate(78,18) rotate(90)">
+                    <path class="ln fill-w" d="M-8 -11 L8 -11 L5 2 Q0 6 -5 2 Z"/>
+                    <line class="ln" x1="-11" y1="-11" x2="11" y2="-11"/>
+                </g>
+                <path class="ln ac thin" d="M60 10 V30 M55 25 L60 31 L65 25"/>
+                <text class="lbl lbl-ac" x="160" y="18">Lift all the way</text>
+                <text class="lbl" x="12" y="46">Capsule</text>
+            </svg>
+            <div>
+                <h3>Lift the lever, drop in a capsule</h3>
+                <p>Lift the lever on top <strong>all the way up</strong> and drop a capsule into the slot. It only fits one way, so let it fall into place.</p>
+            </div>
+        </li>
+
+        <!-- 4. Close + cup -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: close the lever and set a cup under the spout, on the flip-up shelf or on the tray">
+                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
+                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
+                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
+                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
+                <rect class="ln" x="80" y="82" width="12" height="9"/>
+                <path class="ln ac" d="M70 42 Q110 22 150 36" stroke-width="3"/>
+                <path class="ln ac thin" d="M66 22 L72 36 M60 30 L72 36 L76 24"/>
+                <!-- shelf with espresso cup -->
+                <line class="ln" x1="52" y1="132" x2="96" y2="132"/>
+                <path class="ln fill-w" d="M74 114 h22 v8 a10 10 0 0 1 -22 0 z"/>
+                <!-- mug on tray, ghosted -->
+                <path class="ln thin" d="M44 140 h28 v26 h-28 z" stroke-dasharray="3 3"/>
+                <text class="lbl" x="40" y="197">Small cup on the shelf, mug on the tray</text>
+            </svg>
+            <div>
+                <h3>Close the lever, set your cup</h3>
+                <p>Push the lever back down until it closes. Put a cup under the spout.</p>
+                <p>For a small espresso cup, use the <strong>flip-down shelf</strong> so the coffee doesn't splash. For a mug, fold the shelf up and set the mug on the tray.</p>
+            </div>
+        </li>
+
+        <!-- 5. Brew -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Press the small cup button for espresso, 40 ml, or the tall cup button for lungo, 110 ml">
+                <circle class="ln fill-w" cx="76" cy="70" r="30"/>
+                <path class="ln" d="M66 62 h20 v10 a10 10 0 0 1 -20 0 z"/>
+                <circle class="ln fill-w" cx="184" cy="70" r="30"/>
+                <path class="ln" d="M175 54 h18 v22 a9 9 0 0 1 -18 0 z"/>
+                <!-- press finger -->
+                <path class="ln ac" d="M76 18 V34 M70 28 L76 35 L82 28"/>
+                <path class="ln ac" d="M184 18 V34 M178 28 L184 35 L190 28"/>
+                <text class="lbl" x="50" y="126">Espresso</text>
+                <text class="lbl lbl-ac" x="62" y="144">40 ml</text>
+                <text class="lbl" x="166" y="126">Lungo</text>
+                <text class="lbl lbl-ac" x="166" y="144">110 ml</text>
+                <text class="lbl" x="56" y="184">Stops on its own.</text>
+            </svg>
+            <div>
+                <h3>Press a button</h3>
+                <p><strong>Small cup button: espresso</strong> (about 40 ml). <strong>Tall cup button: lungo</strong>, a longer cup (about 110 ml).</p>
+                <p>It stops by itself. Press the button again if you want to stop it early.</p>
+            </div>
+        </li>
+
+        <!-- 6. Eject -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Lift and close the lever again; the used capsule drops into the bin inside">
+                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
+                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
+                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
+                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
+                <path class="ln" d="M70 42 Q110 22 150 36" stroke-width="3"/>
+                <path class="ln ac" d="M150 36 L112 6" stroke-dasharray="4 4"/>
+                <path class="ln ac thin" d="M100 18 A30 30 0 0 0 86 40" />
+                <!-- inner bin -->
+                <rect class="ln thin" x="104" y="104" width="44" height="54" rx="4" stroke-dasharray="3 3"/>
+                <g transform="translate(126,124) rotate(160)">
+                    <path class="ln fill-w" d="M-7 -9 L7 -9 L4 2 Q0 5 -4 2 Z"/>
+                </g>
+                <g transform="translate(118,146) rotate(20)">
+                    <path class="ln thin" d="M-7 -9 L7 -9 L4 2 Q0 5 -4 2 Z"/>
+                </g>
+                <path class="ln ac thin" d="M126 92 V108 M121 103 L126 109 L131 103"/>
+                <text class="lbl lbl-ac" x="150" y="16">Up, then down</text>
+                <text class="lbl" x="88" y="197">Used capsules</text>
+            </svg>
+            <div>
+                <h3>Toss the capsule</h3>
+                <p>Take your cup, then lift the lever and close it again. The used capsule drops into the bin inside the machine.</p>
+                <p>The bin holds about 10. If the machine gets fussy about closing, it's probably full: slide out the tray at the bottom, which brings the bin with it, and empty it in the trash.</p>
+            </div>
+        </li>
+    </ol>
+
+    <h2>Milk</h2>
+    <p class="sub">The frother on the right heats milk, froths it hot, or froths it cold.</p>
+
+    <ol class="steps">
+
+        <!-- 7. Fill -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Inside the frother jug: two max lines; whisk with the spring for froth, without the spring for hot milk">
+                <rect class="fill-sand" x="62" y="108" width="96" height="52" opacity=".7"/>
+                <path class="ln" d="M58 40 h104 v118 a6 6 0 0 1 -6 6 h-92 a6 6 0 0 1 -6 -6 z"/>
+                <line class="ln ac" x1="62" y1="108" x2="88" y2="108"/>
+                <line class="ln ac" x1="62" y1="82" x2="88" y2="82"/>
+                <text class="lbl lbl-ac" x="170" y="112">Froth line</text>
+                <text class="lbl lbl-ac" x="170" y="86">Hot milk line</text>
+                <line class="ln thin" x1="88" y1="108" x2="166" y2="108"/>
+                <line class="ln thin" x1="88" y1="82" x2="166" y2="82"/>
+                <!-- whisk with spring -->
+                <line class="ln" x1="124" y1="156" x2="124" y2="144"/>
+                <ellipse class="ln fill-w" cx="124" cy="140" rx="16" ry="5"/>
+                <path class="ln thin" d="M110 140 c3 -5 5 5 8 0 c3 -5 5 5 8 0 c3 -5 5 5 8 0 c3 -5 5 5 4 0"/>
+                <text class="lbl" x="104" y="186">Whisk + spring</text>
+            </svg>
+            <div>
+                <h3>Pour in cold milk</h3>
+                <p>Inside the jug are two lines. For <strong>froth</strong>, fill to the <strong>lower</strong> line. For <strong>hot milk</strong> without foam, fill to the upper line.</p>
+                <p>The little whisk at the bottom has a coiled spring. <strong>Spring on</strong> for froth. Pull the spring off for plain hot milk. Whole or 2% milk froths best.</p>
+            </div>
+        </li>
+
+        <!-- 8. Button -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Lid on, then press the frother button once for hot (red) or hold for two seconds for cold (blue)">
+                <rect class="ln fill-w" x="58" y="34" width="84" height="12" rx="3"/>
+                <path class="ln fill-w" d="M62 46 h76 v104 h-76 z"/>
+                <path class="ln thin" d="M62 64 h76 M62 80 h76 M62 96 h76 M62 112 h76 M62 128 h76"/>
+                <rect class="ln fill-w" x="52" y="150" width="96" height="22" rx="4"/>
+                <circle class="ln" cx="100" cy="161" r="6"/>
+                <path class="ln ac thin" d="M100 192 V176 M95 181 L100 175 L105 181"/>
+                <circle cx="182" cy="96" r="8" fill="#C4503A"/>
+                <text class="lbl" x="196" y="100">Tap: hot</text>
+                <circle cx="182" cy="128" r="8" fill="#4A78A8"/>
+                <text class="lbl" x="196" y="126">Hold 2 sec:</text>
+                <text class="lbl" x="196" y="140">cold froth</text>
+            </svg>
+            <div>
+                <h3>Lid on, press the button</h3>
+                <p>Put the lid on, then press the button on the front of the base.</p>
+                <p><strong>Tap once for hot</strong> (the light turns red, about 75 seconds). <strong>Hold for 2 seconds for cold froth</strong> (the light turns blue, about a minute). It stops on its own.</p>
+            </div>
+        </li>
+
+        <!-- 9. Rinse -->
+        <li class="step">
+            <svg viewBox="0 0 260 200" role="img" aria-label="Rinse the frother jug by hand; keep the base dry; no dishwasher">
+                <path class="ln fill-w" d="M78 60 h76 v100 h-76 z"/>
+                <path class="ln thin" d="M78 78 h76 M78 94 h76 M78 110 h76 M78 126 h76 M78 142 h76"/>
+                <path class="ln" d="M70 36 h40 v10" />
+                <path class="ln ac thin" d="M104 52 v6 M112 50 v8 M120 52 v6"/>
+                <rect class="ln" x="180" y="128" width="56" height="16" rx="4"/>
+                <path class="ln ac" d="M188 108 L228 164 M228 108 L188 164"/>
+                <text class="lbl" x="84" y="184">Rinse by hand</text>
+                <text class="lbl" x="170" y="184">Base stays dry</text>
+            </svg>
+            <div>
+                <h3>Rinse the jug</h3>
+                <p>Lift the jug off the base and rinse it out with warm water and a soft sponge right away, before the milk dries. No dishwasher, and keep the base dry.</p>
+            </div>
+        </li>
+    </ol>
+
+    <div class="note">
+        <h3>Good to know</h3>
+        <ul>
+            <li>The machine turns itself off after 9 minutes. To turn it off sooner, press both buttons together.</li>
+            <li>Nothing coming out? Check the water tank first.</li>
+            <li>Frother light blinking red: the whisk is missing, there isn't enough milk, or it needs a few minutes to cool down.</li>
+        </ul>
+    </div>
+</main>
+
+<footer>
+    No Signal Marfa · 308 S. Russell St., Marfa, Texas · <a href="../">nosignalmarfa.com</a>
+</footer>
+
+</body>
+</html>
