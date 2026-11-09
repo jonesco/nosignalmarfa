@@ -120,7 +120,7 @@
 
         .step + .step { border-top: 1px solid var(--border); }
 
-        .step svg {
+        .step svg, .step img {
             display: block;
             width: 100%;
             height: auto;
@@ -191,7 +191,7 @@
             header { padding: 1.25rem 1rem; }
             main { padding: 3.5rem 1rem 4rem; }
             .step { grid-template-columns: 1fr; gap: 1.25rem; }
-            .step svg { max-width: 360px; }
+            .step svg, .step img { max-width: 360px; }
         }
     </style>
 </head>
@@ -219,22 +219,7 @@
 
         <!-- 1. Water tank -->
         <li class="step">
-            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: lift the water tank off the back of the machine and fill it">
-                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
-                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
-                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
-                <rect class="ln" x="80" y="82" width="12" height="9"/>
-                <path class="ln" d="M70 42 Q110 22 150 36"/>
-                <line class="ln thin" x1="52" y1="132" x2="96" y2="132"/>
-                <!-- tank lifted up and back -->
-                <g transform="translate(0,-22)">
-                    <rect class="fill-sand" x="174" y="90" width="38" height="96" rx="5" opacity=".7"/>
-                    <rect class="ln ac" x="174" y="58" width="38" height="128" rx="6"/>
-                    <line class="ln ac thin" x1="174" y1="70" x2="212" y2="70"/>
-                </g>
-                <path class="ln ac" d="M232 150 V100 M224 110 L232 100 L240 110"/>
-                <text class="lbl lbl-ac" x="176" y="196">Water tank</text>
-            </svg>
+            <img src="img/tank.svg" alt="The water tank lifted straight up off the back of the machine" width="260" height="296">
             <div>
                 <h3>Fill the water tank</h3>
                 <p>The clear tank on the back lifts straight up. Fill it with fresh water from the tap and set it back down.</p>
@@ -269,25 +254,7 @@
 
         <!-- 3. Capsule -->
         <li class="step">
-            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: lift the lever all the way up and drop a capsule into the slot">
-                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
-                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
-                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
-                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
-                <rect class="ln" x="80" y="82" width="12" height="9"/>
-                <line class="ln thin" x1="52" y1="132" x2="96" y2="132"/>
-                <!-- lever raised -->
-                <path class="ln ac" d="M150 36 L104 2" stroke-width="3"/>
-                <path class="ln ac" d="M120 30 A26 26 0 0 0 150 36" stroke-dasharray="3 4"/>
-                <!-- capsule dropping -->
-                <g transform="translate(78,18) rotate(90)">
-                    <path class="ln fill-w" d="M-8 -11 L8 -11 L5 2 Q0 6 -5 2 Z"/>
-                    <line class="ln" x1="-11" y1="-11" x2="11" y2="-11"/>
-                </g>
-                <path class="ln ac thin" d="M60 10 V30 M55 25 L60 31 L65 25"/>
-                <text class="lbl lbl-ac" x="160" y="18">Lift all the way</text>
-                <text class="lbl" x="12" y="46">Capsule</text>
-            </svg>
+            <img src="img/lever.svg" alt="The lever lifted all the way up, with a capsule dropping into the slot" width="260" height="296">
             <div>
                 <h3>Lift the lever, drop in a capsule</h3>
                 <p>Lift the lever on top <strong>all the way up</strong> and drop a capsule into the slot. It only fits one way, so let it fall into place.</p>
@@ -296,21 +263,7 @@
 
         <!-- 4. Close + cup -->
         <li class="step">
-            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: close the lever and set a cup under the spout, on the flip-up shelf or on the tray">
-                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
-                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
-                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
-                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
-                <rect class="ln" x="80" y="82" width="12" height="9"/>
-                <path class="ln ac" d="M70 42 Q110 22 150 36" stroke-width="3"/>
-                <path class="ln ac thin" d="M66 22 L72 36 M60 30 L72 36 L76 24"/>
-                <!-- shelf with espresso cup -->
-                <line class="ln" x1="52" y1="132" x2="96" y2="132"/>
-                <path class="ln fill-w" d="M74 114 h22 v8 a10 10 0 0 1 -22 0 z"/>
-                <!-- mug on tray, ghosted -->
-                <path class="ln thin" d="M44 140 h28 v26 h-28 z" stroke-dasharray="3 3"/>
-                <text class="lbl" x="20" y="200">Small cup on the shelf, mug on the tray</text>
-            </svg>
+            <img src="img/shelf.svg" alt="The cup shelf flipped down under the spout" width="260" height="296">
             <div>
                 <h3>Close the lever, set your cup</h3>
                 <p>Push the lever back down until it closes. Put a cup under the spout.</p>
@@ -343,26 +296,7 @@
 
         <!-- 6. Eject -->
         <li class="step">
-            <svg viewBox="0 -6 260 214" role="img" aria-label="Lift and close the lever again; the used capsule drops into the bin inside">
-                <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
-                <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
-                <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
-                <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
-                <path class="ln" d="M70 42 Q110 22 150 36" stroke-width="3"/>
-                <path class="ln ac" d="M150 36 L112 6" stroke-dasharray="4 4"/>
-                <path class="ln ac thin" d="M100 18 A30 30 0 0 0 86 40" />
-                <!-- inner bin -->
-                <rect class="ln thin" x="104" y="104" width="44" height="54" rx="4" stroke-dasharray="3 3"/>
-                <g transform="translate(126,124) rotate(160)">
-                    <path class="ln fill-w" d="M-7 -9 L7 -9 L4 2 Q0 5 -4 2 Z"/>
-                </g>
-                <g transform="translate(118,146) rotate(20)">
-                    <path class="ln thin" d="M-7 -9 L7 -9 L4 2 Q0 5 -4 2 Z"/>
-                </g>
-                <path class="ln ac thin" d="M126 92 V108 M121 103 L126 109 L131 103"/>
-                <text class="lbl lbl-ac" x="150" y="16">Up, then down</text>
-                <text class="lbl" x="84" y="200">Used capsules</text>
-            </svg>
+            <img src="img/rest.svg" alt="The lever, closed: lift it and close it again to drop the used capsule" width="260" height="296">
             <div>
                 <h3>Toss the capsule</h3>
                 <p>Take your cup, then lift the lever and close it again. The used capsule drops into the bin inside the machine.</p>
@@ -378,21 +312,7 @@
 
         <!-- 7. Fill -->
         <li class="step">
-            <svg viewBox="0 -6 260 214" role="img" aria-label="Inside the frother jug: two max lines; whisk with the spring for froth, without the spring for hot milk">
-                <rect class="fill-sand" x="62" y="108" width="96" height="52" opacity=".7"/>
-                <path class="ln" d="M58 40 h104 v118 a6 6 0 0 1 -6 6 h-92 a6 6 0 0 1 -6 -6 z"/>
-                <line class="ln ac" x1="62" y1="108" x2="88" y2="108"/>
-                <line class="ln ac" x1="62" y1="82" x2="88" y2="82"/>
-                <text class="lbl lbl-ac" x="170" y="112">Froth</text>
-                <text class="lbl lbl-ac" x="170" y="86">Hot milk</text>
-                <line class="ln thin" x1="88" y1="108" x2="166" y2="108"/>
-                <line class="ln thin" x1="88" y1="82" x2="166" y2="82"/>
-                <!-- whisk with spring -->
-                <line class="ln" x1="124" y1="156" x2="124" y2="144"/>
-                <ellipse class="ln fill-w" cx="124" cy="140" rx="16" ry="5"/>
-                <path class="ln thin" d="M110 140 c3 -5 5 5 8 0 c3 -5 5 5 8 0 c3 -5 5 5 8 0 c3 -5 5 5 4 0"/>
-                <text class="lbl" x="104" y="186">Whisk + spring</text>
-            </svg>
+            <img src="img/frother.svg" alt="The frother with its lid lifted off" width="260" height="296">
             <div>
                 <h3>Pour in cold milk</h3>
                 <p>Inside the jug are two lines. For <strong>froth</strong>, fill to the <strong>lower</strong> line. For <strong>hot milk</strong> without foam, fill to the upper line.</p>
