@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-09T22:08:20.542Z",
+        "reason": "BRAND-GUIDE.md sets Playfair Display + Inter as the site typography; subpage matches the main site"
+      },
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "nespresso/index.html"
+        ],
+        "createdAt": "2026-11-09T22:08:20.562Z",
+        "reason": "Uppercase terracotta section-label above each heading is the main nosignalmarfa.com section pattern; subpage matches it"
+      }
+    ]
+  }
+}

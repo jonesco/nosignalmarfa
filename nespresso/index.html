@@ -72,7 +72,7 @@
         .intro { text-align: center; margin-bottom: 4.5rem; }
 
         .section-label {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--terracotta);
@@ -139,7 +139,7 @@
             content: counter(step);
             display: block;
             font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.2em;
             color: var(--terracotta);
@@ -184,7 +184,7 @@
         .fill-sand { fill: var(--sand); stroke: none; }
         .fill-ac { fill: var(--terracotta); stroke: none; }
         .fill-dk { fill: var(--charcoal); stroke: none; }
-        .lbl { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: var(--charcoal); }
+        .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: var(--charcoal); }
         .lbl-ac { fill: var(--terracotta); }
 
         @media (max-width: 700px) {
@@ -219,7 +219,7 @@
 
         <!-- 1. Water tank -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: lift the water tank off the back of the machine and fill it">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: lift the water tank off the back of the machine and fill it">
                 <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
                 <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
                 <rect class="ln fill-w" x="64" y="42" width="44" height="40" rx="10"/>
@@ -244,7 +244,7 @@
 
         <!-- 2. Turn on -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Top of the machine: two buttons blink while it heats, then stay lit">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Top of the machine: two buttons blink while it heats, then stay lit">
                 <rect class="ln fill-w" x="40" y="46" width="180" height="108" rx="40"/>
                 <circle class="ln fill-w" cx="96" cy="100" r="22"/>
                 <circle class="ln fill-w" cx="164" cy="100" r="22"/>
@@ -269,7 +269,7 @@
 
         <!-- 3. Capsule -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: lift the lever all the way up and drop a capsule into the slot">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: lift the lever all the way up and drop a capsule into the slot">
                 <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
                 <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
                 <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
@@ -296,7 +296,7 @@
 
         <!-- 4. Close + cup -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Side view: close the lever and set a cup under the spout, on the flip-up shelf or on the tray">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Side view: close the lever and set a cup under the spout, on the flip-up shelf or on the tray">
                 <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
                 <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
                 <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
@@ -309,7 +309,7 @@
                 <path class="ln fill-w" d="M74 114 h22 v8 a10 10 0 0 1 -22 0 z"/>
                 <!-- mug on tray, ghosted -->
                 <path class="ln thin" d="M44 140 h28 v26 h-28 z" stroke-dasharray="3 3"/>
-                <text class="lbl" x="40" y="197">Small cup on the shelf, mug on the tray</text>
+                <text class="lbl" x="20" y="200">Small cup on the shelf, mug on the tray</text>
             </svg>
             <div>
                 <h3>Close the lever, set your cup</h3>
@@ -320,7 +320,7 @@
 
         <!-- 5. Brew -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Press the small cup button for espresso, 40 ml, or the tall cup button for lungo, 110 ml">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Press the small cup button for espresso, 40 ml, or the tall cup button for lungo, 110 ml">
                 <circle class="ln fill-w" cx="76" cy="70" r="30"/>
                 <path class="ln" d="M66 62 h20 v10 a10 10 0 0 1 -20 0 z"/>
                 <circle class="ln fill-w" cx="184" cy="70" r="30"/>
@@ -343,7 +343,7 @@
 
         <!-- 6. Eject -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Lift and close the lever again; the used capsule drops into the bin inside">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Lift and close the lever again; the used capsule drops into the bin inside">
                 <rect class="ln" x="40" y="168" width="150" height="14" rx="4"/>
                 <rect class="ln fill-w" x="96" y="36" width="64" height="132" rx="14"/>
                 <rect class="ln" x="164" y="60" width="34" height="108" rx="6"/>
@@ -361,7 +361,7 @@
                 </g>
                 <path class="ln ac thin" d="M126 92 V108 M121 103 L126 109 L131 103"/>
                 <text class="lbl lbl-ac" x="150" y="16">Up, then down</text>
-                <text class="lbl" x="88" y="197">Used capsules</text>
+                <text class="lbl" x="84" y="200">Used capsules</text>
             </svg>
             <div>
                 <h3>Toss the capsule</h3>
@@ -378,13 +378,13 @@
 
         <!-- 7. Fill -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Inside the frother jug: two max lines; whisk with the spring for froth, without the spring for hot milk">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Inside the frother jug: two max lines; whisk with the spring for froth, without the spring for hot milk">
                 <rect class="fill-sand" x="62" y="108" width="96" height="52" opacity=".7"/>
                 <path class="ln" d="M58 40 h104 v118 a6 6 0 0 1 -6 6 h-92 a6 6 0 0 1 -6 -6 z"/>
                 <line class="ln ac" x1="62" y1="108" x2="88" y2="108"/>
                 <line class="ln ac" x1="62" y1="82" x2="88" y2="82"/>
-                <text class="lbl lbl-ac" x="170" y="112">Froth line</text>
-                <text class="lbl lbl-ac" x="170" y="86">Hot milk line</text>
+                <text class="lbl lbl-ac" x="170" y="112">Froth</text>
+                <text class="lbl lbl-ac" x="170" y="86">Hot milk</text>
                 <line class="ln thin" x1="88" y1="108" x2="166" y2="108"/>
                 <line class="ln thin" x1="88" y1="82" x2="166" y2="82"/>
                 <!-- whisk with spring -->
@@ -402,7 +402,7 @@
 
         <!-- 8. Button -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Lid on, then press the frother button once for hot (red) or hold for two seconds for cold (blue)">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Lid on, then press the frother button once for hot (red) or hold for two seconds for cold (blue)">
                 <rect class="ln fill-w" x="58" y="34" width="84" height="12" rx="3"/>
                 <path class="ln fill-w" d="M62 46 h76 v104 h-76 z"/>
                 <path class="ln thin" d="M62 64 h76 M62 80 h76 M62 96 h76 M62 112 h76 M62 128 h76"/>
@@ -412,7 +412,7 @@
                 <circle cx="182" cy="96" r="8" fill="#C4503A"/>
                 <text class="lbl" x="196" y="100">Tap: hot</text>
                 <circle cx="182" cy="128" r="8" fill="#4A78A8"/>
-                <text class="lbl" x="196" y="126">Hold 2 sec:</text>
+                <text class="lbl" x="196" y="124">Hold 2 sec:</text>
                 <text class="lbl" x="196" y="140">cold froth</text>
             </svg>
             <div>
@@ -424,15 +424,15 @@
 
         <!-- 9. Rinse -->
         <li class="step">
-            <svg viewBox="0 0 260 200" role="img" aria-label="Rinse the frother jug by hand; keep the base dry; no dishwasher">
+            <svg viewBox="0 -6 260 214" role="img" aria-label="Rinse the frother jug by hand; keep the base dry; no dishwasher">
                 <path class="ln fill-w" d="M78 60 h76 v100 h-76 z"/>
                 <path class="ln thin" d="M78 78 h76 M78 94 h76 M78 110 h76 M78 126 h76 M78 142 h76"/>
                 <path class="ln" d="M70 36 h40 v10" />
                 <path class="ln ac thin" d="M104 52 v6 M112 50 v8 M120 52 v6"/>
                 <rect class="ln" x="180" y="128" width="56" height="16" rx="4"/>
                 <path class="ln ac" d="M188 108 L228 164 M228 108 L188 164"/>
-                <text class="lbl" x="84" y="184">Rinse by hand</text>
-                <text class="lbl" x="170" y="184">Base stays dry</text>
+                <text class="lbl" x="66" y="186">Rinse by hand</text>
+                <text class="lbl" x="172" y="186">Keep base dry</text>
             </svg>
             <div>
                 <h3>Rinse the jug</h3>
